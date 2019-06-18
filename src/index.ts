@@ -1,12 +1,20 @@
+import Mask from './mask/index';
+
 class Pictool {
-  private _options
+  private _options: any;
+  private _mask: Mask;
 
   constructor(options = {}) {
     this._options = options;
+    this._mask = new Mask({});
   }
 
-  logData() {
-    console.log('data is : ', this._options);
+  show() {
+    this._mask.show();
+  }
+
+  hide() {
+    this._mask.hide();
   }
 }
 

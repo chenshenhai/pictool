@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node_modules/.bin/rollup -c ./build/rollup.config.prod.js",
+    "dev": "node_modules/.bin/rollup -c ./build/rollup.config.dev.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/chenshenhai/pictool/issues"
   },
-  "homepage": "https://github.com/chenshenhai/pictool#readme"
+  "homepage": "https://github.com/chenshenhai/pictool#readme",
+  "devDependencies": {
+    "rollup": "^1.15.6",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.2",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.2"
+  },
+  "files": [
+    "dist"
+  ]
 }

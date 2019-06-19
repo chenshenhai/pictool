@@ -1,4 +1,23 @@
 .pictool-module-sketch {
   width: 100%;
   height: 100%;
+  display: table;
+
+  .pictool-sketch-container {
+    width: 100%;
+    height: 100%;
+    display: table-row;
+  }
+
+  .pictool-sketch-main {
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+
+    canvas {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
 }

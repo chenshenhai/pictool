@@ -25,7 +25,11 @@ class Mask {
     }
     const html = `
     <div class="pictool-component-mask">
-      <div class="pictool-component-mask-container"></div>
+      <div class="pictool-mask-container">
+        <div class="pictool-mask-header"></div>
+        <div class="pictool-mask-content"></div>
+        <div class="pictool-mask-footer"></div>
+      </div>
     </div>
     `;
     const body = document.querySelector('body');

@@ -6,7 +6,14 @@
     <p>hello world</p>
     <script src="./../dist/index.js"></script>
     <script>
-      var tool = new Pictool('hello world!');
+
+
+      var imageData = null;
+      var tool = new Pictool(imageData, {
+        // TODO
+      });
+
+
       // tool.show();
       setTimeout(function() {
         tool.show();

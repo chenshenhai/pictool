@@ -2,16 +2,16 @@ import './index.less';
 
 import canvasRender from './../../core/canvas/render';
 
-export interface sketchOpts {
+export interface SketchOpts {
   imageData: ImageData;
 }
 
 export class Sketch {
   private _mount: HTMLElement = null;
-  private _opts: sketchOpts = null;
+  private _opts: SketchOpts = null;
   private _hasRendered: boolean = false;
 
-  constructor(mount: HTMLElement, opts: sketchOpts) {
+  constructor(mount: HTMLElement, opts: SketchOpts) {
     this._mount = mount;
     this._opts = opts;
     this._render();

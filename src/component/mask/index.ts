@@ -2,6 +2,8 @@ import './index.less';
 
 export class MaskAfterRenderArgs {
   contentMount: HTMLElement;
+  headerMount: HTMLElement;
+  footerMount: HTMLElement;
 }
 
 export class Mask {
@@ -44,9 +46,11 @@ export class Mask {
 
     const { afterRender, } = this._options;
     const contentMount: HTMLDivElement = component.querySelector('div.pictool-mask-content');
+    const headerMount: HTMLDivElement = component.querySelector('div.pictool-mask-header');
+    const footerMount: HTMLDivElement = component.querySelector('div.pictool-mask-footer');
 
     if (typeof afterRender === 'function') {
-      const args: MaskAfterRenderArgs = { contentMount, };
+      const args: MaskAfterRenderArgs = { contentMount, headerMount, footerMount};
       afterRender(args)
     }
 

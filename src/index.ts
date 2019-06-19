@@ -16,6 +16,7 @@ class Pictool {
       afterRender(opts: MaskAfterRenderArgs) {
         const { contentMount, } = opts;
         const sketch = new Sketch(contentMount, { imageData, });
+        sketch.renderImage();
         that._sketch = sketch;
       }
     });

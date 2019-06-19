@@ -1,7 +1,9 @@
 import './index.less';
 
+import canvasRender from './../../core/canvas/render';
+
 export interface sketchOpts {
-  // TODO
+  imageData: ImageData;
 }
 
 export class Sketch {
@@ -15,6 +17,12 @@ export class Sketch {
     this._render();
   }
 
+  renderImage() {
+    const { imageData, } = this._opts;
+    const canvas = this._mount.querySelector('canvas.pictool-sketch-canvas');
+    canvasRender.renderImageData(canvas, imageData);
+  }
+
   private _render() {
     if (this._hasRendered === true) {
       return;
@@ -24,7 +32,7 @@ export class Sketch {
         <div class="pictool-sketch-container">
           <div class="pictool-sketch-main">
             <div class="pictool-sketch-entity">
-              <canvas></canvas>
+              <canvas class="pictool-sketch-canvas"></canvas>
             </div>
           </div>
         </div>

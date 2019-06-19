@@ -1,4 +1,4 @@
-import Mask from './mask/index';
+import Mask from './component/mask/index';
 
 class Pictool {
   private _options: any;

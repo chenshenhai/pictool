@@ -1,6 +1,10 @@
 import './index.less';
 
-class Mask {
+export class MaskAfterRenderArgs {
+  contentMount: HTMLElement;
+}
+
+export class Mask {
 
   private _options: any;
   private _hasRendered: boolean = false;
@@ -37,6 +41,15 @@ class Mask {
     mountDom.innerHTML = html;
     const component : HTMLDivElement = mountDom.querySelector('div.pictool-component-mask')
     body.appendChild(component);
+
+    const { afterRender, } = this._options;
+    const contentMount: HTMLDivElement = component.querySelector('div.pictool-mask-content');
+
+    if (typeof afterRender === 'function') {
+      const args: MaskAfterRenderArgs = { contentMount, };
+      afterRender(args)
+    }
+
     this._hasRendered = true;
     this._component = component;
   }
@@ -44,4 +57,3 @@ class Mask {
 
 }
 
-export default Mask;

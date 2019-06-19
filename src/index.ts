@@ -1,12 +1,24 @@
-import Mask from './component/mask/index';
+import { Mask, MaskAfterRenderArgs } from './component/mask/index';
+import { Sketch } from './module/sketch/index';
 
 class Pictool {
   private _options: any;
   private _mask: Mask;
+  private _imageData: ImageData = null;
+  private _sketch: Sketch = null;
 
-  constructor(options = {}) {
+  constructor(imageData, options = {}) {
+    this._imageData = imageData;
     this._options = options;
-    this._mask = new Mask({});
+
+    const that = this;
+    this._mask = new Mask({
+      afterRender(opts: MaskAfterRenderArgs) {
+        const { contentMount, } = opts;
+        const sketch = new Sketch(contentMount, { imageData, });
+        that._sketch = sketch;
+      }
+    });
   }
 
   show() {

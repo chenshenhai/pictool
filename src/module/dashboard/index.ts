@@ -1,6 +1,6 @@
 import './index.less';
 
-import { ActionSheet, ActionSheetAfterRenderArgs } from './../../component/action-sheet/index';
+import { ActionSheet, } from '../../component/action-sheet/index';
 
 export interface DashboardOpts {
   // TODO
@@ -44,9 +44,14 @@ export class Dashboard {
     const btnText = this._mount.querySelector('[data-nav-action="text"]');
 
 
-    // const filterActionSheet = new ActionSheet({});
+    
     btnFiler.addEventListener('click', function() {
-      // filterActionSheet.show();
+      setTimeout(function() {
+        const filterActionSheet = new ActionSheet({
+          height: 80,
+        });
+        filterActionSheet.show();
+      }, 0);
       console.log('filter');
     });
     btnEdit.addEventListener('click', function() {

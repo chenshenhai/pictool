@@ -1,8 +1,7 @@
-@header-height: 0;
-@footer-height: 0;
 
 
 .pictool-component-actionsheet {
+  display: none;
   background: #ffffff00;
   position: fixed;
   left: 0;
@@ -22,32 +21,19 @@
   }
 
   &.actionsheet-open {
+    display: block;
     .pictool-actionsheet-container {
       bottom: 0;
     }
   }
 
-  .pictool-actionsheet-header {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: @header-height;
-    background: #222222;
-  }
 
   .pictool-actionsheet-content {
     position: absolute;
-    top: @header-height; 
-    bottom: @footer-height;
-    width: 100%;
-    background: #333333;
-  }
-
-  .pictool-actionsheet-footer {
-    position: absolute;
+    top: 0; 
     bottom: 0;
     width: 100%;
-    height: @footer-height;
-    background: #222222;
+    background: #ffffff;
   }
+
 }

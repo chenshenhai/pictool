@@ -22,20 +22,27 @@
     });
   }
 
-  getImageDataAsync(testImg).then(function(imageData) {
-    var tool = new Pictool(imageData, {
-      // TODO
-    });
-    // tool.show();
-    setTimeout(function() {
+  function main() {
+    getImageDataAsync(testImg).then(function(imageData) {
+      var tool = new Pictool(imageData, {
+        // TODO
+      });
       tool.show();
-    }, 1000);
-  }).catch(function (err) {
-    console.log(err);
-  })
+      // setTimeout(function() {
+      //   tool.show();
+      // }, 1000);
+    }).catch(function (err) {
+      console.log(err);
+    })
+  }
 
   
 
+  var body = document.querySelector('#J_Btn');
+  body.addEventListener('click', function() {
+    main();
+  })
 
+  main();
   
 })();

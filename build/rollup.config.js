@@ -1,9 +1,9 @@
 const path = require('path');
 const typescript = require('rollup-plugin-typescript');
 const postcss = require('rollup-plugin-postcss');
+// const buble = require('rollup-plugin-buble'); 
+const babel = require('rollup-plugin-babel');
 const less = require('less');
-
-const isProductionEnv = process.env.NODE_ENV === 'production';
 
 const resolveFile = function(filePath) {
   return path.join(__dirname, '..', filePath)
@@ -52,10 +52,22 @@ module.exports = [
     plugins: [
       postcss({
         extract: false,
-        minimize: isProductionEnv,
+        minimize: process.env.NODE_ENV === 'production',
         process: processLess,
       }),
-      typescript()
+      typescript(),
+      // buble(),
+      babel({
+        babelrc: false,
+		    presets: [
+          ['@babel/preset-env', { modules: false }]
+        ],
+        plugins: [
+          ["@babel/plugin-transform-classes", {
+            "loose": true
+          }]
+        ]
+      }),
     ],
   },
 ]

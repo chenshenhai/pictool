@@ -1,6 +1,6 @@
 import './index.less';
 
-export class MaskAfterRenderArgs {
+export interface MaskAfterRenderArgs {
   contentMount: HTMLElement;
   headerMount: HTMLElement;
   footerMount: HTMLElement;

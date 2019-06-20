@@ -13,7 +13,7 @@ configList.map((config, index) => {
   config.plugins = [
     ...config.plugins,
     ...[
-      uglify()
+      uglify(),
     ]
   ]
 

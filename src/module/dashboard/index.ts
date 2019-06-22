@@ -3,6 +3,7 @@ import './index.less';
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
+import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
 import filterGray from './../../core/filter/gray';
 
@@ -29,9 +30,15 @@ export class Dashboard {
     const html = `
       <div class="pictool-module-dashboard">
         <div class="pictool-dashboard-navlist">
-          <div class="pictool-dashboard-nav-btn" data-nav-action="filter" >滤镜</div>
-          <div class="pictool-dashboard-nav-btn" data-nav-action="edit" >编辑</div>
-          <div class="pictool-dashboard-nav-btn" data-nav-action="text" >文字</div>
+          <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
+            <span>滤镜</span>
+          </div>
+          <div class="pictool-dashboard-nav-btn dashboard-edit" data-nav-action="edit" >
+            <span>编辑</span>
+          </div>
+          <div class="pictool-dashboard-nav-btn dashboard-text" data-nav-action="text" >
+            <span>文字</span>
+          </div>
         </div>
       </div>
     `;

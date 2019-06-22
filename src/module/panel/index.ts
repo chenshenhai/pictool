@@ -25,7 +25,7 @@ export class Panel {
     this._opts = opts;
     const that = this;
     const actionSheetOpts: ActionSheetOpts = {
-      height: 80,
+      height: 120,
       afterRender(args: ActionSheetLifeCycleArgs) {
         const { contentMount, } = args;
         that._render(contentMount);

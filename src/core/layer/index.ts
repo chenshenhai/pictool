@@ -14,7 +14,7 @@ export interface LayerOptions {
 }
 
 export interface LayerSchema {
-  name?: string;
+  key?: string;
   drawActionList: LayerDrawAction[];
 }
 
@@ -36,7 +36,7 @@ export class Layer {
     const { width, height } = this._options;
     this._context.clearRect(0, 0, width, height);
     this._layerSchema = {
-      name: '',
+      key: '',
       drawActionList: []
     };
   }

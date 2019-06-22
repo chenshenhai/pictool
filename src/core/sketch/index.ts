@@ -11,7 +11,7 @@ export interface SketchOptions {
 }
 
 export interface SketchSchema {
-  name?: string;
+  key?: string;
   layerList: LayerSchema[];
 }
 

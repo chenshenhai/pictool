@@ -1,8 +1,8 @@
 import './index.less';
 
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
-
 import { Panel, PanelOpts, } from '../panel/index';
+import cacheHub from './../../global/cache-hub';
 
 
 export interface DashboardOpts {
@@ -68,7 +68,8 @@ export class Dashboard {
       navList: [{
         name: '灰白',
         feedback() {
-          return Promise.resolve('nav filer gray')
+          const sketchSchema = cacheHub.get('Sketch.sketchSchema');
+          return Promise.resolve(sketchSchema);
         }
       }, {
         name: '柔和',

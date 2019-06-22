@@ -68,7 +68,34 @@ export class Panel {
   }
 
   private _registerEvent(mount: HTMLElement) {
-
+    if (this._hasRendered === true) {
+      return;
+    }
+    const opts: PanelOpts = this._opts;
+    const { navList, } = opts;
+    const navElemList = mount.querySelectorAll('[data-panel-nav-idx]');
+    console.log(Object.prototype.toString.call(navElemList) )
+    if (istype.nodeList(navElemList) !== true) {
+      return;
+    }
+    navElemList.forEach(function(navElem) {
+      navElem.addEventListener('click', function(event) {
+        const elem = this;
+        const idx = elem.getAttribute('data-panel-nav-idx') * 1;
+        const navConf = navList[idx];
+        const primise = navConf.feedback();
+        // TODO
+        console.log(idx);
+        if (istype.promise(primise)) {
+          primise.then(function(rs) {
+            console.log(rs);
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
+        
+      });
+    });
   }
 
 }

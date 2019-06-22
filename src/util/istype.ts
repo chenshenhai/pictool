@@ -39,8 +39,13 @@ const istype = {
 
   promise (data: any) {
     return parsePrototype(data) === 'Promise';
+  },
+
+  nodeList (data: any) {
+    return parsePrototype(data) === 'NodeList';
   }
 
+  
 };
 
 export default istype;

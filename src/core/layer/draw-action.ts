@@ -19,6 +19,22 @@ const context2dRenderActionMap = {
       ctx.fillRect(args[0], args[1], args[2], args[3]);
     }
   },
+  
+  clearRect: {
+    type: 'function',
+    argumentsType: 'array',
+    executeAction(ctx: CanvasRenderingContext2D, args: number[]) {
+      ctx.clearRect(args[0], args[1], args[2], args[3]);
+    }
+  },
+
+  putImageData: {
+    type: 'function',
+    argumentsType: 'array',
+    executeAction(ctx: CanvasRenderingContext2D, args: any[]) {
+      ctx.putImageData(args[0], args[1], args[2]);
+    }
+  },
 }
 
 

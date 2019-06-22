@@ -9,7 +9,7 @@ export interface SketchpadOptions {
   width: number,
   height: number,
   layerCount: number,
-  container: HTMLDivElement,
+  container: HTMLElement,
 }
 
 function mergeCSS2Style(css: object) {
@@ -31,7 +31,7 @@ function mergeCSS2Style(css: object) {
 export class Sketchpad extends Sketch {
 
   private _options: SketchpadOptions;
-  private _container: HTMLDivElement;
+  private _container: HTMLElement;
   private _sketchSchema: SketchSchema;
 
   constructor(opts: SketchpadOptions) {
@@ -46,7 +46,7 @@ export class Sketchpad extends Sketch {
 
   render(sketchSchema: SketchSchema) {
     this._sketchSchema = sketchSchema;
-    const container: HTMLDivElement = this._container;
+    const container: HTMLElement = this._container;
     while (container.firstChild) {
       let tempNode = container.removeChild(container.firstChild);
       tempNode = null;
@@ -56,6 +56,7 @@ export class Sketchpad extends Sketch {
       width: `${width}px`,
       height: `${height}px`,
       position: 'relative',
+      display: 'inline-block',
     });
     const canvasStack = this.getCanvasStack();
     container.setAttribute('style', style);
@@ -68,6 +69,8 @@ export class Sketchpad extends Sketch {
         width: `${width}px`,
         height: `${height}px`,
         position: 'absolute',
+        left: '0',
+        top: '0',
       }));
       container.appendChild(canvas);
     }
@@ -77,7 +80,6 @@ export class Sketchpad extends Sketch {
   renderLayer(index: number, layerSchema: LayerSchema) {
     this.drawLayer(index, layerSchema);
   }
-
 
   downloadImage(filename = 'download-image') {
     const { width, height } = this._options;

@@ -5,6 +5,8 @@ import { SketchSchema } from './core/sketch/index';
 import { Header } from './module/header/index';
 import schemaParser from './service/schema-parser';
 
+const ZINDEX = 1000;
+
 class Pictool {
   private _options: any;
   private _mask: Mask;
@@ -19,6 +21,7 @@ class Pictool {
 
     const that = this;
     this._mask = new Mask({
+      zIndex: ZINDEX,
       afterRender(opts: MaskAfterRenderArgs) {
         const {contentMount, headerMount, footerMount } = opts;
         const header = new Header(headerMount, {});

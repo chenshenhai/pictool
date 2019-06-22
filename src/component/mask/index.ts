@@ -6,13 +6,18 @@ export interface MaskAfterRenderArgs {
   footerMount: HTMLElement;
 }
 
+export interface MaskOpts {
+  zIndex: number;
+  afterRender: Function;
+}
+
 export class Mask {
 
-  private _options: any;
+  private _options: MaskOpts;
   private _hasRendered: boolean = false;
   private _component: HTMLDivElement = null;
 
-  constructor(opts) {
+  constructor(opts: MaskOpts) {
     this._options = opts;
     this._render();
   }
@@ -29,8 +34,10 @@ export class Mask {
     if (this._hasRendered === true) {
       return;
     }
+    const options = this._options;
+    const { zIndex, afterRender } = options;
     const html = `
-    <div class="pictool-component-mask">
+    <div class="pictool-component-mask" style="z-index: ${zIndex}">
       <div class="pictool-mask-container">
         <div class="pictool-mask-header"></div>
         <div class="pictool-mask-content"></div>
@@ -44,7 +51,6 @@ export class Mask {
     const component : HTMLDivElement = mountDom.querySelector('div.pictool-component-mask')
     body.appendChild(component);
 
-    const { afterRender, } = this._options;
     const contentMount: HTMLDivElement = component.querySelector('div.pictool-mask-content');
     const headerMount: HTMLDivElement = component.querySelector('div.pictool-mask-header');
     const footerMount: HTMLDivElement = component.querySelector('div.pictool-mask-footer');

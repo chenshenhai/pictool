@@ -9,7 +9,7 @@ import filterGray from './../../core/filter/gray';
 
 
 export interface DashboardOpts {
-  // TODO
+  zIndex: number;
 }
 
 export class Dashboard {
@@ -27,8 +27,10 @@ export class Dashboard {
     if (this._hasRendered === true) {
       return;
     }
+    const options: DashboardOpts = this._opts;
+    const { zIndex, } = options;
     const html = `
-      <div class="pictool-module-dashboard">
+      <div class="pictool-module-dashboard" style="z-index:${zIndex};">
         <div class="pictool-dashboard-navlist">
           <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
             <span>滤镜</span>
@@ -51,12 +53,15 @@ export class Dashboard {
     if (this._hasRendered === true) {
       return;
     }
+    const options: DashboardOpts = this._opts;
+    const { zIndex, } = options;
     const btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
     const btnEdit = this._mount.querySelector('[data-nav-action="edit"]');
     const btnText = this._mount.querySelector('[data-nav-action="text"]');
 
     const opts : ActionSheetOpts = {
       height: 120,
+      zIndex: zIndex + 1,
     };
     const filterPanel = this._initFilterPanel();
 
@@ -73,7 +78,10 @@ export class Dashboard {
   }
 
   private _initFilterPanel() {
+    const options: DashboardOpts = this._opts;
+    const { zIndex, } = options;
     const panel = new Panel({
+      zIndex: zIndex + 1,
       navList: [{
         name: '灰白',
         feedback() {

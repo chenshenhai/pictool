@@ -14,6 +14,7 @@ interface NavBtn {
 
 export interface PanelOpts {
   navList: NavBtn[];
+  zIndex: number;
 }
 
 export class Panel {
@@ -24,8 +25,10 @@ export class Panel {
   constructor(opts: PanelOpts) {
     this._opts = opts;
     const that = this;
+    const { zIndex } = opts;
     const actionSheetOpts: ActionSheetOpts = {
       height: 120,
+      zIndex,
       afterRender(args: ActionSheetLifeCycleArgs) {
         const { contentMount, } = args;
         that._render(contentMount);

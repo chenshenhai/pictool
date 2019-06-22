@@ -6,6 +6,7 @@ export interface ActionSheetLifeCycleArgs {
 
 export interface ActionSheetOpts {
   height: number;
+  zIndex: number;
   beforeRender?: Function,
   afterRender?: Function,
   beforeShow?: Function,
@@ -59,9 +60,9 @@ export class ActionSheet {
       beforeRender();
     }
     const opts: ActionSheetOpts = this._options;
-    const { height, } = opts;
+    const { height, zIndex, } = opts;
     const html = `
-    <div class="pictool-component-actionsheet" style="height:${height}px; ">
+    <div class="pictool-component-actionsheet" style="height:${height}px; z-index: ${zIndex};">
       <div class="pictool-actionsheet-container">
         <div class="pictool-actionsheet-header"></div>
         <div class="pictool-actionsheet-content"></div>

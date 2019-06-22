@@ -7,6 +7,10 @@ import schemaParser from './service/schema-parser';
 
 const ZINDEX = 1000;
 
+interface PictoolOpts {
+  zIndex?: number;
+}
+
 class Pictool {
   private _options: any;
   private _mask: Mask;
@@ -15,18 +19,22 @@ class Pictool {
   private _dashboard: Dashboard = null;
   private _header: Header = null;
 
-  constructor(imageData, options = {}) {
+  constructor(imageData, options: PictoolOpts = {}) {
     this._imageData = imageData;
     this._options = options;
+    let zIndex = options.zIndex;
+    if (!(zIndex * 1 > 0)) {
+      zIndex = ZINDEX;
+    }
 
     const that = this;
     this._mask = new Mask({
-      zIndex: ZINDEX,
+      zIndex,
       afterRender(opts: MaskAfterRenderArgs) {
         const {contentMount, headerMount, footerMount } = opts;
         const header = new Header(headerMount, {});
         const sketch = new ModSketch(contentMount, { imageData, });
-        const dashboard = new Dashboard(footerMount, {});
+        const dashboard = new Dashboard(footerMount, { zIndex: zIndex + 1 });
         that._sketch = sketch;
         that._dashboard = dashboard;
         that._header = header;

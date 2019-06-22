@@ -3,8 +3,8 @@ import './index.less';
 import canvasRender from './../../core/canvas/render';
 import { SketchSchema } from './../../core/sketch/index';
 import { Sketchpad, SketchpadOptions } from './../../core/sketchpad/index';
-import eventHub from './../../global/event-hub';
-import cacheHub from './../../global/cache-hub';
+import eventHub from './../../service/event-hub';
+import cacheHub from './../../service/cache-hub';
 
 export interface SketchOpts {
   imageData: ImageData;
@@ -17,6 +17,7 @@ export class Sketch {
   private _sketchpad: Sketchpad = null;
 
   constructor(mount: HTMLElement, opts: SketchOpts) {
+    const that = this;
     this._mount = mount;
     this._opts = opts;
     this._render();
@@ -35,7 +36,9 @@ export class Sketch {
     const sketchpad = new Sketchpad(padOpts);
     this._sketchpad = sketchpad;
 
-    eventHub.on('GlobalModule.Sketch.renderImage', this.renderImage);
+    eventHub.on('GlobalModule.Sketch.renderImage', function(schema) {
+      that.renderImage(schema);
+    });
   }
 
   renderImage(sketchSchema: SketchSchema) {

@@ -2,7 +2,9 @@ import './index.less';
 
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 import { Panel, PanelOpts, } from '../panel/index';
-import cacheHub from './../../global/cache-hub';
+import cacheHub from './../../service/cache-hub';
+import schemaParser from './../../service/schema-parser';
+import filterGray from './../../core/filter/gray';
 
 
 export interface DashboardOpts {
@@ -69,7 +71,10 @@ export class Dashboard {
         name: '灰白',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.sketchSchema');
-          return Promise.resolve(sketchSchema);
+          const imageData = schemaParser.parseImageData(sketchSchema);
+          const grayImageData = filterGray.parseGrayImageData(imageData);
+          const newSchema = schemaParser.updateSchemaImageData(sketchSchema, grayImageData);
+          return Promise.resolve(newSchema);
         }
       }, {
         name: '柔和',

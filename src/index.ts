@@ -2,6 +2,7 @@ import { Mask, MaskAfterRenderArgs } from './component/mask/index';
 import { Sketch as ModSketch } from './module/sketch/index';
 import { Dashboard } from './module/dashboard/index';
 import { SketchSchema } from './core/sketch';
+import schemaParser from './service/schema-parser';
 
 class Pictool {
   private _options: any;
@@ -28,18 +29,7 @@ class Pictool {
 
   show() {
     const imageData = this._imageData;
-    const height: number = imageData.height;
-    const width: number = imageData.width;
-    const sketchSchema: SketchSchema = {
-      layerList: [
-        { 
-          drawActionList: [{
-            method: 'putImageData',
-            args: [imageData, 0, 0],
-          }],
-        },
-      ]
-    }
+    const sketchSchema: SketchSchema = schemaParser.getInitSchema(imageData);
     this._sketch.renderImage(sketchSchema);
     this._mask.show();
   }

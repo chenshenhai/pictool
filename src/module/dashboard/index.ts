@@ -27,9 +27,9 @@ export class Dashboard {
     const html = `
       <div class="pictool-module-dashboard">
         <div class="pictool-dashboard-navlist">
-          <div class="pictool-nav-btn" data-nav-action="filter" >滤镜</div>
-          <div class="pictool-nav-btn" data-nav-action="edit" >编辑</div>
-          <div class="pictool-nav-btn" data-nav-action="text" >文字</div>
+          <div class="pictool-dashboard-nav-btn" data-nav-action="filter" >滤镜</div>
+          <div class="pictool-dashboard-nav-btn" data-nav-action="edit" >编辑</div>
+          <div class="pictool-dashboard-nav-btn" data-nav-action="text" >文字</div>
         </div>
       </div>
     `;

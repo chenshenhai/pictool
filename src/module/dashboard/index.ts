@@ -17,7 +17,7 @@ export class Dashboard {
   private _opts: DashboardOpts = null;
   private _hasRendered: boolean = false;
 
-  constructor(mount, opts) {
+  constructor(mount: HTMLElement, opts: DashboardOpts) {
     this._mount = mount;
     this._opts = opts;
     this._render();

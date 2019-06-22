@@ -1,7 +1,8 @@
 import { Mask, MaskAfterRenderArgs } from './component/mask/index';
 import { Sketch as ModSketch } from './module/sketch/index';
 import { Dashboard } from './module/dashboard/index';
-import { SketchSchema } from './core/sketch';
+import { SketchSchema } from './core/sketch/index';
+import { Header } from './module/header/index';
 import schemaParser from './service/schema-parser';
 
 class Pictool {
@@ -10,6 +11,7 @@ class Pictool {
   private _imageData: ImageData = null;
   private _sketch: ModSketch = null;
   private _dashboard: Dashboard = null;
+  private _header: Header = null;
 
   constructor(imageData, options = {}) {
     this._imageData = imageData;
@@ -19,10 +21,12 @@ class Pictool {
     this._mask = new Mask({
       afterRender(opts: MaskAfterRenderArgs) {
         const {contentMount, headerMount, footerMount } = opts;
+        const header = new Header(headerMount, {});
         const sketch = new ModSketch(contentMount, { imageData, });
-        const dashboard = new Dashboard(footerMount, {})
+        const dashboard = new Dashboard(footerMount, {});
         that._sketch = sketch;
         that._dashboard = dashboard;
+        that._header = header;
       }
     });
   }

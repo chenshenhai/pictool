@@ -2,6 +2,9 @@ import './index.less';
 
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 
+import { Panel, PanelOpts, } from '../panel/index';
+
+
 export interface DashboardOpts {
   // TODO
 }
@@ -46,10 +49,10 @@ export class Dashboard {
     const opts : ActionSheetOpts = {
       height: 120,
     };
-    const filterActionSheet = new ActionSheet(opts);
+    const filterPanel = this._initFilterPanel();
 
     btnFiler.addEventListener('click', function() {      
-      filterActionSheet.show();
+      filterPanel.show();
       console.log('filter');
     });
     btnEdit.addEventListener('click', function() {
@@ -60,5 +63,9 @@ export class Dashboard {
     });
   }
 
+  private _initFilterPanel() {
+    const panel = new Panel({});
+    return panel;
+  }
 
 }

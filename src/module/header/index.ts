@@ -1,7 +1,9 @@
 import './index.less';
+import istype from '../../util/istype';
 
 export interface HeaderOpts {
-  // TODO
+  closeFeedback: Function;
+  saveFeedback: Function;
 }
 
 export class Header {
@@ -31,7 +33,20 @@ export class Header {
   }
 
   private _registerEvent() {
-    
+    const btnClose = this._mount.querySelector('div.pictool-header-btn-close');
+    const btnSave = this._mount.querySelector('div.pictool-header-btn-save');
+    const options = this._opts;
+    btnClose.addEventListener('click', function() {
+      if (istype.function(options.closeFeedback)) {
+        options.closeFeedback();
+      }
+    });
+
+    btnSave.addEventListener('click', function() {
+      if (istype.function(options.saveFeedback)) {
+        options.saveFeedback();
+      }
+    });
   }
   
 }

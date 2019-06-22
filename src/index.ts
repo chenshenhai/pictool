@@ -4,6 +4,7 @@ import { Dashboard } from './module/dashboard/index';
 import { SketchSchema } from './core/sketch/index';
 import { Header } from './module/header/index';
 import schemaParser from './service/schema-parser';
+import eventHub from './service/event-hub';
 
 const ZINDEX = 1000;
 
@@ -28,11 +29,18 @@ class Pictool {
     }
 
     const that = this;
-    this._mask = new Mask({
+    const mask = new Mask({
       zIndex,
       afterRender(opts: MaskAfterRenderArgs) {
         const {contentMount, headerMount, footerMount } = opts;
-        const header = new Header(headerMount, {});
+        const header = new Header(headerMount, {
+          closeFeedback() {
+            mask.hide();
+          },
+          saveFeedback() {
+            eventHub.trigger('GlobalModule.Sketch.downloadImage');
+          }
+        });
         const sketch = new ModSketch(contentMount, { imageData, });
         const dashboard = new Dashboard(footerMount, { zIndex: zIndex + 1 });
         that._sketch = sketch;
@@ -40,6 +48,7 @@ class Pictool {
         that._header = header;
       }
     });
+    this._mask = mask;
   }
 
   show() {

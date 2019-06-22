@@ -39,6 +39,9 @@ export class Sketch {
     eventHub.on('GlobalModule.Sketch.renderImage', function(schema) {
       that.renderImage(schema);
     });
+    eventHub.on('GlobalModule.Sketch.downloadImage', function() {
+      sketchpad.downloadImage('download-pictool.png');
+    });
   }
 
   renderImage(sketchSchema: SketchSchema) {

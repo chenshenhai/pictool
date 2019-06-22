@@ -4,13 +4,17 @@ export interface ActionSheetAfterRenderArgs {
   contentMount: HTMLElement;
 }
 
+export interface ActionSheetOpts {
+  height: number;
+}
+
 export class ActionSheet {
 
   private _options: any;
   private _hasRendered: boolean = false;
   private _component: HTMLDivElement = null;
 
-  constructor(opts) {
+  constructor(opts: ActionSheetOpts) {
     this._options = opts;
     this._render();
   }
@@ -27,8 +31,10 @@ export class ActionSheet {
     if (this._hasRendered === true) {
       return;
     }
+    const opts: ActionSheetOpts = this._options;
+    const { height, } = opts;
     const html = `
-    <div class="pictool-component-actionsheet">
+    <div class="pictool-component-actionsheet" style="height:${height}px">
       <div class="pictool-actionsheet-container">
         <div class="pictool-actionsheet-header"></div>
         <div class="pictool-actionsheet-content"></div>

@@ -21,7 +21,8 @@ export class Header {
     }
     const html = `
       <div class="pictool-module-header">
-        hello world
+        <div class="pictool-header-btn-close"></div>
+        <div class="pictool-header-btn-save"></div>
       </div>
     `;
     this._mount.innerHTML = html;

@@ -60,6 +60,7 @@ export class Dashboard {
     const btnText = this._mount.querySelector('[data-nav-action="text"]');
 
     const opts : ActionSheetOpts = {
+      mount: this._mount,
       height: 120,
       zIndex: zIndex + 1,
     };
@@ -81,6 +82,7 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, } = options;
     const panel = new Panel({
+      mount: this._mount,
       zIndex: zIndex + 1,
       navList: [{
         name: '黑白',

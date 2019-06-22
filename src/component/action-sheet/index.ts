@@ -7,12 +7,13 @@ export interface ActionSheetLifeCycleArgs {
 export interface ActionSheetOpts {
   height: number;
   zIndex: number;
-  beforeRender?: Function,
-  afterRender?: Function,
-  beforeShow?: Function,
-  afterShow?: Function,
-  beforeHide?: Function,
-  afterHide?: Function,
+  beforeRender?: Function;
+  afterRender?: Function;
+  beforeShow?: Function;
+  afterShow?: Function;
+  beforeHide?: Function;
+  afterHide?: Function;
+  mount?: HTMLElement;
 }
 
 export class ActionSheet {
@@ -55,7 +56,7 @@ export class ActionSheet {
     if (this._hasRendered === true) {
       return;
     }
-    const { afterRender, beforeRender} = this._options;
+    const { afterRender, beforeRender, mount, } = this._options;
     if (typeof beforeRender === 'function') {
       beforeRender();
     }
@@ -74,7 +75,13 @@ export class ActionSheet {
     const mountDom = document.createElement('div');;
     mountDom.innerHTML = html;
     const component : HTMLDivElement = mountDom.querySelector('div.pictool-component-actionsheet')
-    body.appendChild(component);
+    
+    if (mount) {
+      mount.appendChild(component);
+    } else {
+      body.appendChild(component);
+    }
+    
 
     const contentMount: HTMLDivElement = component.querySelector('div.pictool-actionsheet-content');
 

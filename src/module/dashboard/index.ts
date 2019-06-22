@@ -96,7 +96,11 @@ export class Dashboard {
       }, {
         name: '柔和',
         feedback() {
-          return Promise.resolve('nav filer warmth')
+          const sketchSchema = cacheHub.get('Sketch.sketchSchema');
+          // const imageData = schemaParser.parseImageData(sketchSchema);
+          // const grayImageData = filterGray.parseGrayImageData(imageData);
+          // const newSchema = schemaParser.updateSchemaImageData(sketchSchema, grayImageData);
+          return Promise.resolve(sketchSchema);
         }
       }]
     });

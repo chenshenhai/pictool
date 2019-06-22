@@ -57,7 +57,7 @@ export class Panel {
         <div class="pictool-panel-navlist">
         ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
           return ` 
-          <div class="pictool-panel-nav-btn"
+          <div class="pictool-panel-nav-btn panelnav-icon"
             data-panel-nav-idx="${idx}"
           >
             <span>${nav.name}</span>

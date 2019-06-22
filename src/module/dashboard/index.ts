@@ -83,7 +83,7 @@ export class Dashboard {
     const panel = new Panel({
       zIndex: zIndex + 1,
       navList: [{
-        name: '灰白',
+        name: '黑白',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.sketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);

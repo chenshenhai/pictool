@@ -5,11 +5,16 @@ function parsePrototype (data: any) {
 };
 const istype = {
 
+  type(data: any, lowerCase?: boolean) {
+    let result = parsePrototype(data);
+    return lowerCase === true ? result.toLocaleLowerCase() : result;
+  },
+
   array (data: any) {
     return parsePrototype(data) === 'Array';
   },
 
-  JSON (data: any) {
+  json (data: any) {
     return parsePrototype(data) === 'Object';
   },
 

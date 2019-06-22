@@ -74,7 +74,6 @@ export class Panel {
     const opts: PanelOpts = this._opts;
     const { navList, } = opts;
     const navElemList = mount.querySelectorAll('[data-panel-nav-idx]');
-    console.log(Object.prototype.toString.call(navElemList) )
     if (istype.nodeList(navElemList) !== true) {
       return;
     }

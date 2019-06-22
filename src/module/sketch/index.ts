@@ -33,7 +33,6 @@ export class Sketch {
     }
     const sketchpad = new Sketchpad(opts);
     const sketchSchema = {
-      name: '',
       layerList: [
         { 
           drawActionList: [{
@@ -42,16 +41,6 @@ export class Sketch {
           }, {
             method: 'putImageData',
             args: [imageData, 0, 0],
-          }],
-        },
-        { 
-          name: '',
-          drawActionList: [{
-            method: 'fillStyle',
-            args: 'blue',
-          }, {
-            method: 'fillRect',
-            args: [50, 100, 200, 100],
           }],
         },
       ]

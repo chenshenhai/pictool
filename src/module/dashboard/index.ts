@@ -64,7 +64,19 @@ export class Dashboard {
   }
 
   private _initFilterPanel() {
-    const panel = new Panel({});
+    const panel = new Panel({
+      navList: [{
+        name: '灰白',
+        feedback() {
+          return Promise.resolve('nav filer gray')
+        }
+      }, {
+        name: '柔和',
+        feedback() {
+          return Promise.resolve('nav filer warmth')
+        }
+      }]
+    });
     return panel;
   }
 

@@ -1,6 +1,7 @@
 import { ActionSheet, ActionSheetOpts, ActionSheetLifeCycleArgs, } from '../../component/action-sheet/index';
 import istype from './../../util/istype';
 import eventHub from './../../service/event-hub';
+import { SketchSchema } from './../../core/sketch';
 
 import './index.less';
 
@@ -89,7 +90,9 @@ export class Panel {
         if (istype.promise(primise)) {
           primise.then(function(rs) {
             // console.log(rs);
-            eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
+            if (rs) {
+              eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
+            }
           }).catch((err) => {
             console.log(err);
           })

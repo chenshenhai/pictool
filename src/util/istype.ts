@@ -48,8 +48,11 @@ const istype = {
 
   nodeList (data: any) {
     return parsePrototype(data) === 'NodeList';
-  }
+  },
 
+  imageData(data: any) {
+    return parsePrototype(data) === 'ImageData';
+  }
   
 };
 

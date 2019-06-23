@@ -41,9 +41,11 @@ export class Dashboard {
           <div class="pictool-dashboard-nav-btn dashboard-edit" data-nav-action="edit" >
             <span>编辑</span>
           </div>
+          <!--
           <div class="pictool-dashboard-nav-btn dashboard-text" data-nav-action="text" >
             <span>文字</span>
           </div>
+          -->
         </div>
       </div>
     `;
@@ -82,9 +84,10 @@ export class Dashboard {
     btnEdit.addEventListener('click', function() {
       editPanel.show();
     });
-    btnText.addEventListener('click', function() {
-      console.log('text')
-    });
+
+    // btnText.addEventListener('click', function() {
+    //   console.log('text')
+    // });
   }
 
   private _initFilterPanel() {

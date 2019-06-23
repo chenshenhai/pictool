@@ -35,6 +35,9 @@ export class Dashboard {
           <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
             <span>滤镜</span>
           </div>
+          <div class="pictool-dashboard-nav-btn dashboard-adjust" data-nav-action="adjust" >
+            <span>调节</span>
+          </div>
           <div class="pictool-dashboard-nav-btn dashboard-edit" data-nav-action="edit" >
             <span>编辑</span>
           </div>

@@ -65,13 +65,13 @@ export class Dashboard {
       zIndex: zIndex + 1,
     };
     const filterPanel = this._initFilterPanel();
-
     btnFiler.addEventListener('click', function() {      
       filterPanel.show();
-      console.log('filter');
     });
+
+    const editPanel = this._initEditPanel();
     btnEdit.addEventListener('click', function() {
-      console.log('edit')
+      editPanel.show();
     });
     btnText.addEventListener('click', function() {
       console.log('text')
@@ -103,6 +103,59 @@ export class Dashboard {
           return Promise.resolve(sketchSchema);
         }
       }]
+    });
+    return panel;
+  }
+
+  private _initEditPanel() {
+    const options: DashboardOpts = this._opts;
+    const { zIndex, } = options;
+    const panel = new Panel({
+      mount: this._mount,
+      zIndex: zIndex + 1,
+      navList: [{
+        name: '旋转',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, {
+        name: '亮度',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, {
+        name: '对比度',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, {
+        name: '饱和度',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, {
+        name: '锐化',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, {
+        name: '虚化',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, ]
     });
     return panel;
   }

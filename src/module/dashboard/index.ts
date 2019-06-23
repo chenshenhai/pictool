@@ -59,6 +59,7 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, } = options;
     const btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
+    const btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
     const btnEdit = this._mount.querySelector('[data-nav-action="edit"]');
     const btnText = this._mount.querySelector('[data-nav-action="text"]');
 
@@ -70,6 +71,11 @@ export class Dashboard {
     const filterPanel = this._initFilterPanel();
     btnFiler.addEventListener('click', function() {      
       filterPanel.show();
+    });
+
+    const adjustPanel = this._initAdjustPanel();
+    btnAdjust.addEventListener('click', function() {
+      adjustPanel.show();
     });
 
     const editPanel = this._initEditPanel();
@@ -110,20 +116,13 @@ export class Dashboard {
     return panel;
   }
 
-  private _initEditPanel() {
+  private _initAdjustPanel() {
     const options: DashboardOpts = this._opts;
     const { zIndex, } = options;
     const panel = new Panel({
       mount: this._mount,
       zIndex: zIndex + 1,
       navList: [{
-        name: '旋转',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }, {
         name: '亮度',
         feedback() {
           // TODO
@@ -159,6 +158,24 @@ export class Dashboard {
           return Promise.resolve(sketchSchema);
         }
       }, ]
+    });
+    return panel;
+  }
+
+  private _initEditPanel() {
+    const options: DashboardOpts = this._opts;
+    const { zIndex, } = options;
+    const panel = new Panel({
+      mount: this._mount,
+      zIndex: zIndex + 1,
+      navList: [{
+        name: '旋转',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }]
     });
     return panel;
   }

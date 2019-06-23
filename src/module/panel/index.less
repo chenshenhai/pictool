@@ -4,6 +4,55 @@
   position: relative;
   font-size: 14px;
   color: #333333;
+
+  .pictool-panel-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+
+    .pictool-panel-btn-close {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 40px;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml;charset=utf-8,<svg t="1561282310133" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8064" width="200" height="200"><path d="M872 474H286.9l350.2-304c5.6-4.9 2.2-14-5.2-14h-88.5c-3.9 0-7.6 1.4-10.5 3.9L155 487.8c-14.7 12.8-14.7 35.6 0 48.3L535.1 866c1.5 1.3 3.3 2 5.2 2h91.5c7.4 0 10.8-9.2 5.2-14L286.9 550H872c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" p-id="8065" fill="%23666666"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px;
+      }
+    }
+  
+  
+    .pictool-panel-btn-confirm {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 60px;
+      height: 40px;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml;charset=utf-8,<svg t="1561282354939" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8275" width="200" height="200"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474c-6.1-7.7-15.3-12.2-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1 0.4-12.8-6.3-12.8z" p-id="8276" fill="%2336ab60"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px;
+      }
+    }
+  }
   
   
   .pictool-panel-navlist {

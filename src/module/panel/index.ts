@@ -1,7 +1,7 @@
 import { ActionSheet, ActionSheetOpts, ActionSheetLifeCycleArgs, } from '../../component/action-sheet/index';
-import istype from './../../util/istype';
-import eventHub from './../../service/event-hub';
-import { SketchSchema } from './../../core/sketch';
+import istype from '../../util/istype';
+import eventHub from '../../service/event-hub';
+import { SketchSchema } from '../../core/sketch';
 
 import './index.less';
 
@@ -56,6 +56,10 @@ export class Panel {
     const { navList, } = opts;
     const html = `
       <div class="pictool-module-panel">
+        <div class="pictool-panel-header">
+          <div class="pictool-panel-btn-close"></div>
+          <div class="pictool-panel-btn-confirm"></div>
+        </div>
         <div class="pictool-panel-navlist">
         ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
           return ` 
@@ -78,33 +82,45 @@ export class Panel {
     if (this._hasRendered === true) {
       return;
     }
+    const that = this;
     const opts: PanelOpts = this._opts;
     const { navList, } = opts;
     const navElemList = mount.querySelectorAll('[data-panel-nav-idx]');
-    if (istype.nodeList(navElemList) !== true) {
-      return;
-    }
-    navElemList.forEach(function(navElem) {
-      navElem.addEventListener('click', function(event) {
-        const elem = this;
-        const idx = elem.getAttribute('data-panel-nav-idx') * 1;
-        const navConf = navList[idx];
-        const primise = navConf.feedback();
-        // TODO
-        console.log(idx);
-        if (istype.promise(primise)) {
-          primise.then(function(rs) {
-            // console.log(rs);
-            if (rs) {
-              eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
-            }
-          }).catch((err) => {
-            console.log(err);
-          })
-        }
-        
-      });
+    const btnClose = mount.querySelector('div.pictool-panel-btn-close');
+    const btnConfirm = mount.querySelector('div.pictool-panel-btn-confirm');
+
+    btnClose.addEventListener('click', function() {
+      that.hide();
     });
+
+    btnConfirm.addEventListener('click', function() {
+      that.hide();
+    });
+
+    if (istype.nodeList(navElemList) === true) {
+      navElemList.forEach(function(navElem) {
+        navElem.addEventListener('click', function(event) {
+          const elem = this;
+          const idx = elem.getAttribute('data-panel-nav-idx') * 1;
+          const navConf = navList[idx];
+          const primise = navConf.feedback();
+          // TODO
+          console.log(idx);
+          if (istype.promise(primise)) {
+            primise.then(function(rs) {
+              // console.log(rs);
+              if (rs) {
+                eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
+              }
+            }).catch((err) => {
+              console.log(err);
+            })
+          }
+          
+        });
+      });
+    }
+    
   }
 
 }

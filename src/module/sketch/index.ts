@@ -5,6 +5,7 @@ import { SketchSchema } from './../../core/sketch/index';
 import { Sketchpad, SketchpadOptions } from './../../core/sketchpad/index';
 import eventHub from './../../service/event-hub';
 import cacheHub from './../../service/cache-hub';
+import schemaParser from './../../service/schema-parser';
 
 export interface SketchOpts {
   imageData: ImageData;
@@ -35,6 +36,9 @@ export class Sketch {
     }
     const sketchpad = new Sketchpad(padOpts);
     this._sketchpad = sketchpad;
+
+    const originSketchSchema = schemaParser.parseImageDataToSchema(imageData);
+    cacheHub.set('Sketch.originSketchSchema', originSketchSchema);
 
     eventHub.on('GlobalModule.Sketch.renderImage', function(schema) {
       that.renderImage(schema);

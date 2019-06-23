@@ -11,7 +11,7 @@ const schemaParser = {
     return imageData;
   },
 
-  getInitSchema(imageData: ImageData): SketchSchema {
+  parseImageDataToSchema(imageData: ImageData): SketchSchema {
     const schema = {
       layerList: [
         { 

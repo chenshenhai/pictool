@@ -87,16 +87,16 @@ export class Dashboard {
       navList: [{
         name: '黑白',
         feedback() {
-          const sketchSchema = cacheHub.get('Sketch.sketchSchema');
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
           const grayImageData = filterGray.parseGrayImageData(imageData);
-          const newSchema = schemaParser.updateSchemaImageData(sketchSchema, grayImageData);
+          const newSchema = schemaParser.parseImageDataToSchema(grayImageData);
           return Promise.resolve(newSchema);
         }
       }, {
         name: '柔和',
         feedback() {
-          const sketchSchema = cacheHub.get('Sketch.sketchSchema');
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           // const imageData = schemaParser.parseImageData(sketchSchema);
           // const grayImageData = filterGray.parseGrayImageData(imageData);
           // const newSchema = schemaParser.updateSchemaImageData(sketchSchema, grayImageData);

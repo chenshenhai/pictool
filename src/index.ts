@@ -3,8 +3,9 @@ import { Sketch as ModSketch } from './module/sketch/index';
 import { Dashboard } from './module/dashboard/index';
 import { SketchSchema } from './core/sketch/index';
 import { Header } from './module/header/index';
-import schemaParser from './service/schema-parser';
+// import schemaParser from './service/schema-parser';
 import eventHub from './service/event-hub';
+import cacheHub from './service/cache-hub';
 
 const ZINDEX = 1000;
 
@@ -42,7 +43,9 @@ class Pictool {
           }
         });
         const sketch = new ModSketch(contentMount, { imageData, });
-        const dashboard = new Dashboard(footerMount, { zIndex: zIndex + 1 });
+        const dashboard = new Dashboard(footerMount, {
+          zIndex: zIndex + 1
+        });
         that._sketch = sketch;
         that._dashboard = dashboard;
         that._header = header;
@@ -52,8 +55,7 @@ class Pictool {
   }
 
   show() {
-    const imageData = this._imageData;
-    const sketchSchema: SketchSchema = schemaParser.getInitSchema(imageData);
+    const sketchSchema: SketchSchema = cacheHub.get('Sketch.originSketchSchema');
     this._sketch.renderImage(sketchSchema);
     this._mask.show();
   }

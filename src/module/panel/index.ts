@@ -13,6 +13,7 @@ interface NavBtn {
 }
 
 export interface PanelOpts {
+  title: string;
   navList: NavBtn[];
   zIndex: number;
   mount: HTMLElement;
@@ -53,12 +54,12 @@ export class Panel {
       return;
     }
     const opts: PanelOpts = this._opts;
-    const { navList, } = opts;
+    const { navList, title, } = opts;
     const html = `
       <div class="pictool-module-panel">
         <div class="pictool-panel-header">
           <div class="pictool-panel-btn-close"></div>
-          <div class="pictool-panel-btn-confirm"></div>
+          <div class="pictool-panel-title">${title || ''}</div>
         </div>
         <div class="pictool-panel-navlist">
         ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
@@ -87,25 +88,22 @@ export class Panel {
     const { navList, } = opts;
     const navElemList = mount.querySelectorAll('[data-panel-nav-idx]');
     const btnClose = mount.querySelector('div.pictool-panel-btn-close');
-    const btnConfirm = mount.querySelector('div.pictool-panel-btn-confirm');
 
     btnClose.addEventListener('click', function() {
-      that.hide();
-    });
-
-    btnConfirm.addEventListener('click', function() {
       that.hide();
     });
 
     if (istype.nodeList(navElemList) === true) {
       navElemList.forEach(function(navElem) {
         navElem.addEventListener('click', function(event) {
+
+
+
           const elem = this;
           const idx = elem.getAttribute('data-panel-nav-idx') * 1;
           const navConf = navList[idx];
           const primise = navConf.feedback();
-          // TODO
-          console.log(idx);
+          
           if (istype.promise(primise)) {
             primise.then(function(rs) {
               // console.log(rs);
@@ -116,7 +114,10 @@ export class Panel {
               console.log(err);
             })
           }
-          
+          navElemList.forEach(function(nav){
+            nav.classList.remove('panelnav-active');
+          })
+          elem.classList.add('panelnav-active');
         });
       });
     }

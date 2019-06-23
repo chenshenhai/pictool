@@ -94,6 +94,7 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, } = options;
     const panel = new Panel({
+      title: '滤镜',
       mount: this._mount,
       zIndex: zIndex + 1,
       navList: [{
@@ -123,6 +124,7 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, } = options;
     const panel = new Panel({
+      title: '调节',
       mount: this._mount,
       zIndex: zIndex + 1,
       navList: [{
@@ -169,6 +171,7 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, } = options;
     const panel = new Panel({
+      title: '编辑',
       mount: this._mount,
       zIndex: zIndex + 1,
       navList: [{

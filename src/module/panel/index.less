@@ -12,28 +12,13 @@
     right: 0;
     height: 40px;
 
-    .pictool-panel-btn-close {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 60px;
-      height: 40px;
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml;charset=utf-8,<svg t="1561282310133" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8064" width="200" height="200"><path d="M872 474H286.9l350.2-304c5.6-4.9 2.2-14-5.2-14h-88.5c-3.9 0-7.6 1.4-10.5 3.9L155 487.8c-14.7 12.8-14.7 35.6 0 48.3L535.1 866c1.5 1.3 3.3 2 5.2 2h91.5c7.4 0 10.8-9.2 5.2-14L286.9 550H872c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" p-id="8065" fill="%23666666"></path></svg>');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 30px;
-      }
+    .pictool-panel-title {
+      line-height: 40px;
+      text-align: center;
+      font-size: 16px;
     }
-  
-  
-    .pictool-panel-btn-confirm {
+
+    .pictool-panel-btn-close {
       position: absolute;
       right: 0;
       top: 0;
@@ -46,12 +31,13 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml;charset=utf-8,<svg t="1561282354939" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8275" width="200" height="200"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474c-6.1-7.7-15.3-12.2-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1 0.4-12.8-6.3-12.8z" p-id="8276" fill="%2336ab60"></path></svg>');
+        background: url('data:image/svg+xml;charset=utf-8,<svg t="1561299766263" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9368" width="200" height="200"><path d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 0.3L512 465.6l-99.3-118.4-66.1-0.3c-4.4 0-8 3.5-8 8 0 1.9 0.7 3.7 1.9 5.2l130.1 155L340.5 670c-1.2 1.5-1.9 3.3-1.9 5.2 0 4.4 3.6 8 8 8l66.1-0.3L512 564.4l99.3 118.4 66 0.3c4.4 0 8-3.5 8-8 0-1.9-0.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z" p-id="9369" fill="%23666666"></path><path d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" p-id="9370" fill="%23666666"></path></svg>');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 30px;
       }
     }
+  
   }
   
   
@@ -82,6 +68,24 @@
         background-repeat: no-repeat;
         background-position: center bottom;
         background-size: 30px;
+      }
+    }
+
+    &.panelnav-active {
+      color: #17abe3;
+      &.panelnav-icon {
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 40px;
+          background: url('data:image/svg+xml;charset=utf-8,<svg t="1561299983080" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9592" width="200" height="200"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48z m224 272c-85.5 0-155.6-67.3-160-151.6-0.2-4.6 3.4-8.4 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664c4.6 0 8.2 3.8 8 8.4-4.4 84.3-74.5 151.6-160 151.6z m176-224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z" p-id="9593" fill="%2317abe3"></path></svg>');
+          background-repeat: no-repeat;
+          background-position: center bottom;
+          background-size: 30px;
+        }
       }
     }
 

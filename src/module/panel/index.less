@@ -41,14 +41,30 @@
   
   }
   
-  
-  .pictool-panel-navlist {
+  .pictool-panel-navigation {
     position: absolute;
     height: 80px;
-    display: flex;
     width: 100%;
     bottom: 0;
     background: #2196f30d;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .pictool-panel-navlist {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    -webkit-overflow-scrolling: touch;
+
+    &.panel-beyond-width {
+      display: block;
+      .pictool-panel-nav-btn {
+        width: 80px;
+        display: block;
+        float: left;
+      }
+    }
   }
   .pictool-panel-nav-btn {
     flex: 1;

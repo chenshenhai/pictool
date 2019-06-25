@@ -55,22 +55,27 @@ export class Panel {
     }
     const opts: PanelOpts = this._opts;
     const { navList, title, } = opts;
+    const isBeyond = navList.length > 4;
     const html = `
       <div class="pictool-module-panel">
         <div class="pictool-panel-header">
           <div class="pictool-panel-btn-close"></div>
           <div class="pictool-panel-title">${title || ''}</div>
         </div>
-        <div class="pictool-panel-navlist">
-        ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
-          return ` 
-          <div class="pictool-panel-nav-btn panelnav-icon"
-            data-panel-nav-idx="${idx}"
+        <div class="pictool-panel-navigation">
+          <div class="pictool-panel-navlist ${isBeyond === true ? 'panel-beyond-width' : ''}" 
+            style="${isBeyond === true ? `width: ${(navList.length + 1) * 80}px` : ''}"
           >
-            <span>${nav.name}</span>
+          ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
+            return ` 
+            <div class="pictool-panel-nav-btn panelnav-icon"
+              data-panel-nav-idx="${idx}"
+            >
+              <span>${nav.name}</span>
+            </div>
+            `;
+          }).join('')}
           </div>
-          `;
-        }).join('')}
         </div>
       </div>
     `;

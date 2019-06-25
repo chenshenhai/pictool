@@ -2,8 +2,9 @@
 // https://github.com/chenshenhai/blog/issues/35
 
 export const syncWorker = function (func: Function, params: any, feedback: Function) {
+  const uuid = Math.random().toString(26).substr(2);
   const scriptCode = `(${func.toString()})(event.data.params)`;
-  const listenMap = new Map();
+  const feedbackMap = new Map();
   const workerCode = `
     onmessage = function (event) {
       const result = eval(event.data.code);
@@ -17,16 +18,22 @@ export const syncWorker = function (func: Function, params: any, feedback: Funct
   const worker: Worker = new Worker('data:text/javascript;charset=US-ASCII,' + workerCodeStr);
 
   worker.onmessage = function (event) {
-    const callback = listenMap.get(event.data.id);
+    const callback = feedbackMap.get(event.data.id);
     if (typeof callback === 'function') {
-      callback(event.data.result);
+      callback(event.data.result, event.data.error);
     }
-    listenMap.delete(event.data.id);
+    feedbackMap.delete(event.data.id);
   };
 
-  const uuid = Math.random().toString(26).substr(2);
-  listenMap.set(uuid, feedback);
+  worker.onerror = function (err) {
+    const callback = feedbackMap.get(uuid);
+    if (typeof callback === 'function') {
+      callback(null, err.message);
+    }
+    feedbackMap.delete(uuid);
+  };
 
+  feedbackMap.set(uuid, feedback);
   worker.postMessage({
     id: uuid,
     params: params,
@@ -37,8 +44,12 @@ export const syncWorker = function (func: Function, params: any, feedback: Funct
 export const asyncWorker = function(func: Function, params: any) {
   return new Promise(function (resolve, reject) {
     try {
-      syncWorker(func, params, function(result) {
-        resolve(result);
+      syncWorker(func, params, function(result, err) {
+        if (!err) {
+          resolve(result);  
+        } else {
+          reject(err)
+        }
       });
     } catch (err) {
       reject(err);

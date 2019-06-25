@@ -5,8 +5,8 @@ import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
-import { filterGrayImageData } from './../../core/filter/gray';
 import { filerGray } from './../../service/filter/gray';
+import { filerDrawing } from './../../service/filter/drawing';
 
 
 
@@ -100,23 +100,25 @@ export class Dashboard {
       mount: this._mount,
       zIndex: zIndex + 1,
       navList: [{
+        name: '原图',
+        feedback() {
+          // TODO
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          return Promise.resolve(sketchSchema);
+        }
+      }, {
         name: '黑白',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          // const grayImageData = filterGrayImageData(imageData);
-          // const newSchema = schemaParser.parseImageDataToSchema(grayImageData);
-          // return Promise.resolve(newSchema);
           return filerGray(imageData);
         }
       }, {
-        name: '柔和',
+        name: '图画风',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          // const imageData = schemaParser.parseImageData(sketchSchema);
-          // const grayImageData = filterGray.parseGrayImageData(imageData);
-          // const newSchema = schemaParser.updateSchemaImageData(sketchSchema, grayImageData);
-          return Promise.resolve(sketchSchema);
+          const imageData = schemaParser.parseImageData(sketchSchema);
+          return filerDrawing(imageData);
         }
       }]
     });

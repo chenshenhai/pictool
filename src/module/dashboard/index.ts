@@ -5,7 +5,9 @@ import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
-import filterGray from './../../core/filter/gray';
+import { filterGrayImageData } from './../../core/filter/gray';
+import { filerGray } from './../../service/filter/gray';
+
 
 
 export interface DashboardOpts {
@@ -102,9 +104,10 @@ export class Dashboard {
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          const grayImageData = filterGray.parseGrayImageData(imageData);
-          const newSchema = schemaParser.parseImageDataToSchema(grayImageData);
-          return Promise.resolve(newSchema);
+          // const grayImageData = filterGrayImageData(imageData);
+          // const newSchema = schemaParser.parseImageDataToSchema(grayImageData);
+          // return Promise.resolve(newSchema);
+          return filerGray(imageData);
         }
       }, {
         name: '柔和',

@@ -6,7 +6,7 @@ import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
 import { filerGray } from './../../service/filter/gray';
-import { filerDrawing } from './../../service/filter/drawing';
+import { filterPerson } from './../../service/filter/person';
 
 
 
@@ -114,11 +114,11 @@ export class Dashboard {
           return filerGray(imageData);
         }
       }, {
-        name: '图画风',
+        name: '人物识别',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return filerDrawing(imageData);
+          return filterPerson(imageData);
         }
       }]
     });

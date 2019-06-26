@@ -6,7 +6,7 @@ import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
 import { filerGray } from './../../service/filter/gray';
-import { filterPerson } from './../../service/filter/person';
+import { filterPersonSkin } from './../../service/filter/person';
 
 
 
@@ -118,7 +118,7 @@ export class Dashboard {
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return filterPerson({imageData});
+          return filterPersonSkin({imageData});
         }
       }]
     });

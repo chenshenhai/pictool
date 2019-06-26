@@ -111,14 +111,14 @@ export class Dashboard {
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return filerGray(imageData);
+          return filerGray({imageData});
         }
       }, {
         name: '人物识别',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return filterPerson(imageData);
+          return filterPerson({imageData});
         }
       }]
     });

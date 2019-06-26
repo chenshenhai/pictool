@@ -1,4 +1,7 @@
-export const filterGrayImageData = function(imageData: ImageData): ImageData {
+import { FilterOpts } from './filter';
+
+export const filterGrayImageData = function(opts : FilterOpts): ImageData {
+  const { imageData } = opts;
   const data = imageData.data;
   const width = imageData.width;
   const height = imageData.height;

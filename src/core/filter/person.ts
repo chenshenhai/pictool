@@ -1,4 +1,7 @@
-export const filterPersonImageData = function(imageData: ImageData) {
+import { FilterOpts } from './filter';
+
+export const filterPersonImageData = function(opts : FilterOpts) {
+  const { imageData } = opts;
   const data = imageData.data;
   const width = imageData.width;
   const height = imageData.height;

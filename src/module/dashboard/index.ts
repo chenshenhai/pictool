@@ -113,10 +113,21 @@ export class Dashboard {
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return asyncWorker({
-            key: 'gray',
-            param: { imageData, opts: {} }
-          }, workerConfig);
+          // return asyncWorker({
+          //   key: 'gray',
+          //   param: { imageData, opts: {} }
+          // }, workerConfig);
+          return new Promise(function(resolve, reject) {
+            asyncWorker({
+              key: 'gray',
+              param: { imageData, opts: {} }
+            }, workerConfig).then(function(rs: ImageData) {
+              const newSchema = schemaParser.parseImageDataToSchema(rs);
+              resolve(newSchema);
+            }).then(function(err) {
+              reject(err);
+            })
+          });
         }
       }, {
         name: '人物识别',

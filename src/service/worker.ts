@@ -17,11 +17,12 @@ export const syncWorker = function (action: WorkerAction, config: WorkerConfig) 
   const worker: Worker = new Worker(path);
 
   worker.onmessage = function (event) {
-    const callback = feedbackMap.get(event.data.id);
-    if (typeof callback === 'function') {
-      callback(event.data.result, event.data.error);
+    console.log('event = ', event);
+    // const callback = feedbackMap.get(event.data.id);
+    if (typeof feedback === 'function') {
+      feedback(event.data.result, event.data.error);
     }
-    feedbackMap.delete(event.data.id);
+    // feedbackMap.delete(event.data.id);
   };
 
   worker.onerror = function (err) {

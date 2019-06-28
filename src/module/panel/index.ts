@@ -102,8 +102,6 @@ export class Panel {
       navElemList.forEach(function(navElem) {
         navElem.addEventListener('click', function(event) {
 
-
-
           const elem = this;
           const idx = elem.getAttribute('data-panel-nav-idx') * 1;
           const navConf = navList[idx];
@@ -111,13 +109,15 @@ export class Panel {
           
           if (istype.promise(primise)) {
             primise.then(function(rs) {
-              // console.log(rs);
+              console.log(rs);
               if (rs) {
                 eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
               }
             }).catch((err) => {
               console.log(err);
             })
+          } else {
+            console.warn('feedback is not a promise')
           }
           navElemList.forEach(function(nav){
             nav.classList.remove('panelnav-active');

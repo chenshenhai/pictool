@@ -8,6 +8,6 @@ onmessage = function (event) {
   postMessage({
     'key': event.data.key,
     'result': result
-  });
+  }, undefined);
 }
 

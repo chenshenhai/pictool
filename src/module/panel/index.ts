@@ -109,7 +109,6 @@ export class Panel {
           
           if (istype.promise(primise)) {
             primise.then(function(rs) {
-              console.log(rs);
               if (rs) {
                 eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
               }

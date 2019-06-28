@@ -4,13 +4,19 @@ import { Dashboard } from './module/dashboard/index';
 import { SketchSchema } from './core/sketch/index';
 import { Header } from './module/header/index';
 // import schemaParser from './service/schema-parser';
+import { WorkerConfig } from './service/worker';
 import eventHub from './service/event-hub';
 import cacheHub from './service/cache-hub';
 
 const ZINDEX = 1000;
 
-interface PictoolOpts {
+interface PictoolOptsUIConfig {
   zIndex?: number;
+}
+
+interface PictoolOpts {
+  uiConfig?: PictoolOptsUIConfig;
+  workerConfig: WorkerConfig;
 }
 
 class Pictool {
@@ -21,10 +27,11 @@ class Pictool {
   private _dashboard: Dashboard = null;
   private _header: Header = null;
 
-  constructor(imageData, options: PictoolOpts = {}) {
+  constructor(imageData, options: PictoolOpts = { uiConfig: {}, workerConfig: {path: ''}}) {
     this._imageData = imageData;
     this._options = options;
-    let zIndex = options.zIndex;
+    const { uiConfig = {}, workerConfig } = options;
+    let zIndex = uiConfig.zIndex;
     if (!(zIndex * 1 > 0)) {
       zIndex = ZINDEX;
     }
@@ -44,7 +51,8 @@ class Pictool {
         });
         const sketch = new ModSketch(contentMount, { imageData, });
         const dashboard = new Dashboard(footerMount, {
-          zIndex: zIndex + 1
+          zIndex: zIndex + 1,
+          workerConfig,
         });
         that._sketch = sketch;
         that._dashboard = dashboard;

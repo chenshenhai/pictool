@@ -27,7 +27,13 @@
   function main() {
     getImageDataAsync(testImg).then(function(imageData) {
       var tool = new Pictool(imageData, {
-        // TODO
+        uiConfig: {
+          zIndex: 1234,
+        },
+        workerConfig: {
+          use: true,
+          path: './../dist/worker.js',
+        }
       });
       tool.show();
       // setTimeout(function() {

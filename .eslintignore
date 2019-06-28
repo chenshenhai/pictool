@@ -1,3 +1,5 @@
 # **/*.js
 
 example/**/*.js
+build/
+dist/

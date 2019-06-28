@@ -40,6 +40,29 @@ const processLess = function(context, payload) {
 }
 
 
+function getPlugins() {
+  return [
+    postcss({
+      extract: false,
+      minimize: process.env.NODE_ENV === 'production',
+      process: processLess,
+    }),
+    typescript(),
+    // buble(),
+    babel({
+      babelrc: false,
+      presets: [
+        ['@babel/preset-env', { modules: false }]
+      ],
+      plugins: [
+        ["@babel/plugin-transform-classes", {
+          "loose": true
+        }]
+      ]
+    }),
+  ]
+}
+
 
 module.exports = [
   {
@@ -49,25 +72,14 @@ module.exports = [
       format: 'umd',
       name: 'Pictool',
     }, 
-    plugins: [
-      postcss({
-        extract: false,
-        minimize: process.env.NODE_ENV === 'production',
-        process: processLess,
-      }),
-      typescript(),
-      // buble(),
-      babel({
-        babelrc: false,
-		    presets: [
-          ['@babel/preset-env', { modules: false }]
-        ],
-        plugins: [
-          ["@babel/plugin-transform-classes", {
-            "loose": true
-          }]
-        ]
-      }),
-    ],
+    plugins: getPlugins(),
+  },
+  {
+    input: resolveFile('src/worker.ts'),
+    output: {
+      file: resolveFile('dist/worker.js'),
+      format: 'iife',
+    }, 
+    plugins: getPlugins(),
   },
 ]

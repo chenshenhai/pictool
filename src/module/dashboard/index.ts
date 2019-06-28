@@ -5,14 +5,16 @@ import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
-import { filerGray } from './../../service/filter/gray';
-import { filterPersonSkin } from './../../service/filter/person';
+import { WorkerConfig } from './../../service/worker';
+import { asyncWorker } from './../../service/worker';
 
 
 
 export interface DashboardOpts {
   zIndex: number;
+  workerConfig: WorkerConfig;
 }
+
 
 export class Dashboard {
   private _mount: HTMLElement = null;
@@ -61,7 +63,7 @@ export class Dashboard {
       return;
     }
     const options: DashboardOpts = this._opts;
-    const { zIndex, } = options;
+    const { zIndex, workerConfig, } = options;
     const btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
     const btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
     const btnEdit = this._mount.querySelector('[data-nav-action="edit"]');
@@ -94,7 +96,7 @@ export class Dashboard {
 
   private _initFilterPanel() {
     const options: DashboardOpts = this._opts;
-    const { zIndex, } = options;
+    const { zIndex, workerConfig, } = options;
     const panel = new Panel({
       title: '滤镜',
       mount: this._mount,
@@ -111,14 +113,20 @@ export class Dashboard {
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return filerGray({imageData});
+          return asyncWorker({
+            key: 'gray',
+            param: { imageData, opts: {} }
+          }, workerConfig);
         }
       }, {
         name: '人物识别',
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          return filterPersonSkin({imageData});
+          return asyncWorker({
+            key: 'personSkin',
+            param: { imageData, opts: {} }
+          }, workerConfig);
         }
       }]
     });

@@ -1,6 +1,7 @@
 import './index.less';
 
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
+import { Progress } from './../../component/progress';
 import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
@@ -92,6 +93,17 @@ export class Dashboard {
     // btnText.addEventListener('click', function() {
     //   console.log('text')
     // });
+
+    // TODO
+    const progress = new Progress({
+      mount: this._mount,
+      customStyle: {
+        'z-index': zIndex + 1,
+        'position': 'fixed',
+        'bottom': '100px',
+      },
+    });
+    progress.show();
   }
 
   private _initFilterPanel() {

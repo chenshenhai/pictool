@@ -1,5 +1,7 @@
 import './index.less';
 
+import { mergeCSS2StyleAttr } from './../../util/style';
+
 
 export interface ProgressOpts {
   mount: HTMLElement;
@@ -8,7 +10,7 @@ export interface ProgressOpts {
 export class Progress {
   private _options: ProgressOpts = null;
   private _hasRendered: boolean = false;
-  private _component: HTMLDivElement = null;
+  private _component: HTMLElement = null;
 
   constructor(opts: ProgressOpts) {
     this._options = opts;
@@ -20,17 +22,29 @@ export class Progress {
       return;
     }
     const options = this._options;
-    const { mount } = options;
+    const { mount, customStyle, } = options;
+    const styleAttr = mergeCSS2StyleAttr(customStyle);
     const html = `
-      <div class="pictool-component-progress">
+      <div class="pictool-component-progress" style="${styleAttr}">
         <div class="pictool-progress-outer">
           <div class="pictool-progress-inner">hello world</div>
         </div>
       </div>
     `;
-    mount.innerHTML = html;
-    const component: HTMLDivElement = mount.querySelector('div.pictool-component-progress');
+
+    const tempDom = document.createElement('div');;
+    tempDom.innerHTML = html;
+    const component: HTMLDivElement = tempDom.querySelector('div.pictool-component-progress');
+    mount.appendChild(component);
     this._component = component;
+  }
+
+  show() {
+    // TODO
+  }
+
+  hide() {
+    // TODO
   }
   
 }

@@ -35,6 +35,7 @@
           path: './../dist/worker.js',
         }
       });
+      tool.show();
 
       var btn = document.querySelector('#J_BtnPictoolUI');
       btn.addEventListener('click', function() {

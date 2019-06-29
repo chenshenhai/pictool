@@ -55,20 +55,27 @@ export const RGB2HSL = function(cell: RGBCell): HSLCell {
 }
 
 
-export const imageDataRGBA2HSLObject = function(imageData: ImageData): HSLObject {
-  const { data, width, height } = imageData;
-  const hslData: HSLCell[] = [];
-  for(let i = 0; i < data.length; i+=4) {
-    const r = data[i];
-    const g = data[i + 1];
-    const b = data[i + 2];
-    const cell: RGBCell = {r, g, b};
-    const hslCell = RGB2HSL(cell);
-    hslData.push(hslCell);
-  }
-  return {
-    data: hslData,
-    width,
-    height,
-  }
+export interface ImageData2HSLOpts {
+  h?: number; // [0, 360]
+  s?: number; // [0, 100]
+  l?: number; // [0, 100]
 }
+
+// export const imageDataRGBA2HSLObject = function(imageData: ImageData, opts: ImageData2HSLOpts= {}): HSLObject {
+//   const { data, width, height } = imageData;
+//   const hslData: HSLCell[] = [];
+//   for(let i = 0; i < data.length; i+=4) {
+//     const r = data[i];
+//     const g = data[i + 1];
+//     const b = data[i + 2];
+//     const cell: RGBCell = {r, g, b};
+//     const hslCell = RGB2HSL(cell);
+//     const hsl = 
+//     hslData.push(hslCell);
+//   }
+//   return {
+//     data: hslData,
+//     width,
+//     height,
+//   }
+// }

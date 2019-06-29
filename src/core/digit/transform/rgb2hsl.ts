@@ -6,7 +6,7 @@ const parseRGBNum = function(origin: number): number {
   return origin * 100 / RGBA_MAX; // [1, 100]
 }
 
-export const RGBA2HSL = function(cell: RGBCell): HSLCell {
+export const RGB2HSL = function(cell: RGBCell): HSLCell {
   const orginR = cell.r;
   const orginG = cell.g;
   const orginB = cell.b;
@@ -63,7 +63,7 @@ export const imageDataRGBA2HSLObject = function(imageData: ImageData): HSLObject
     const g = data[i + 1];
     const b = data[i + 2];
     const cell: RGBCell = {r, g, b};
-    const hslCell = RGBA2HSL(cell);
+    const hslCell = RGB2HSL(cell);
     hslData.push(hslCell);
   }
   return {

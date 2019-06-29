@@ -9,8 +9,19 @@
       (function(){
         const transform = Pictool.core.digit.transform;
         const rgb = {r: 12, g: 15, b: 10};
-        const hsl = transform.RGBA2HSL(rgb)
+        const hsl = transform.RGB2HSL(rgb)
+
+        console.log(`transform.RGB2HSL(${JSON.stringify(rgb)}) = `);
         console.log(hsl);	// {h:96, s:20, l:5}
+      })();
+
+      (function(){
+        const transform = Pictool.core.digit.transform;
+        const hsl = {h:96, s:20, l:5};
+        const rgb = transform.HSL2RGB(hsl)
+
+        console.log(`transform.HSL2RGB(${JSON.stringify(hsl)}) = `);
+        console.log(rgb);	// {r: 12, g: 15, b: 10}
       })();
     </script>
   </body>

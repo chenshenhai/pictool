@@ -1,12 +1,7 @@
-import { RGBACell } from '../rgba/rgba';
-import { HSLObject, HSLCell } from './../hsl/hsl';
-
-const RGBA_MID = 255 / 2;
-const RGBA_MAX = 255;
-const RGBA_MIN = 0;
-
-
-export const RGBA2HSL = function(cell: RGBACell): HSLCell {
+import { RGBCell } from '../rgba/rgb';
+import { HSLObject, HSLCell } from '../hsl/hsl';
+import { RGBA_MID, RGBA_MAX, RGBA_MIN } from './static';
+export const RGBA2HSL = function(cell: RGBCell): HSLCell {
   const {r, g, b} = cell;
 
   const min: number = Math.min(r, g, b);
@@ -55,8 +50,7 @@ export const imageDataRGBA2HSLObject = function(imageData: ImageData): HSLObject
     const r = data[i];
     const g = data[i + 1];
     const b = data[i + 2];
-    const a = data[i + 3];
-    const cell: RGBACell = {r, g, b, a};
+    const cell: RGBCell = {r, g, b};
     const hslCell = RGBA2HSL(cell);
     hslData.push(hslCell);
   }

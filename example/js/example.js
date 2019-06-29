@@ -26,7 +26,7 @@
 
   function main() {
     getImageDataAsync(testImg).then(function(imageData) {
-      var tool = new Pictool(imageData, {
+      var tool = new Pictool.UI(imageData, {
         uiConfig: {
           zIndex: 1234,
         },
@@ -35,21 +35,17 @@
           path: './../dist/worker.js',
         }
       });
-      tool.show();
-      // setTimeout(function() {
-      //   tool.show();
-      // }, 1000);
+
+      var btn = document.querySelector('#J_BtnPictoolUI');
+      btn.addEventListener('click', function() {
+        tool.show();
+      });
     }).catch(function (err) {
       console.log(err);
-    })
+    });
   }
 
   
-
-  var body = document.querySelector('#J_Btn');
-  body.addEventListener('click', function() {
-    main();
-  })
 
   main();
   

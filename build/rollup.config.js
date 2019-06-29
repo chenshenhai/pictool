@@ -70,7 +70,10 @@ module.exports = [
     output: {
       file: resolveFile('dist/index.js'),
       format: 'umd',
-      name: 'Pictool',
+      name: 'Pictool.UI',
+      amd: {
+        id: 'Pictool.UI'
+      }
     }, 
     plugins: getPlugins(),
   },
@@ -79,6 +82,18 @@ module.exports = [
     output: {
       file: resolveFile('dist/worker.js'),
       format: 'iife',
+    }, 
+    plugins: getPlugins(),
+  },
+  {
+    input: resolveFile('src/core/digit/transform/index.ts'),
+    output: {
+      file: resolveFile('dist/core/digit/transform.js'),
+      format: 'umd',
+      name: 'Pictool.core.digit.transform',
+      amd: {
+        id: 'Pictool.core.digit.transform'
+      }
     }, 
     plugins: getPlugins(),
   },

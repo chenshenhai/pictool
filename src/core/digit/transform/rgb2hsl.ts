@@ -1,15 +1,27 @@
 import { RGBCell } from '../rgba/rgb';
 import { HSLObject, HSLCell } from '../hsl/hsl';
 import { RGBA_MID, RGBA_MAX, RGBA_MIN } from './static';
+
+const parseRGBNum = function(origin: number): number {
+  return origin * 100 / RGBA_MAX; // [1, 100]
+}
+
 export const RGBA2HSL = function(cell: RGBCell): HSLCell {
-  const {r, g, b} = cell;
+  const orginR = cell.r;
+  const orginG = cell.g;
+  const orginB = cell.b;
+
+  const r = parseRGBNum(orginR);
+  const g = parseRGBNum(orginG);
+  const b = parseRGBNum(orginB);
 
   const min: number = Math.min(r, g, b);
   const max: number = Math.max(r, g, b);
   const range: number = max - min;
-  let h: number = 0;
-  let s: number = 0;
-  let l: number = (max + min) / 2;
+
+  let h: number = 0; // [0, 360]
+  let s: number = 0; // [0, 100]
+  let l: number = (max + min) / 2; // [0, 100]
 
   if (max === min) {
     h = 0;
@@ -17,13 +29,13 @@ export const RGBA2HSL = function(cell: RGBCell): HSLCell {
   } else {
     // transform Hua
     if (max === r && g >= b) {
-      h = 60 * (g - b) / range + 0;
+      h = 60 * ((g - b) / range) + 0;
     } else if (max === r && g < b) {
-      h = 60 * (g - b) / range + 360;
+      h = 60 * ((g - b) / range) + 360;
     } else if (max === g) {
-      h = 60 * (b - r) / range + 120;
+      h = 60 * ((b - r) / range) + 120;
     } else if (max === b) {
-      h = 60 * (r - g) / range + 240;
+      h = 60 * ((r - g) / range) + 240;
     }
 
     // tranform Statution
@@ -38,7 +50,7 @@ export const RGBA2HSL = function(cell: RGBCell): HSLCell {
 
   h = Math.round(h);
   s = Math.round(s * 100);
-  l = Math.round(s * 100);
+  l = Math.round(l);
   return { h, s, l };
 }
 

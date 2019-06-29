@@ -8,7 +8,9 @@
     <script>
       (function(){
         const transform = Pictool.core.digit.transform;
-        console.log('transform = ', transform);
+        const rgb = {r: 12, g: 15, b: 10};
+        const hsl = transform.RGBA2HSL(rgb)
+        console.log(hsl);	// {h:96, s:20, l:5}
       })();
     </script>
   </body>

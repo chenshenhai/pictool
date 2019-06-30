@@ -1,13 +1,21 @@
 import './index.less';
 
 import { mergeCSS2StyleAttr } from './../../util/style';
+import istype from '../../util/istype';
 
 
 export interface ProgressOpts {
   mount: HTMLElement;
   customStyle: {};
   percent: number; // [0, 100];
+  onChange: Function|null;
 }
+
+
+export interface ProcessOnChangeData {
+  percent: number; // [0, 100]
+}
+
 export class Progress {
   private _options: ProgressOpts = null;
   private _hasRendered: boolean = false;
@@ -43,11 +51,19 @@ export class Progress {
   }
 
   show() {
-    // TODO
+    this._component.classList.remove('progress-hidden');
   }
 
   hide() {
-    // TODO
+    this._component.classList.add('progress-hidden');
+  }
+
+  resetPercent(percent: number) {
+    this._setInnerMovePercent(percent);
+  }
+
+  resetOnChange(onChange: Function) {
+    this._options.onChange = onChange;
   }
 
   private _triggerEvent() {
@@ -68,7 +84,15 @@ export class Progress {
       that._setInnerMovePercent(movePercent);
     });
     outer.addEventListener('touchend', function() {
-
+      const percent = that._getInnerPercent();
+      const data: ProcessOnChangeData = {
+        percent,
+      }
+      const options = that._options;
+      const { onChange, } = options;
+      if (istype.function(onChange)) {
+        onChange(data);
+      }
     });
   }
 
@@ -92,6 +116,17 @@ export class Progress {
       left: `-${100 - displayPercent}%`
     });
     inner.setAttribute('style', innerStyleAttr);
+    inner.setAttribute('data-component-inner-percent', `${displayPercent}`);
+  }
+
+  private _getInnerPercent() {
+    const component = this._component;
+    const inner = component.querySelector('.pictool-progress-inner');
+    const percentAttr: string = inner.getAttribute('data-component-inner-percent');
+    let percent = parseInt(percentAttr, 10);
+    percent = Math.min(100, percent);
+    percent = Math.max(0, percent);
+    return percent;
   }
 
   private _getViewAbsoluteLeft(elem){

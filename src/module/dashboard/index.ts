@@ -10,7 +10,6 @@ import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
 
 
-
 export interface DashboardOpts {
   zIndex: number;
   workerConfig: WorkerConfig;
@@ -94,7 +93,6 @@ export class Dashboard {
     //   console.log('text')
     // });
 
-    // TODO
     const progress = new Progress({
       mount: this._mount,
       percent: 40,
@@ -106,8 +104,24 @@ export class Dashboard {
         'right': '5%',
         'width': 'auto',
       },
+      onChange(data) {
+        console.log('data =', data);
+      }
     });
-    progress.show();
+    progress.hide();
+
+    eventHub.on('GlobalEvent.moduleDashboard.progress.show', function(opts = {}) {
+      const { percent, onChange, } = opts;
+      progress.resetOnChange(onChange);
+      progress.resetPercent(percent);
+      progress.show();
+    });
+
+    eventHub.on('GlobalEvent.moduleDashboard.progress.hide', function() {
+      progress.resetOnChange(null);
+      progress.resetPercent(50);
+      progress.hide();
+    });
   }
 
   private _initFilterPanel() {

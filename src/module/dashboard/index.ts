@@ -211,8 +211,7 @@ export class Dashboard {
               }, workerConfig).then(function(rs: ImageData) {
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                
-              }).then(function(err) {
+              }).catch(function(err) {
                 console.log(err);
               })
             }

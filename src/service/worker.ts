@@ -41,7 +41,7 @@ export const asyncWorker = function(action: WorkerAction, config: WorkerConfig) 
           if (!err) {
             resolve(result);  
           } else {
-            reject(err)
+            reject(err);
           }
         }
       }

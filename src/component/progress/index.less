@@ -1,3 +1,27 @@
+@process-height: 28px;
+@process-radius: 14px;
+
 .pictool-component-progress {
-  
+  width: 100%;
+  height: @process-height;
+
+  .pictool-progress-outer {
+    position: relative;
+    height: @process-height;
+    width: 100%;
+    background: #ffffff;
+    border-radius: @process-radius;
+    overflow: hidden;
+  }
+
+  .pictool-progress-inner {
+    position: absolute;
+    height: @process-height;
+    width: 100%;
+    background: #00d4ff;
+    border-radius: @process-radius;
+  }
 }
+
+
+  

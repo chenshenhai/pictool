@@ -97,10 +97,14 @@ export class Dashboard {
     // TODO
     const progress = new Progress({
       mount: this._mount,
+      percent: 40,
       customStyle: {
         'z-index': zIndex + 1,
         'position': 'fixed',
         'bottom': '100px',
+        'left': '5%',
+        'right': '5%',
+        'width': 'auto',
       },
     });
     progress.show();

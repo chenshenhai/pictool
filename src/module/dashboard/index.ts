@@ -166,10 +166,6 @@ export class Dashboard {
         feedback() {
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
-          // return asyncWorker({
-          //   key: 'gray',
-          //   param: { imageData, options: {} }
-          // }, workerConfig);
           return new Promise(function(resolve, reject) {
             asyncWorker({
               key: 'gray',

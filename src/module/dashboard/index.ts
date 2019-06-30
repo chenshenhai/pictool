@@ -2,6 +2,7 @@ import './index.less';
 
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 import { Progress, ProcessOnChangeData } from './../../component/progress';
+import { Loading } from './../../component/loading/index';
 import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
@@ -125,6 +126,25 @@ export class Dashboard {
       progress.resetPercent(50);
       progress.hide();
     });
+
+
+
+    const loading = new Loading({
+      zIndex: zIndex + 1000,
+    });
+    
+    eventHub.on('GlobalEvent.moduleDashboard.loading.show', function(opts?) {
+      let timeout: number = -1;
+      if (opts && opts.timeout > 0) {
+        timeout = opts.timeout;
+      }
+      loading.show(timeout);
+    });
+
+    eventHub.on('GlobalEvent.moduleDashboard.loading.hide', function() {
+      loading.hide();
+    });
+
   }
 
   private _initFilterPanel() {
@@ -197,10 +217,11 @@ export class Dashboard {
           // TODO
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
+          
           eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
             percent: 50,
             onChange: function(data) {
-              // console.log(data);
+              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
                 key: 'transform',
                 param: { imageData, options: {
@@ -211,8 +232,10 @@ export class Dashboard {
               }, workerConfig).then(function(rs: ImageData) {
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
               }).catch(function(err) {
                 console.log(err);
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
               })
             }
           });

@@ -118,8 +118,8 @@ export class Panel {
             }).catch((err) => {
               console.log(err);
             })
-          } else {
-            console.warn('feedback is not a promise')
+          } else if(istype.null(primise) !== true) {
+            console.warn('feedback is not a promise or null')
           }
           navElemList.forEach(function(nav){
             nav.classList.remove('panelnav-active');

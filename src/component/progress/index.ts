@@ -9,21 +9,33 @@ export interface ProgressOpts {
   customStyle: {};
   percent: number; // [0, 100];
   onChange: Function|null;
+  max?: number, // default 100
+  min?: number, // default 0
 }
 
 
 export interface ProcessOnChangeData {
-  percent: number; // [0, 100]
+  value: number; // [0, 100]
 }
 
 export class Progress {
   private _options: ProgressOpts = null;
   private _hasRendered: boolean = false;
   private _component: HTMLElement = null;
+  private _rangeList: number[];
 
   constructor(opts: ProgressOpts) {
     this._options = opts;
     this._render();
+    this._rangeList = [];
+
+    const options = this._options;
+    const { max = 100,  min = 0 } = options;
+    const item = (max - min) / 100;
+    for (let i = min; i < max; i += item) {
+      this._rangeList.push(i);
+    }
+    this._rangeList.push(max);
   }
 
   private _render() {
@@ -84,9 +96,9 @@ export class Progress {
       that._setInnerMovePercent(movePercent);
     });
     outer.addEventListener('touchend', function() {
-      const percent = that._getInnerPercent();
+      const value = that._getInnerValue();
       const data: ProcessOnChangeData = {
-        percent,
+        value,
       }
       const options = that._options;
       const { onChange, } = options;
@@ -119,13 +131,14 @@ export class Progress {
     inner.setAttribute('data-component-inner-percent', `${displayPercent}`);
   }
 
-  private _getInnerPercent() {
+  private _getInnerValue() {
     const component = this._component;
     const inner = component.querySelector('.pictool-progress-inner');
     const percentAttr: string = inner.getAttribute('data-component-inner-percent');
     let percent = parseInt(percentAttr, 10);
     percent = Math.min(100, percent);
     percent = Math.max(0, percent);
+    percent = this._rangeList[percent]
     return percent;
   }
 

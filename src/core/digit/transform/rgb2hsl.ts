@@ -7,7 +7,7 @@ const parseRGBNum = function(origin: number): number {
 }
 
 function isPercent(num) {
-  if(num >= -100 && num < 100) {
+  if(num >= -100 && num <= 100) {
     return true;
   } else {
     return false;
@@ -21,6 +21,9 @@ export interface HSLTransformPercent {
 }
 
 export const RGB2HSL = function(cell: RGBCell, percent?: HSLTransformPercent): HSLCell {
+  
+  // console.log('percent ==', percent);
+  
   const orginR = cell.r;
   const orginG = cell.g;
   const orginB = cell.b;
@@ -68,25 +71,25 @@ export const RGB2HSL = function(cell: RGBCell, percent?: HSLTransformPercent): H
   s = Math.round(s * 100);
   l = Math.round(l);
 
-  // if (percent) {
-  //   if (isPercent(percent.h)) {
-  //     h = Math.floor(h * (100 + percent.h) / 100);
-  //     h = Math.max(360, h);
-  //     h = Math.min(0, h);
-  //   }
+  if (percent) {
+    if (isPercent(percent.h)) {
+      h = Math.floor(h * (100 + percent.h) / 100);
+      h = Math.min(360, h);
+      h = Math.max(0, h);
+    }
   
-  //   if (isPercent(percent.s)) {
-  //     s = Math.floor(s * (100 + percent.s) / 100);
-  //     s = Math.max(100, s);
-  //     s = Math.min(0, s);
-  //   }
+    if (isPercent(percent.s)) {
+      s = Math.floor(s * (100 + percent.s) / 100);
+      s = Math.min(100, s);
+      s = Math.max(0, s);
+    }
   
-  //   if (isPercent(percent.l)) {
-  //     l = Math.floor(l * (100 + percent.l) / 100)
-  //     l = Math.max(100, l);
-  //     l = Math.min(0, l);
-  //   }
-  // }
+    if (isPercent(percent.l)) {
+      l = Math.floor(l * (100 + percent.l) / 100)
+      l = Math.min(100, l);
+      l = Math.max(0, l);
+    }
+  }
 
   return { h, s, l };
 }

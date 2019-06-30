@@ -96,6 +96,8 @@ export class Dashboard {
     const progress = new Progress({
       mount: this._mount,
       percent: 40,
+      max: 100,
+      min: -100,
       customStyle: {
         'z-index': zIndex + 1,
         'position': 'fixed',
@@ -146,12 +148,12 @@ export class Dashboard {
           const imageData = schemaParser.parseImageData(sketchSchema);
           // return asyncWorker({
           //   key: 'gray',
-          //   param: { imageData, opts: {} }
+          //   param: { imageData, options: {} }
           // }, workerConfig);
           return new Promise(function(resolve, reject) {
             asyncWorker({
               key: 'gray',
-              param: { imageData, opts: {} }
+              param: { imageData, options: {} }
             }, workerConfig).then(function(rs: ImageData) {
               const newSchema = schemaParser.parseImageDataToSchema(rs);
               resolve(newSchema);
@@ -168,7 +170,7 @@ export class Dashboard {
           return new Promise(function(resolve, reject) {
             asyncWorker({
               key: 'personSkin',
-              param: { imageData, opts: {} }
+              param: { imageData, options: {} }
             }, workerConfig).then(function(rs: ImageData) {
               const newSchema = schemaParser.parseImageDataToSchema(rs);
               resolve(newSchema);
@@ -198,12 +200,12 @@ export class Dashboard {
           eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
             percent: 50,
             onChange: function(data) {
-              
+              // console.log(data);
               asyncWorker({
                 key: 'transform',
-                param: { imageData, opts: {
+                param: { imageData, options: {
                   percent: {
-                    l: -10,
+                    l: data.value || 0,
                   }
                 }}
               }, workerConfig).then(function(rs: ImageData) {

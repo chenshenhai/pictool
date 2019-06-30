@@ -46,7 +46,7 @@ class Pictool {
             mask.hide();
           },
           saveFeedback() {
-            eventHub.trigger('GlobalModule.Sketch.downloadImage');
+            eventHub.trigger('GlobalEvent.moduleSketch.downloadImage');
           }
         });
         const sketch = new ModSketch(contentMount, { imageData, });

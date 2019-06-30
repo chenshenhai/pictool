@@ -1,0 +1,32 @@
+@process-height: 28px;
+@process-radius: 14px;
+
+.pictool-component-loading {
+  width: 100%;
+  height: @process-height;
+  display: block;
+
+  &.loading-hidden {
+    display: none;
+  }
+
+  .pictool-loading-outer { 
+    position: relative;
+    height: @process-height;
+    width: 100%;
+    background: #ffffff;
+    border-radius: @process-radius;
+    overflow: hidden;
+  }
+
+  .pictool-loading-inner {
+    position: absolute;
+    height: @process-height;
+    width: 100%;
+    background: #00d4ff;
+    border-radius: @process-radius;
+  }
+}
+
+
+  

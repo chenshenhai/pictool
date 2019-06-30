@@ -40,10 +40,10 @@ export class Sketch {
     const originSketchSchema = schemaParser.parseImageDataToSchema(imageData);
     cacheHub.set('Sketch.originSketchSchema', originSketchSchema);
 
-    eventHub.on('GlobalModule.Sketch.renderImage', function(schema) {
+    eventHub.on('GlobalEvent.moduleSketch.renderImage', function(schema) {
       that.renderImage(schema);
     });
-    eventHub.on('GlobalModule.Sketch.downloadImage', function() {
+    eventHub.on('GlobalEvent.moduleSketch.downloadImage', function() {
       sketchpad.downloadImage('download-pictool.png');
     });
   }

@@ -1,7 +1,7 @@
 import './index.less';
 
 import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
-import { Progress } from './../../component/progress';
+import { Progress, ProcessOnChangeData } from './../../component/progress';
 import { Panel, PanelOpts, } from '../panel/index';
 import cacheHub from './../../service/cache-hub';
 import eventHub from './../../service/event-hub';
@@ -99,12 +99,13 @@ export class Dashboard {
       customStyle: {
         'z-index': zIndex + 1,
         'position': 'fixed',
-        'bottom': '100px',
+        'bottom': '140px',
         'left': '5%',
         'right': '5%',
         'width': 'auto',
       },
-      onChange(data) {
+      // TODO
+      onChange(data: ProcessOnChangeData) {
         console.log('data =', data);
       }
     });
@@ -183,7 +184,7 @@ export class Dashboard {
 
   private _initAdjustPanel() {
     const options: DashboardOpts = this._opts;
-    const { zIndex, } = options;
+    const { zIndex, workerConfig, } = options;
     const panel = new Panel({
       title: '调节',
       mount: this._mount,
@@ -193,7 +194,28 @@ export class Dashboard {
         feedback() {
           // TODO
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
+          const imageData = schemaParser.parseImageData(sketchSchema);
+          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
+            percent: 50,
+            onChange: function(data) {
+              
+              asyncWorker({
+                key: 'transform',
+                param: { imageData, opts: {
+                  percent: {
+                    l: -10,
+                  }
+                }}
+              }, workerConfig).then(function(rs: ImageData) {
+                const newSchema = schemaParser.parseImageDataToSchema(rs);
+                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
+                
+              }).then(function(err) {
+                console.log(err);
+              })
+            }
+          });
+          return null;
         }
       }, {
         name: '对比度',

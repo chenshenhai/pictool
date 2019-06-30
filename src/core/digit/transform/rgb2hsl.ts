@@ -6,7 +6,21 @@ const parseRGBNum = function(origin: number): number {
   return origin * 100 / RGBA_MAX; // [1, 100]
 }
 
-export const RGB2HSL = function(cell: RGBCell): HSLCell {
+function isPercent(num) {
+  if(num >= -100 && num < 100) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export interface HSLTransformPercent {
+  h?: number; // [-100, 100]
+  s?: number; // [-100, 100]
+  l?: number; // [-100, 100]
+}
+
+export const RGB2HSL = function(cell: RGBCell, percent?: HSLTransformPercent): HSLCell {
   const orginR = cell.r;
   const orginG = cell.g;
   const orginB = cell.b;
@@ -48,34 +62,37 @@ export const RGB2HSL = function(cell: RGBCell): HSLCell {
     }
   }
 
+
+
   h = Math.round(h);
   s = Math.round(s * 100);
   l = Math.round(l);
+
+  // if (percent) {
+  //   if (isPercent(percent.h)) {
+  //     h = Math.floor(h * (100 + percent.h) / 100);
+  //     h = Math.max(360, h);
+  //     h = Math.min(0, h);
+  //   }
+  
+  //   if (isPercent(percent.s)) {
+  //     s = Math.floor(s * (100 + percent.s) / 100);
+  //     s = Math.max(100, s);
+  //     s = Math.min(0, s);
+  //   }
+  
+  //   if (isPercent(percent.l)) {
+  //     l = Math.floor(l * (100 + percent.l) / 100)
+  //     l = Math.max(100, l);
+  //     l = Math.min(0, l);
+  //   }
+  // }
+
   return { h, s, l };
 }
 
 
 export interface ImageData2HSLOpts {
-  h?: number; // [0, 360]
-  s?: number; // [0, 100]
-  l?: number; // [0, 100]
+  percent: HSLTransformPercent
 }
 
-// export const imageDataRGBA2HSLObject = function(imageData: ImageData, opts: ImageData2HSLOpts= {}): HSLObject {
-//   const { data, width, height } = imageData;
-//   const hslData: HSLCell[] = [];
-//   for(let i = 0; i < data.length; i+=4) {
-//     const r = data[i];
-//     const g = data[i + 1];
-//     const b = data[i + 2];
-//     const cell: RGBCell = {r, g, b};
-//     const hslCell = RGB2HSL(cell);
-//     const hsl = 
-//     hslData.push(hslCell);
-//   }
-//   return {
-//     data: hslData,
-//     width,
-//     height,
-//   }
-// }

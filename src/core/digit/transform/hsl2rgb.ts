@@ -20,8 +20,10 @@ import {
 // }
 
 const L2RGBNum = function(l: number): number {
-  let num = l / L_MAX * RGBA_MAX;
+  let num = l * RGBA_MAX;
   num = Math.round(num);
+  num = Math.max(0, num);
+  num = Math.min(255, num);
   return num;
 }
 
@@ -36,7 +38,7 @@ export const HSL2RGB = function(cell: HSLCell): RGBCell {
   const l = originL / L_MAX; // [0, 1];
   // const max = 1;
   // const min = 0;
-  const mid = 0.5
+  // const mid = 0.5
 
   let r: number = 0;
   let g: number = 0;
@@ -44,8 +46,10 @@ export const HSL2RGB = function(cell: HSLCell): RGBCell {
 
   if (s === 0) {
     r = L2RGBNum(l);
-    g = L2RGBNum(l);
-    b = L2RGBNum(l);
+    g = r;
+    b = g;
+    // g = L2RGBNum(l * RGBA_MAX);
+    // b = L2RGBNum(l * RGBA_MAX);
   } else {
     const tempRGB: number[] = [];
     let q: number = l >= 0.5 ? ( l + s - l * s ) : ( l * (1 + s) );

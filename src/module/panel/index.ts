@@ -7,7 +7,7 @@ import './index.less';
 
 interface NavBtn {
   name: string;
-  feedback(): Promise<any>;
+  feedback(): Promise<any>|null;
   // useProgressBar?: boolean | false;
   receiveEventKey?: string | null;
 }
@@ -35,6 +35,9 @@ export class Panel {
       afterRender(args: ActionSheetLifeCycleArgs) {
         const { contentMount, } = args;
         that._render(contentMount);
+      },
+      beforeHide: function() {
+        eventHub.trigger('GlobalEvent.moduleDashboard.progress.hide');
       }
     }
     const actionSheet = new ActionSheet(actionSheetOpts);
@@ -110,7 +113,7 @@ export class Panel {
           if (istype.promise(primise)) {
             primise.then(function(rs) {
               if (rs) {
-                eventHub.trigger('GlobalModule.Sketch.renderImage', rs)
+                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', rs)
               }
             }).catch((err) => {
               console.log(err);

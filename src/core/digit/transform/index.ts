@@ -5,15 +5,17 @@ import { RGBCell, } from './../rgba/rgb';
 
 const transformImageData = function(imageData: ImageData, opts: ImageData2HSLOpts): ImageData {
   const { data, width, height } = imageData;
+  const { percent = {}, } = opts;
   const filteredImageData = new ImageData(width, height);
-  for(let i = 0; i < data.length; i+=4) {
+  for(let i = 0; i < data.length; i += 4) {
     const r = data[i];
     const g = data[i + 1];
     const b = data[i + 2];
     const a = data[i + 3];
     const cell: RGBCell = {r, g, b};
-    const hslCell: HSLCell = RGB2HSL(cell);
-    const rsHsl: HSLCell = { ...hslCell, ...opts }
+    const hslCell: HSLCell = RGB2HSL(cell, percent);
+    const rsHsl: HSLCell = { ...{}, ...hslCell, }
+
     const rgbCell = HSL2RGB(rsHsl);
     filteredImageData.data[i] = rgbCell.r;
     filteredImageData.data[i + 1] = rgbCell.g;

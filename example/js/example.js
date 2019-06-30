@@ -1,7 +1,7 @@
 (function() {
   // 测试图片来自 www.pexels.com
   // test photo from www.pexels.com
-  const testImg = './image/github-404.jpg';
+  const testImg = './image/github-404.png';
   function getImageDataAsync(imageSrc) {
     const img = new window.Image();
     const canvas = document.createElement('canvas');

@@ -210,7 +210,6 @@ export class Dashboard {
       navList: [{
         name: '亮度',
         feedback() {
-          // TODO
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           const imageData = schemaParser.parseImageData(sketchSchema);
           
@@ -238,18 +237,62 @@ export class Dashboard {
           return null;
         }
       }, {
-        name: '对比度',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }, {
         name: '饱和度',
         feedback() {
-          // TODO
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
+          const imageData = schemaParser.parseImageData(sketchSchema);
+          
+          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
+            percent: 50,
+            onChange: function(data) {
+              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
+              asyncWorker({
+                key: 'transform',
+                param: { imageData, options: {
+                  percent: {
+                    s: data.value || 0,
+                  }
+                }}
+              }, workerConfig).then(function(rs: ImageData) {
+                const newSchema = schemaParser.parseImageDataToSchema(rs);
+                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+              }).catch(function(err) {
+                console.log(err);
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+              })
+            }
+          });
+          return null;
+        }
+      }, {
+        name: '色阶',
+        feedback() {
+          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+          const imageData = schemaParser.parseImageData(sketchSchema);
+          
+          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
+            percent: 50,
+            onChange: function(data) {
+              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
+              asyncWorker({
+                key: 'transform',
+                param: { imageData, options: {
+                  percent: {
+                    h: data.value || 0,
+                  }
+                }}
+              }, workerConfig).then(function(rs: ImageData) {
+                const newSchema = schemaParser.parseImageDataToSchema(rs);
+                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+              }).catch(function(err) {
+                console.log(err);
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+              })
+            }
+          });
+          return null;
         }
       }, {
         name: '锐化',

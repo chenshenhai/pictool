@@ -9,13 +9,10 @@ import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
 import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
-
-
 export interface DashboardOpts {
   zIndex: number;
   workerConfig: WorkerConfig;
 }
-
 
 export class Dashboard {
   private _mount: HTMLElement = null;

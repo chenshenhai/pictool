@@ -1,4 +1,8 @@
+
+import * as filterMap from './../core/filter/index';
+
 export interface WorkerConfig {
+  use: boolean;
   path: string;
 }
 
@@ -10,26 +14,39 @@ export interface WorkerAction {
 
 export const syncWorker = function (action: WorkerAction, config: WorkerConfig) {
   const { key, param, feedback } = action;
-  const { path } = config;
-  const worker: Worker = new Worker(path);
 
-  worker.onmessage = function (event) {
-    if (typeof feedback === 'function') {
-      feedback(event.data.result, event.data.error);
-      worker.terminate();
-    }
-  };
-
-  worker.onerror = function (err) {
-    if (typeof feedback === 'function') {
-      feedback(null, err.message);
-      worker.terminate();
-    }
-  };
-  worker.postMessage({
-    key,
-    param,
-  });
+  if (config && config.use === true) {
+    const { path } = config;
+    const worker: Worker = new Worker(path);
+    worker.onmessage = function (event) {
+      if (typeof feedback === 'function') {
+        feedback(event.data.result, event.data.error);
+        worker.terminate();
+      }
+    };
+    worker.onerror = function (err) {
+      if (typeof feedback === 'function') {
+        feedback(null, err.message);
+        worker.terminate();
+      }
+    };
+    worker.postMessage({
+      key,
+      param,
+    });
+  } else {
+    setTimeout(function() {
+      let error: Error = null;
+      let result = null;
+      try {
+        const filerAction = filterMap[key]
+        result = filerAction(param);
+      } catch (err) {
+        error = err;
+      }
+      feedback(result, error);
+    }, 1);
+  }
 };
 
 export const asyncWorker = function(action: WorkerAction, config: WorkerConfig) {

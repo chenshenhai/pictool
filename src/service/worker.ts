@@ -16,12 +16,14 @@ export const syncWorker = function (action: WorkerAction, config: WorkerConfig) 
   worker.onmessage = function (event) {
     if (typeof feedback === 'function') {
       feedback(event.data.result, event.data.error);
+      worker.terminate();
     }
   };
 
   worker.onerror = function (err) {
     if (typeof feedback === 'function') {
       feedback(null, err.message);
+      worker.terminate();
     }
   };
   worker.postMessage({

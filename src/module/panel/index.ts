@@ -70,14 +70,14 @@ export class Panel {
             style="${isBeyond === true ? `width: ${(navList.length + 1) * 80}px` : ''}"
           >
           ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
-            return ` 
+    return ` 
             <div class="pictool-panel-nav-btn panelnav-icon"
               data-panel-nav-idx="${idx}"
             >
               <span>${nav.name}</span>
             </div>
             `;
-          }).join('')}
+  }).join('')}
           </div>
         </div>
       </div>

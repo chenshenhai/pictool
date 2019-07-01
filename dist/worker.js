@@ -1,1 +1,304 @@
-!function(){"use strict";function v(a){var t=a.h/360,r=a.s/100,n=a.l/100,e=0,h=0,o=0;if(0==r)o=h=e=function(a){var t=a*c;return t=Math.round(t),t=Math.max(0,t),t=Math.min(255,t)}(n);else{var d=[],i=.5<=n?n+r-n*r:n*(1+r),u=2*n-i;d[0]=t+1/3,d[1]=t,d[2]=t-1/3;for(var f=0;f<d.length;f++){var s=d[f];switch(s<0?s+=1:1<s&&(s-=1),!0){case s<1/6:s=u+6*(i-u)*s;break;case 1/6<=s&&s<.5:s=i;break;case.5<=s&&s<2/3:s=u+(i-u)*(4-6*s);break;default:s=u}d[f]=Math.round(s*c)}e=d[0],h=d[1],o=d[2]}return{r:e,g:h,b:o}}function M(a){return 100*a/c}var l=function(){return(l=Object.assign||function(a){for(var t,r=1,n=arguments.length;r<n;r++)for(var e in t=arguments[r])Object.prototype.hasOwnProperty.call(t,e)&&(a[e]=t[e]);return a}).apply(this,arguments)},c=255;function m(a){return-100<=a&&a<=100}function b(a,t){var r=a.r,n=a.g,e=a.b,h=M(r),o=M(n),d=M(e),i=Math.min(h,o,d),u=Math.max(h,o,d),f=u-i,s=0,c=0,g=(u+i)/2;return u===i?c=s=0:(u===h&&d<=o?s=(o-d)/f*60+0:u===h&&o<d?s=(o-d)/f*60+360:u===o?s=(d-h)/f*60+120:u===d&&(s=(h-o)/f*60+240),0===g||u===i?c=0:0<g&&g<=127.5?c=f/(u+i):127.5<g&&(c=f/(510-(u+i)))),s=Math.round(s),c=Math.round(100*c),g=Math.round(g),t&&(m(t.h)&&(s=Math.floor(s*(100+t.h)/100),s=Math.min(360,s),s=Math.max(0,s)),m(t.s)&&(c=Math.floor(c*(100+t.s)/100),c=Math.min(100,c),c=Math.max(0,c)),m(t.l)&&(g=Math.floor(g*(100+t.l)/100),g=Math.min(100,g),g=Math.max(0,g))),{h:s,s:c,l:g}}var n=function(a,t){for(var r=a.data,n=a.width,e=a.height,h=t.percent,o=void 0===h?{}:h,d=new ImageData(n,e),i=0;i<r.length;i+=4){var u=r[i],f=r[i+1],s=r[i+2],c=r[i+3],g=b({r:u,g:f,b:s},o),M=l({},g),m=v(M);d.data[i]=m.r,d.data[i+1]=m.g,d.data[i+2]=m.b,d.data[i+3]=c}return d},r=Object.freeze({gray:function(a){for(var t=a.imageData,r=t.data,n=t.width,e=t.height,h=new ImageData(n,e),o=0;o<r.length;o+=4){var d=(r[o+0]+r[o+1]+r[o+2])/3;h.data[o+0]=d,h.data[o+1]=d,h.data[o+2]=d,h.data[o+3]=255}return h},personSkin:function(a){for(var t=a.imageData,r=t.data,n=t.width,e=t.height,h=new ImageData(n,e),o=0;o<r.length;o+=4){var d=r[4*o],i=r[4*o+1],u=r[4*o+2];15<Math.abs(d-i)&&i<d&&u<d?95<d&&40<i&&20<u&&15<Math.max(d,i,u)-Math.min(d,i,u)?(h.data[4*o]=1,h.data[4*o+1]=1,h.data[4*o+2]=1):220<d&&210<i&&170<u?(h.data[4*o]=1,h.data[4*o+1]=1,h.data[4*o+2]=1):(h.data[4*o]=d,h.data[4*o+1]=i,h.data[4*o+2]=u):(h.data[4*o]=255,h.data[4*o+1]=255,h.data[4*o+2]=255),h.data[4*o+3]=255}return h},transform:function(a){var t=a.imageData,r=a.options;return n(t,void 0===r?{}:r)}});onmessage=function(a){var t=(0,r[a.data.key])(a.data.param);postMessage({key:a.data.key,result:t},void 0)}}();
+(function () {
+  'use strict';
+
+  var filterGrayImageData = function (opts) {
+      var imageData = opts.imageData;
+      var data = imageData.data;
+      var width = imageData.width;
+      var height = imageData.height;
+      var filteredImageData = new ImageData(width, height);
+      for (var i = 0; i < data.length; i += 4) {
+          var redChannel = data[i + 0];
+          var greenChannel = data[i + 1];
+          var blueChannel = data[i + 2];
+          // const alphaChannel = data[i + 3];
+          var grayChannel = (redChannel + greenChannel + blueChannel) / 3;
+          filteredImageData.data[i + 0] = grayChannel;
+          filteredImageData.data[i + 1] = grayChannel;
+          filteredImageData.data[i + 2] = grayChannel;
+          filteredImageData.data[i + 3] = 255;
+      }
+      return filteredImageData;
+  };
+
+  var filterPersonSkinImageData = function (opts) {
+      var imageData = opts.imageData;
+      var data = imageData.data;
+      var width = imageData.width;
+      var height = imageData.height;
+      var filteredImageData = new ImageData(width, height);
+      for (var i = 0; i < data.length; i += 4) {
+          var red = data[i * 4];
+          var green = data[i * 4 + 1];
+          var blue = data[i * 4 + 2];
+          var alpha = 255; // data[i * 4 + 3];
+          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
+              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else if (red > 220 && green > 210 && blue > 170) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else {
+                  filteredImageData.data[i * 4] = red;
+                  filteredImageData.data[i * 4 + 1] = green;
+                  filteredImageData.data[i * 4 + 2] = blue;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+          }
+          else {
+              // filteredImageData.data[i * 4] = red;
+              // filteredImageData.data[i * 4 + 1] = green;
+              // filteredImageData.data[i * 4 + 2] = blue;
+              // filteredImageData.data[i * 4 + 3] = alpha;
+              filteredImageData.data[i * 4] = 255;
+              filteredImageData.data[i * 4 + 1] = 255;
+              filteredImageData.data[i * 4 + 2] = 255;
+              filteredImageData.data[i * 4 + 3] = 255;
+          }
+      }
+      return filteredImageData;
+  };
+
+  /*! *****************************************************************************
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+  this file except in compliance with the License. You may obtain a copy of the
+  License at http://www.apache.org/licenses/LICENSE-2.0
+
+  THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+  WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+  MERCHANTABLITY OR NON-INFRINGEMENT.
+
+  See the Apache Version 2.0 License for specific language governing permissions
+  and limitations under the License.
+  ***************************************************************************** */
+
+  var __assign = function() {
+      __assign = Object.assign || function __assign(t) {
+          for (var s, i = 1, n = arguments.length; i < n; i++) {
+              s = arguments[i];
+              for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+          }
+          return t;
+      };
+      return __assign.apply(this, arguments);
+  };
+
+  var RGBA_MID = 255 / 2;
+  var RGBA_MAX = 255;
+  var RGBA_MIN = 0;
+  var H_MAX = 360;
+  var S_MAX = 100;
+  var L_MAX = 100;
+
+  // const H2RGBNum = function(l: number): number {
+  //   let num = l / H_MAX * RGBA_MAX;
+  //   num = Math.round(num);
+  //   return num;
+  // }
+  // const S2RGBNum = function(l: number): number {
+  //   let num = l / S_MAX * RGBA_MAX;
+  //   num = Math.round(num);
+  //   return num;
+  // }
+  var L2RGBNum = function (l) {
+      var num = l * RGBA_MAX;
+      num = Math.round(num);
+      num = Math.max(0, num);
+      num = Math.min(255, num);
+      return num;
+  };
+  var HSL2RGB = function (cell) {
+      var originH = cell.h;
+      var originS = cell.s;
+      var originL = cell.l;
+      var h = originH / H_MAX; // [0, 1];
+      var s = originS / S_MAX; // [0, 1];
+      var l = originL / L_MAX; // [0, 1];
+      // const max = 1;
+      // const min = 0;
+      // const mid = 0.5
+      var r = 0;
+      var g = 0;
+      var b = 0;
+      if (s === 0) {
+          r = L2RGBNum(l);
+          g = r;
+          b = g;
+          // g = L2RGBNum(l * RGBA_MAX);
+          // b = L2RGBNum(l * RGBA_MAX);
+      }
+      else {
+          var tempRGB = [];
+          var q = l >= 0.5 ? (l + s - l * s) : (l * (1 + s));
+          var p = 2 * l - q;
+          tempRGB[0] = h + 1 / 3;
+          tempRGB[1] = h;
+          tempRGB[2] = h - 1 / 3;
+          for (var i = 0; i < tempRGB.length; i++) {
+              var tempColor = tempRGB[i];
+              if (tempColor < 0) {
+                  tempColor = tempColor + 1;
+              }
+              else if (tempColor > 1) {
+                  tempColor = tempColor - 1;
+              }
+              switch (true) {
+                  case (tempColor < (1 / 6)):
+                      tempColor = p + (q - p) * 6 * tempColor;
+                      break;
+                  case ((1 / 6) <= tempColor && tempColor < 0.5):
+                      tempColor = q;
+                      break;
+                  case (0.5 <= tempColor && tempColor < (2 / 3)):
+                      tempColor = p + (q - p) * (4 - 6 * tempColor);
+                      break;
+                  default:
+                      tempColor = p;
+                      break;
+              }
+              tempRGB[i] = Math.round(tempColor * RGBA_MAX);
+          }
+          r = tempRGB[0];
+          g = tempRGB[1];
+          b = tempRGB[2];
+      }
+      return { r: r, g: g, b: b };
+  };
+
+  var parseRGBNum = function (origin) {
+      return origin * 100 / RGBA_MAX; // [1, 100]
+  };
+  function isPercent(num) {
+      if (num >= -100 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var RGB2HSL = function (cell, percent) {
+      // console.log('percent ==', percent);
+      var orginR = cell.r;
+      var orginG = cell.g;
+      var orginB = cell.b;
+      var r = parseRGBNum(orginR);
+      var g = parseRGBNum(orginG);
+      var b = parseRGBNum(orginB);
+      var min = Math.min(r, g, b);
+      var max = Math.max(r, g, b);
+      var range = max - min;
+      var h = 0; // [0, 360]
+      var s = 0; // [0, 100]
+      var l = (max + min) / 2; // [0, 100]
+      if (max === min) {
+          h = 0;
+          s = 0;
+      }
+      else {
+          // transform Hua
+          if (max === r && g >= b) {
+              h = 60 * ((g - b) / range) + 0;
+          }
+          else if (max === r && g < b) {
+              h = 60 * ((g - b) / range) + 360;
+          }
+          else if (max === g) {
+              h = 60 * ((b - r) / range) + 120;
+          }
+          else if (max === b) {
+              h = 60 * ((r - g) / range) + 240;
+          }
+          // tranform Statution
+          if (l === 0 || max === min) {
+              s = 0;
+          }
+          else if (l > RGBA_MIN && l <= RGBA_MID) {
+              s = range / (max + min);
+          }
+          else if (l > RGBA_MID) {
+              s = range / (2 * RGBA_MAX - (max + min));
+          }
+      }
+      h = Math.round(h);
+      s = Math.round(s * 100);
+      l = Math.round(l);
+      if (percent) {
+          if (isPercent(percent.h)) {
+              h = Math.floor(h * (100 + percent.h) / 100);
+              h = Math.min(360, h);
+              h = Math.max(0, h);
+          }
+          if (isPercent(percent.s)) {
+              s = Math.floor(s * (100 + percent.s) / 100);
+              s = Math.min(100, s);
+              s = Math.max(0, s);
+          }
+          if (isPercent(percent.l)) {
+              l = Math.floor(l * (100 + percent.l) / 100);
+              l = Math.min(100, l);
+              l = Math.max(0, l);
+          }
+      }
+      return { h: h, s: s, l: l };
+  };
+
+  var transformImageData = function (imageData, opts) {
+      var data = imageData.data, width = imageData.width, height = imageData.height;
+      var _a = opts.percent, percent = _a === void 0 ? {} : _a;
+      var filteredImageData = new ImageData(width, height);
+      for (var i = 0; i < data.length; i += 4) {
+          var r = data[i];
+          var g = data[i + 1];
+          var b = data[i + 2];
+          var a = data[i + 3];
+          var cell = { r: r, g: g, b: b };
+          var hslCell = RGB2HSL(cell, percent);
+          var rsHsl = __assign({}, hslCell);
+          var rgbCell = HSL2RGB(rsHsl);
+          filteredImageData.data[i] = rgbCell.r;
+          filteredImageData.data[i + 1] = rgbCell.g;
+          filteredImageData.data[i + 2] = rgbCell.b;
+          filteredImageData.data[i + 3] = a;
+      }
+      return filteredImageData;
+  };
+  var transform = {
+      HSL2RGB: HSL2RGB,
+      RGB2HSL: RGB2HSL,
+      transformImageData: transformImageData
+  };
+
+  var filterTransform = function (filerOpts) {
+      var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
+      var filteredImageData = transform.transformImageData(imageData, options);
+      return filteredImageData;
+  };
+
+
+
+  var filterMap = /*#__PURE__*/Object.freeze({
+    gray: filterGrayImageData,
+    personSkin: filterPersonSkinImageData,
+    transform: filterTransform
+  });
+
+  onmessage = function (event) {
+      var filerAction = filterMap[event.data.key];
+      var result = filerAction(event.data.param);
+      postMessage({
+          'key': event.data.key,
+          'result': result
+      }, undefined);
+  };
+
+}());
+//# sourceMappingURL=worker.js.map

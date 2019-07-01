@@ -889,7 +889,6 @@
       };
       return Panel;
   }());
-  //# sourceMappingURL=index.js.map
 
   var filterGrayImageData = function (opts) {
       var imageData = opts.imageData;
@@ -1221,6 +1220,7 @@
           }
       });
   };
+  //# sourceMappingURL=worker.js.map
 
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {

@@ -1,1 +1,221 @@
-!function(t,r){"object"==typeof exports&&"undefined"!=typeof module?module.exports=r():"function"==typeof define&&define.amd?define("Pictool.core.digit.transform",r):((t=t||self).Pictool=t.Pictool||{},t.Pictool.core=t.Pictool.core||{},t.Pictool.core.digit=t.Pictool.core.digit||{},t.Pictool.core.digit.transform=r())}(this,function(){"use strict";function g(t){var r=t.h/360,a=t.s/100,o=t.l/100,n=0,e=0,i=0;if(0==a)i=e=n=function(t){var r=t*d;return r=Math.round(r),r=Math.max(0,r),r=Math.min(255,r)}(o);else{var c=[],h=.5<=o?o+a-o*a:o*(1+a),f=2*o-h;c[0]=r+1/3,c[1]=r,c[2]=r-1/3;for(var u=0;u<c.length;u++){var l=c[u];switch(l<0?l+=1:1<l&&(l-=1),!0){case l<1/6:l=f+6*(h-f)*l;break;case 1/6<=l&&l<.5:l=h;break;case.5<=l&&l<2/3:l=f+(h-f)*(4-6*l);break;default:l=f}c[u]=Math.round(l*d)}n=c[0],e=c[1],i=c[2]}return{r:n,g:e,b:i}}function m(t){return 100*t/d}var v=function(){return(v=Object.assign||function(t){for(var r,a=1,o=arguments.length;a<o;a++)for(var n in r=arguments[a])Object.prototype.hasOwnProperty.call(r,n)&&(t[n]=r[n]);return t}).apply(this,arguments)},d=255;function M(t){return-100<=t&&t<=100}function p(t,r){var a=t.r,o=t.g,n=t.b,e=m(a),i=m(o),c=m(n),h=Math.min(e,i,c),f=Math.max(e,i,c),u=f-h,l=0,d=0,s=(f+h)/2;return f===h?d=l=0:(f===e&&c<=i?l=(i-c)/u*60+0:f===e&&i<c?l=(i-c)/u*60+360:f===i?l=(c-e)/u*60+120:f===c&&(l=(e-i)/u*60+240),0===s||f===h?d=0:0<s&&s<=127.5?d=u/(f+h):127.5<s&&(d=u/(510-(f+h)))),l=Math.round(l),d=Math.round(100*d),s=Math.round(s),r&&(M(r.h)&&(l=Math.floor(l*(100+r.h)/100),l=Math.min(360,l),l=Math.max(0,l)),M(r.s)&&(d=Math.floor(d*(100+r.s)/100),d=Math.min(100,d),d=Math.max(0,d)),M(r.l)&&(s=Math.floor(s*(100+r.l)/100),s=Math.min(100,s),s=Math.max(0,s))),{h:l,s:d,l:s}}return{HSL2RGB:g,RGB2HSL:p,transformImageData:function(t,r){for(var a=t.data,o=t.width,n=t.height,e=r.percent,i=void 0===e?{}:e,c=new ImageData(o,n),h=0;h<a.length;h+=4){var f=a[h],u=a[h+1],l=a[h+2],d=a[h+3],s=p({r:f,g:u,b:l},i),m=v({},s),M=g(m);c.data[h]=M.r,c.data[h+1]=M.g,c.data[h+2]=M.b,c.data[h+3]=d}return c}}});
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('Pictool.core.digit.transform', factory) :
+    (global = global || self, (global.Pictool = global.Pictool || {}, global.Pictool.core = global.Pictool.core || {}, global.Pictool.core.digit = global.Pictool.core.digit || {}, global.Pictool.core.digit.transform = factory()));
+}(this, function () { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    var RGBA_MID = 255 / 2;
+    var RGBA_MAX = 255;
+    var RGBA_MIN = 0;
+    var H_MAX = 360;
+    var S_MAX = 100;
+    var L_MAX = 100;
+
+    // const H2RGBNum = function(l: number): number {
+    //   let num = l / H_MAX * RGBA_MAX;
+    //   num = Math.round(num);
+    //   return num;
+    // }
+    // const S2RGBNum = function(l: number): number {
+    //   let num = l / S_MAX * RGBA_MAX;
+    //   num = Math.round(num);
+    //   return num;
+    // }
+    var L2RGBNum = function (l) {
+        var num = l * RGBA_MAX;
+        num = Math.round(num);
+        num = Math.max(0, num);
+        num = Math.min(255, num);
+        return num;
+    };
+    var HSL2RGB = function (cell) {
+        var originH = cell.h;
+        var originS = cell.s;
+        var originL = cell.l;
+        var h = originH / H_MAX; // [0, 1];
+        var s = originS / S_MAX; // [0, 1];
+        var l = originL / L_MAX; // [0, 1];
+        // const max = 1;
+        // const min = 0;
+        // const mid = 0.5
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        if (s === 0) {
+            r = L2RGBNum(l);
+            g = r;
+            b = g;
+            // g = L2RGBNum(l * RGBA_MAX);
+            // b = L2RGBNum(l * RGBA_MAX);
+        }
+        else {
+            var tempRGB = [];
+            var q = l >= 0.5 ? (l + s - l * s) : (l * (1 + s));
+            var p = 2 * l - q;
+            tempRGB[0] = h + 1 / 3;
+            tempRGB[1] = h;
+            tempRGB[2] = h - 1 / 3;
+            for (var i = 0; i < tempRGB.length; i++) {
+                var tempColor = tempRGB[i];
+                if (tempColor < 0) {
+                    tempColor = tempColor + 1;
+                }
+                else if (tempColor > 1) {
+                    tempColor = tempColor - 1;
+                }
+                switch (true) {
+                    case (tempColor < (1 / 6)):
+                        tempColor = p + (q - p) * 6 * tempColor;
+                        break;
+                    case ((1 / 6) <= tempColor && tempColor < 0.5):
+                        tempColor = q;
+                        break;
+                    case (0.5 <= tempColor && tempColor < (2 / 3)):
+                        tempColor = p + (q - p) * (4 - 6 * tempColor);
+                        break;
+                    default:
+                        tempColor = p;
+                        break;
+                }
+                tempRGB[i] = Math.round(tempColor * RGBA_MAX);
+            }
+            r = tempRGB[0];
+            g = tempRGB[1];
+            b = tempRGB[2];
+        }
+        return { r: r, g: g, b: b };
+    };
+
+    var parseRGBNum = function (origin) {
+        return origin * 100 / RGBA_MAX; // [1, 100]
+    };
+    function isPercent(num) {
+        if (num >= -100 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    var RGB2HSL = function (cell, percent) {
+        // console.log('percent ==', percent);
+        var orginR = cell.r;
+        var orginG = cell.g;
+        var orginB = cell.b;
+        var r = parseRGBNum(orginR);
+        var g = parseRGBNum(orginG);
+        var b = parseRGBNum(orginB);
+        var min = Math.min(r, g, b);
+        var max = Math.max(r, g, b);
+        var range = max - min;
+        var h = 0; // [0, 360]
+        var s = 0; // [0, 100]
+        var l = (max + min) / 2; // [0, 100]
+        if (max === min) {
+            h = 0;
+            s = 0;
+        }
+        else {
+            // transform Hua
+            if (max === r && g >= b) {
+                h = 60 * ((g - b) / range) + 0;
+            }
+            else if (max === r && g < b) {
+                h = 60 * ((g - b) / range) + 360;
+            }
+            else if (max === g) {
+                h = 60 * ((b - r) / range) + 120;
+            }
+            else if (max === b) {
+                h = 60 * ((r - g) / range) + 240;
+            }
+            // tranform Statution
+            if (l === 0 || max === min) {
+                s = 0;
+            }
+            else if (l > RGBA_MIN && l <= RGBA_MID) {
+                s = range / (max + min);
+            }
+            else if (l > RGBA_MID) {
+                s = range / (2 * RGBA_MAX - (max + min));
+            }
+        }
+        h = Math.round(h);
+        s = Math.round(s * 100);
+        l = Math.round(l);
+        if (percent) {
+            if (isPercent(percent.h)) {
+                h = Math.floor(h * (100 + percent.h) / 100);
+                h = Math.min(360, h);
+                h = Math.max(0, h);
+            }
+            if (isPercent(percent.s)) {
+                s = Math.floor(s * (100 + percent.s) / 100);
+                s = Math.min(100, s);
+                s = Math.max(0, s);
+            }
+            if (isPercent(percent.l)) {
+                l = Math.floor(l * (100 + percent.l) / 100);
+                l = Math.min(100, l);
+                l = Math.max(0, l);
+            }
+        }
+        return { h: h, s: s, l: l };
+    };
+
+    var transformImageData = function (imageData, opts) {
+        var data = imageData.data, width = imageData.width, height = imageData.height;
+        var _a = opts.percent, percent = _a === void 0 ? {} : _a;
+        var filteredImageData = new ImageData(width, height);
+        for (var i = 0; i < data.length; i += 4) {
+            var r = data[i];
+            var g = data[i + 1];
+            var b = data[i + 2];
+            var a = data[i + 3];
+            var cell = { r: r, g: g, b: b };
+            var hslCell = RGB2HSL(cell, percent);
+            var rsHsl = __assign({}, hslCell);
+            var rgbCell = HSL2RGB(rsHsl);
+            filteredImageData.data[i] = rgbCell.r;
+            filteredImageData.data[i + 1] = rgbCell.g;
+            filteredImageData.data[i + 2] = rgbCell.b;
+            filteredImageData.data[i + 3] = a;
+        }
+        return filteredImageData;
+    };
+    var transform = {
+        HSL2RGB: HSL2RGB,
+        RGB2HSL: RGB2HSL,
+        transformImageData: transformImageData
+    };
+
+    return transform;
+
+}));
+//# sourceMappingURL=transform.js.map

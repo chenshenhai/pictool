@@ -1,8 +1,11 @@
 module.exports = {
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "rules": {
-    "@typescript-eslint/rule-name": "error",
+    "@typescript-eslint/rule-name": "off",
     "indent": ["error", 2, {
       "SwitchCase": 1,
       "VariableDeclarator": 1,

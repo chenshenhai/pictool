@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node_modules/.bin/rollup -c ./build/rollup.config.prod.js",
     "dev": "node_modules/.bin/rollup -w -c ./build/rollup.config.dev.js",
-    "lint": "./node_modules/.bin/eslint --fix --ext .ts ./src"
+    "lint": "./node_modules/.bin/eslint --fix --ext .ts ./src",
+    "precommit": "npm run lint",
+    "prepush": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "eslint": "^5.16.0",
+    "husky": "^2.7.0",
     "less": "^3.9.0",
     "rollup": "^1.15.6",
     "rollup-plugin-babel": "^4.3.2",

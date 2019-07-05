@@ -4,6 +4,7 @@ const postcss = require('rollup-plugin-postcss');
 // const buble = require('rollup-plugin-buble'); 
 const babel = require('rollup-plugin-babel');
 const less = require('less');
+const config = require('./config');
 
 const resolveFile = function(filePath) {
   return path.join(__dirname, '..', filePath)
@@ -64,37 +65,21 @@ function getPlugins() {
 }
 
 
-module.exports = [
-  {
-    input: resolveFile('src/index.ts'),
-    output: {
-      file: resolveFile('dist/index.js'),
-      format: 'umd',
-      name: 'Pictool.UI',
-      amd: {
-        id: 'Pictool.UI'
-      }
-    }, 
-    plugins: getPlugins(),
-  },
-  {
-    input: resolveFile('src/worker.ts'),
-    output: {
-      file: resolveFile('dist/worker.js'),
-      format: 'iife',
-    }, 
-    plugins: getPlugins(),
-  },
-  {
-    input: resolveFile('src/core/digit/transform/index.ts'),
-    output: {
-      file: resolveFile('dist/core/digit/transform.js'),
-      format: 'umd',
-      name: 'Pictool.core.digit.transform',
-      amd: {
-        id: 'Pictool.core.digit.transform'
-      }
-    }, 
-    plugins: getPlugins(),
-  },
-]
+
+function parseConfig (config = []) {
+  const rsConfig = [];
+  if (Array.isArray(config) && config.length > 0) {
+    config.forEach(function(item = {}) {
+      item.output.file = resolveFile(item.output.file);
+      const output = item.output;
+      rsConfig.push({
+        input: resolveFile(item.input),
+        output,
+        plugins: getPlugins(),
+      })
+    });
+  }
+  return rsConfig;
+}
+
+module.exports = parseConfig(config);

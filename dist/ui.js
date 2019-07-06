@@ -73,7 +73,6 @@
       };
       return Mask;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$1 = ".pictool-module-sketch {\n  width: 100%;\n  height: 100%;\n  display: table;\n}\n.pictool-module-sketch .pictool-sketch-container {\n  width: 100%;\n  height: 100%;\n  display: table-row;\n}\n.pictool-module-sketch .pictool-sketch-main {\n  width: 100%;\n  height: 100%;\n  display: table-cell;\n  vertical-align: middle;\n  text-align: center;\n}\n.pictool-module-sketch .pictool-sketch-main .pictool-sketch-canvas {\n  max-height: 100%;\n  max-width: 100%;\n}\n.pictool-module-sketch .pictool-sketch-hidden-area {\n  width: 0;\n  height: 0;\n  display: none;\n}\n";
   styleInject(css$1);
@@ -87,7 +86,6 @@
           ctx.putImageData(imageData, 0, 0);
       }
   };
-  //# sourceMappingURL=render.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -173,7 +171,6 @@
           return parsePrototype(data) === 'ImageData';
       }
   };
-  //# sourceMappingURL=istype.js.map
 
   // Copyright 2019 The Authors chenshenhai. All rights reserved. MIT license.
   var context2dRenderActionMap = {
@@ -215,7 +212,6 @@
           console.warn("Layer can't support execute context." + method);
       }
   };
-  //# sourceMappingURL=draw-action.js.map
 
   // Copyright 2019 The Authors chenshenhai. All rights reserved. MIT license.
   var Layer = /** @class */ (function () {
@@ -252,7 +248,6 @@
       };
       return Layer;
   }());
-  //# sourceMappingURL=index.js.map
 
   // Copyright 2019 The Authors chenshenhai. All rights reserved. MIT license.
   var Sketch = /** @class */ (function () {
@@ -331,7 +326,6 @@
       };
       return Sketch;
   }());
-  //# sourceMappingURL=index.js.map
 
   // Copyright 2019 The Authors chenshenhai. All rights reserved. MIT license.
   function mergeCSS2Style(css) {
@@ -418,7 +412,6 @@
       };
       return Sketchpad;
   }(Sketch));
-  //# sourceMappingURL=index.js.map
 
   var EventEmitter = /** @class */ (function () {
       function EventEmitter() {
@@ -446,10 +439,8 @@
       };
       return EventEmitter;
   }());
-  //# sourceMappingURL=event-emitter.js.map
 
   var eventHub = new EventEmitter();
-  //# sourceMappingURL=event-hub.js.map
 
   var cacheStorage = new Map();
   var cacheHub = {
@@ -460,7 +451,6 @@
           return cacheStorage.get(key);
       }
   };
-  //# sourceMappingURL=cache-hub.js.map
 
   var schemaParser = {
       parseImageData: function (schema) {
@@ -547,7 +537,6 @@
       };
       return Sketch;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$2 = ".pictool-module-dashboard {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-dashboard .pictool-dashboard-navlist {\n  position: absolute;\n  height: 80px;\n  display: flex;\n  background: #ffffff;\n  width: 100%;\n  bottom: 0;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  padding-top: 40px;\n  position: relative;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-filter::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1561203862001\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8800\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M632 888H392c-4.4 0-8 3.6-8 8v32c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32v-32c0-4.4-3.6-8-8-8zM512 64c-181.1 0-328 146.9-328 328 0 121.4 66 227.4 164 284.1V792c0 17.7 14.3 32 32 32h264c17.7 0 32-14.3 32-32V676.1c98-56.7 164-162.7 164-284.1 0-181.1-146.9-328-328-328z m127.9 549.8L604 634.6V752H420V634.6l-35.9-20.8C305.4 568.3 256 484.5 256 392c0-141.4 114.6-256 256-256s256 114.6 256 256c0 92.5-49.4 176.3-128.1 221.8z\" p-id=\"8801\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-adjust::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561283541458\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8719\" width=\"200\" height=\"200\"><path d=\"M924.8 385.6c-22.6-53.4-54.9-101.3-96-142.4-41.1-41.1-89-73.4-142.4-96C631.1 123.8 572.5 112 512 112s-119.1 11.8-174.4 35.2c-53.4 22.6-101.3 54.9-142.4 96-41.1 41.1-73.4 89-96 142.4C75.8 440.9 64 499.5 64 560c0 132.7 58.3 257.7 159.9 343.1l1.7 1.4c5.8 4.8 13.1 7.5 20.6 7.5h531.7c7.5 0 14.8-2.7 20.6-7.5l1.7-1.4C901.7 817.7 960 692.7 960 560c0-60.5-11.9-119.1-35.2-174.4zM761.4 836H262.6C184.5 765.5 140 665.6 140 560c0-99.4 38.7-192.8 109-263 70.3-70.3 163.7-109 263-109 99.4 0 192.8 38.7 263 109 70.3 70.3 109 163.7 109 263 0 105.6-44.5 205.5-122.6 276z\" p-id=\"8720\" fill=\"%23666666\"></path><path d=\"M623.5 421.5c-3.1-3.1-8.2-3.1-11.3 0L527.7 506c-18.7-5-39.4-0.2-54.1 14.5-21.9 21.9-21.9 57.3 0 79.2 21.9 21.9 57.3 21.9 79.2 0 14.7-14.7 19.5-35.4 14.5-54.1l84.5-84.5c3.1-3.1 3.1-8.2 0-11.3l-28.3-28.3zM490 320h44c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8zM750 538v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8zM762.7 340.8l-31.1-31.1c-3.1-3.1-8.2-3.1-11.3 0l-56.6 56.6c-3.1 3.1-3.1 8.2 0 11.3l31.1 31.1c3.1 3.1 8.2 3.1 11.3 0l56.6-56.6c3.1-3.1 3.1-8.2 0-11.3zM304.1 309.7c-3.1-3.1-8.2-3.1-11.3 0l-31.1 31.1c-3.1 3.1-3.1 8.2 0 11.3l56.6 56.6c3.1 3.1 8.2 3.1 11.3 0l31.1-31.1c3.1-3.1 3.1-8.2 0-11.3l-56.6-56.6zM262 530h-80c-4.4 0-8 3.6-8 8v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8z\" p-id=\"8721\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-edit::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204025732\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9039\" width=\"200\" height=\"200\"><path d=\"M904 512h-56c-4.4 0-8 3.6-8 8v320H184V184h320c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V520c0-4.4-3.6-8-8-8z\" p-id=\"9040\" fill=\"%23666666\"></path><path d=\"M355.9 534.9L354 653.8c-0.1 8.9 7.1 16.2 16 16.2h0.4l118-2.9c2-0.1 4-0.9 5.4-2.3l415.9-415c3.1-3.1 3.1-8.2 0-11.3L785.4 114.3c-1.6-1.6-3.6-2.3-5.7-2.3s-4.1 0.8-5.7 2.3l-415.8 415c-1.4 1.5-2.3 3.5-2.3 5.6z m63.5 23.6L779.7 199l45.2 45.1-360.5 359.7-45.7 1.1 0.7-46.4z\" p-id=\"9041\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-text::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204122356\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9245\" width=\"200\" height=\"200\"><path d=\"M904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zM253.7 736h85c4.2 0 8-2.7 9.3-6.8l53.7-166h219.2l53.2 166c1.3 4 5 6.8 9.3 6.8h89.1c1.1 0 2.2-0.2 3.2-0.5 5.1-1.8 7.8-7.3 6-12.4L573.6 118.6c-1.4-3.9-5.1-6.6-9.2-6.6H462.1c-4.2 0-7.9 2.6-9.2 6.6L244.5 723.1c-0.4 1-0.5 2.1-0.5 3.2-0.1 5.3 4.3 9.7 9.7 9.7z m255.9-516.1h4.1l83.8 263.8H424.9l84.7-263.8z\" p-id=\"9246\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
   styleInject(css$2);
@@ -570,7 +559,6 @@
       var styleAttr = cssList.join('; ');
       return styleAttr;
   };
-  //# sourceMappingURL=style.js.map
 
   var Progress = /** @class */ (function () {
       function Progress(opts) {
@@ -686,7 +674,6 @@
       };
       return Progress;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$4 = "@keyframes loading-animate {\n  0% {\n    width: 0%;\n  }\n  100% {\n    width: 90%;\n  }\n}\n.pictool-component-loading {\n  position: fixed;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 1000;\n  background: #000000aa;\n  display: none;\n}\n.pictool-component-loading.loading-show {\n  display: block;\n}\n.pictool-component-loading.loading-show .pictool-loading-inner {\n  height: 100%;\n  width: 90%;\n  background: -webkit-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -moz-linear-gradient(left, #4bf0f882, hsl(216, 67%, 55%));\n  background: -o-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -ms-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: linear-gradient(left, #4bf0f882, #3d7bd9);\n  border-radius: 10px;\n  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.2);\n  animation: loading-animate 10s linear;\n}\n.pictool-component-loading.loading-show .pictool-loading-outer {\n  position: absolute;\n  top: 50%;\n  left: 10%;\n  right: 10%;\n  height: 10px;\n  border-radius: 10px;\n  background: -webkit-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -moz-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -o-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -ms-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: linear-gradient(left, #e4e3e4, #e4e5e4);\n}\n";
   styleInject(css$4);
@@ -732,7 +719,6 @@
       };
       return Loading;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$5 = ".pictool-component-actionsheet {\n  display: none;\n  background: #ffffff00;\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-component-actionsheet .pictool-actionsheet-container {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 100%;\n  width: 100%;\n  background: #ffffff;\n  transition: 0.6s;\n}\n.pictool-component-actionsheet.actionsheet-open {\n  display: block;\n}\n.pictool-component-actionsheet .pictool-actionsheet-content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  background: #ffffff;\n}\n";
   styleInject(css$5);
@@ -799,7 +785,6 @@
       };
       return ActionSheet;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$6 = ".pictool-module-panel {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-panel .pictool-panel-header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.08);\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-title {\n  line-height: 40px;\n  text-align: center;\n  font-size: 16px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299766263\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9368\" width=\"200\" height=\"200\"><path d=\"M685.4 354.8c0-4.4-3.6-8-8-8l-66 0.3L512 465.6l-99.3-118.4-66.1-0.3c-4.4 0-8 3.5-8 8 0 1.9 0.7 3.7 1.9 5.2l130.1 155L340.5 670c-1.2 1.5-1.9 3.3-1.9 5.2 0 4.4 3.6 8 8 8l66.1-0.3L512 564.4l99.3 118.4 66 0.3c4.4 0 8-3.5 8-8 0-1.9-0.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z\" p-id=\"9369\" fill=\"%23666666\"></path><path d=\"M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z\" p-id=\"9370\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-navigation {\n  position: absolute;\n  height: 80px;\n  width: 100%;\n  bottom: 0;\n  background: #2196f30d;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width {\n  display: block;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width .pictool-panel-nav-btn {\n  width: 80px;\n  display: block;\n  float: left;\n}\n.pictool-module-panel .pictool-panel-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  position: relative;\n  padding-top: 40px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561214557317\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8147\" width=\"200\" height=\"200\"><path d=\"M336 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8148\" fill=\"%23666666\"></path><path d=\"M688 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8149\" fill=\"%23666666\"></path><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2-44.3-18.7-84.1-45.6-118.3-79.8-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8c18.7-44.3 45.6-84.1 79.8-118.3 34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2 44.3 18.7 84.1 45.6 118.3 79.8 34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8c-18.7 44.3-45.6 84.1-79.8 118.2z\" p-id=\"8150\" fill=\"%23666666\"></path><path d=\"M664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360c-4.6 0-8.2 3.8-8 8.4 4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6c0.2-4.6-3.4-8.4-8-8.4z\" p-id=\"8151\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active {\n  color: #17abe3;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299983080\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9592\" width=\"200\" height=\"200\"><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48z m224 272c-85.5 0-155.6-67.3-160-151.6-0.2-4.6 3.4-8.4 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664c4.6 0 8.2 3.8 8 8.4-4.4 84.3-74.5 151.6-160 151.6z m176-224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z\" p-id=\"9593\" fill=\"%2317abe3\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
   styleInject(css$6);
@@ -888,7 +873,6 @@
       };
       return Panel;
   }());
-  //# sourceMappingURL=index.js.map
 
   var filterGrayImageData = function (opts) {
       var imageData = opts.imageData;
@@ -909,7 +893,6 @@
       }
       return filteredImageData;
   };
-  //# sourceMappingURL=gray.js.map
 
   var filterPersonSkinImageData = function (opts) {
       var imageData = opts.imageData;
@@ -955,7 +938,6 @@
       }
       return filteredImageData;
   };
-  //# sourceMappingURL=person.js.map
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -963,7 +945,6 @@
   var H_MAX = 360;
   var S_MAX = 100;
   var L_MAX = 100;
-  //# sourceMappingURL=static.js.map
 
   // const H2RGBNum = function(l: number): number {
   //   let num = l / H_MAX * RGBA_MAX;
@@ -1039,7 +1020,6 @@
       }
       return { r: r, g: g, b: b };
   };
-  //# sourceMappingURL=hsl2rgb.js.map
 
   var parseRGBNum = function (origin) {
       return origin * 100 / RGBA_MAX; // [1, 100]
@@ -1117,7 +1097,6 @@
       }
       return { h: h, s: s, l: l };
   };
-  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformImageData = function (imageData, opts) {
       var data = imageData.data, width = imageData.width, height = imageData.height;
@@ -1144,16 +1123,14 @@
       RGB2HSL: RGB2HSL,
       transformImageData: transformImageData
   };
-  //# sourceMappingURL=index.js.map
 
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
       var filteredImageData = transform.transformImageData(imageData, options);
       return filteredImageData;
   };
-  //# sourceMappingURL=transform.js.map
 
-  //# sourceMappingURL=index.js.map
+
 
   var filterMap = /*#__PURE__*/Object.freeze({
     gray: filterGrayImageData,
@@ -1220,7 +1197,6 @@
           }
       });
   };
-  //# sourceMappingURL=worker.js.map
 
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {
@@ -1498,7 +1474,6 @@
       };
       return Dashboard;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$7 = ".pictool-module-header {\n  position: relative;\n  font-size: 14px;\n  color: #ffffff;\n}\n.pictool-module-header .pictool-header-btn-close {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-header .pictool-header-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561213055281\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9866\" width=\"200\" height=\"200\"><path d=\"M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9c-4.4 5.2-0.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z\" p-id=\"9867\" fill=\"%23ffffff\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-header .pictool-header-btn-save {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-header .pictool-header-btn-save::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561213166782\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"10077\" width=\"200\" height=\"200\"><path d=\"M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184z m456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840z\" p-id=\"10078\" fill=\"%23ffffff\"></path><path d=\"M512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144z m0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z\" p-id=\"10079\" fill=\"%23ffffff\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n";
   styleInject(css$7);
@@ -1538,7 +1513,6 @@
       };
       return Header;
   }());
-  //# sourceMappingURL=index.js.map
 
   var ZINDEX = 1000;
   var Pictool = /** @class */ (function () {
@@ -1590,9 +1564,6 @@
       };
       return Pictool;
   }());
-  //# sourceMappingURL=index.js.map
-
-  //# sourceMappingURL=ui.js.map
 
   return Pictool;
 

@@ -1,4 +1,4 @@
-import * as filterMap from './core/filter/index';
+import * as filterMap from './core/digit/filter/index';
 
 onmessage = function (event) {
 

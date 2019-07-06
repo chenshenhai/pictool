@@ -27,7 +27,7 @@ class Pictool {
   private _dashboard: Dashboard = null;
   private _header: Header = null;
 
-  constructor(imageData, options: PictoolOpts = { uiConfig: {}, workerConfig: {path: ''}}) {
+  constructor(imageData, options: PictoolOpts = { uiConfig: {}, workerConfig: { use: false, path: '' }}) {
     this._imageData = imageData;
     this._options = options;
     const { uiConfig = {}, workerConfig } = options;

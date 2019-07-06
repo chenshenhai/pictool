@@ -1,7 +1,7 @@
 import { ActionSheet, ActionSheetOpts, ActionSheetLifeCycleArgs, } from '../../component/action-sheet/index';
-import istype from '../../util/istype';
+import istype from '../../../util/istype';
 import eventHub from '../../service/event-hub';
-import { SketchSchema } from '../../core/sketch';
+import { SketchSchema } from '../../../core/sketch';
 
 import './index.less';
 

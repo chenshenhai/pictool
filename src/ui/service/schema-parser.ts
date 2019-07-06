@@ -1,4 +1,4 @@
-import { SketchSchema } from './../core/sketch/index';
+import { SketchSchema } from '../../core/sketch/index';
 
 const schemaParser = {
   parseImageData(schema: SketchSchema): ImageData {

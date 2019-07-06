@@ -1,7 +1,7 @@
 import { Mask, MaskAfterRenderArgs } from './component/mask/index';
 import { Sketch as ModSketch } from './module/sketch/index';
 import { Dashboard } from './module/dashboard/index';
-import { SketchSchema } from './core/sketch/index';
+import { SketchSchema } from '../core/sketch/index';
 import { Header } from './module/header/index';
 // import schemaParser from './service/schema-parser';
 import { WorkerConfig } from './service/worker';

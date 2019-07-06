@@ -1,5 +1,5 @@
 
-import * as filterMap from './../core/filter/index';
+import * as filterMap from './../../core/filter/index';
 
 export interface WorkerConfig {
   use: boolean;

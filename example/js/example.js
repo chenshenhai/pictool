@@ -5,9 +5,9 @@
   const src = './image/pexels-photo-001.jpg';
 
   async function getTargetImageDataAsync(imageSrc) {
-    const originImg = await Pictool.util.getImageBySrc(imageSrc);
-    const targetImgSrc = await Pictool.util.compressImage(originImg);
-    const targetImgData = await Pictool.util.getImageDataBySrc(targetImgSrc);
+    const originImg = await Pictool.browserUtil.getImageBySrc(imageSrc);
+    const targetImgSrc = await Pictool.browserUtil.compressImage(originImg);
+    const targetImgData = await Pictool.browserUtil.getImageDataBySrc(targetImgSrc);
     return targetImgData;
   }
 

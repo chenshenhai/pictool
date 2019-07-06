@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   </head>
   <body>
-    <script src="./../../dist/core/digit/transform.js"></script>
+    <script src="./../../dist/digit.js"></script>
     <script>
       (function(){
-        const transform = Pictool.core.digit.transform;
+        const transform = Pictool.digit.transform;
         const rgb = {r: 12, g: 15, b: 10};
         const hsl = transform.RGB2HSL(rgb)
 
@@ -15,7 +15,7 @@
         console.log(hsl);	// {h:96, s:20, l:5}
       })();
       (function(){
-        const transform = Pictool.core.digit.transform;
+        const transform = Pictool.digit.transform;
         const hsl = {h:96, s:20, l:5};
         const rgb = transform.HSL2RGB(hsl)
 
@@ -25,7 +25,7 @@
 
 
       (function(){
-        const transform = Pictool.core.digit.transform;
+        const transform = Pictool.digit.transform;
         const rgb = {r: 255, g: 255, b: 255};
         const hsl = transform.RGB2HSL(rgb)
 
@@ -34,7 +34,7 @@
       })();
 
       (function(){
-        const transform = Pictool.core.digit.transform;
+        const transform = Pictool.digit.transform;
         const hsl = {h: 0, s: 0, l: 100};
         const rgb = transform.HSL2RGB(hsl)
 

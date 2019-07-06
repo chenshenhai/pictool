@@ -1,5 +1,5 @@
 import './index.less';
-import istype from '../../util/istype';
+import istype from '../../../util/istype';
 
 export interface HeaderOpts {
   closeFeedback: Function;

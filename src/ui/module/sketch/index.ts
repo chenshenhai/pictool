@@ -1,8 +1,8 @@
 import './index.less';
 
-import canvasRender from './../../core/canvas/render';
-import { SketchSchema } from './../../core/sketch/index';
-import { Sketchpad, SketchpadOptions } from './../../core/sketchpad/index';
+import canvasRender from './../../../core/canvas/render';
+import { SketchSchema } from './../../../core/sketch/index';
+import { Sketchpad, SketchpadOptions } from './../../../core/sketchpad/index';
 import eventHub from './../../service/event-hub';
 import cacheHub from './../../service/cache-hub';
 import schemaParser from './../../service/schema-parser';

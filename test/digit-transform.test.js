@@ -1,7 +1,8 @@
 const chai = require('chai');
-const transform = require('./../dist/core/digit/transform');
+const digit = require('../dist/digit');
 const expect = chai.expect
 
+const transform = digit.transform;
 
 describe( 'test: core-digit-transform', ( ) => {
   it('transform.RGB2HSL', ( done ) => {

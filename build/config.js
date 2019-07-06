@@ -1,8 +1,8 @@
 const config = [
   {
-    input: 'src/index.ts',
+    input: 'src/ui.ts',
     output: {
-      file: 'dist/index.js',
+      file: 'dist/ui.js',
       format: 'umd',
       name: 'Pictool.UI',
       amd: {
@@ -18,24 +18,24 @@ const config = [
     }, 
   },
   {
-    input: 'src/core/digit/transform/index.ts',
+    input: 'src/digit.ts',
     output: {
-      file: 'dist/core/digit/transform.js',
+      file: 'dist/digit.js',
       format: 'umd',
-      name: 'Pictool.core.digit.transform',
+      name: 'Pictool.digit',
       amd: {
-        id: 'Pictool.core.digit.transform'
+        id: 'Pictool.digit'
       }
     }
   },
   {
-    input: 'src/util/index.ts',
+    input: 'src/browser-util.ts',
     output: {
-      file: 'dist/util/index.js',
+      file: 'dist/browser-util.js',
       format: 'umd',
-      name: 'Pictool.util',
+      name: 'Pictool.browserUtil',
       amd: {
-        id: 'Pictool.util'
+        id: 'Pictool.browserUtil'
       }
     }
   }

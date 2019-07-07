@@ -20,6 +20,7 @@
       }
       return filteredImageData;
   };
+  //# sourceMappingURL=gray.js.map
 
   var filterPersonSkinImageData = function (opts) {
       var imageData = opts.imageData;
@@ -65,6 +66,7 @@
       }
       return filteredImageData;
   };
+  //# sourceMappingURL=person.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -98,6 +100,7 @@
   var H_MAX = 360;
   var S_MAX = 100;
   var L_MAX = 100;
+  //# sourceMappingURL=static.js.map
 
   // const H2RGBNum = function(l: number): number {
   //   let num = l / H_MAX * RGBA_MAX;
@@ -173,6 +176,7 @@
       }
       return { r: r, g: g, b: b };
   };
+  //# sourceMappingURL=hsl2rgb.js.map
 
   var parseRGBNum = function (origin) {
       return origin * 100 / RGBA_MAX; // [1, 100]
@@ -250,6 +254,7 @@
       }
       return { h: h, s: s, l: l };
   };
+  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformImageData = function (imageData, opts) {
       var data = imageData.data, width = imageData.width, height = imageData.height;
@@ -276,14 +281,16 @@
       RGB2HSL: RGB2HSL,
       transformImageData: transformImageData
   };
+  //# sourceMappingURL=index.js.map
 
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
       var filteredImageData = transform.transformImageData(imageData, options);
       return filteredImageData;
   };
+  //# sourceMappingURL=transform.js.map
 
-
+  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     gray: filterGrayImageData,
@@ -299,6 +306,7 @@
           'result': result
       }, undefined);
   };
+  //# sourceMappingURL=worker.js.map
 
 }());
 //# sourceMappingURL=worker.js.map

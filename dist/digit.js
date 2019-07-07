@@ -250,6 +250,7 @@
         };
         return DigitImageData;
     }());
+    //# sourceMappingURL=digit-image-data.js.map
 
     var grayscale = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;

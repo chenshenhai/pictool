@@ -28,8 +28,21 @@
         var targetImgSrc = browserUtil.compressImage(originImg);
         
         browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+        
+
           var grayData = digit.algorithm.grayscale(targetImgData);
           var imgData = browserUtil.digitImageData2ImageData(grayData);
+
+          // const tempData = {
+          //   width: imgData.width,
+          //   height: imgData.height,
+          //   data: [],
+          // }
+          // for(let i = 0; i < imgData.data.length; i++) {
+          //   tempData.data.push(imgData.data[i])
+          // }
+          // console.log(JSON.stringify(tempData));
+
           grayData.destory();
           grayData = null;
 

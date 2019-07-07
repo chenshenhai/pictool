@@ -4,19 +4,29 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   </head>
   <body>
+    <h1>Welcome to Pictool</h1>
     <p>hello world</p>
-    <button id="J_BtnPictoolUI">open Pictool.UI</button>
-
-    <ul>
-      <li>
-        <a href="./module/ui.html">module/ui.html</a>
-      </li>
+    <ul id="J_ModuleList">
+      
       <li>
         <a href="./module/digit-transform.html">module/digit-transform.html</a>
       </li>
-      <li>
-        <a href="./module/digit-algorithm.html">module/digit-algorithm.html</a>
-      </li>
     </ul>
+
+    <script>
+      var module = [
+        'ui',
+        'digit-algorithm-grayscale'
+      ]
+      var listHtml = module.map(function(mod) {
+        var path = './module/'+ mod +'.html';
+        var html = 
+          '<ul>' +
+            '<li><a href="'+ path +'" >' + path +'</a></li>' +
+          '</ul>';
+        return html;
+      }).join('');
+      document.querySelector('#J_ModuleList').innerHTML = listHtml;
+    </script>
   </body>
 </html>

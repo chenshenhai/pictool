@@ -10,6 +10,12 @@ export interface DigitImageDataRGBA {
   a: number;
 }
 
+interface TempImageData {
+  data: Uint8ClampedArray,
+  width: number;
+  height: number;
+}
+
 
 export class DigitImageData {
 
@@ -26,7 +32,13 @@ export class DigitImageData {
     this.height = height;
   }
 
-  pixelAt(x: number, y: number): DigitImageDataRGBA {
+  public setData(data: Uint8ClampedArray) {
+    this.data = data.map(function(item){
+      return item;
+    });
+  }
+
+  public pixelAt(x: number, y: number): DigitImageDataRGBA {
     const { width, data } = this;
     const idx = (width * y + x) * 4;
     const r = data[idx];
@@ -37,7 +49,7 @@ export class DigitImageData {
     return rgba;
   }
  
-  destory() {
+  public destory(): void {
     this.data = null;
     this.width = null;
     this.height = null; 

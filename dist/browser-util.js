@@ -42,6 +42,25 @@
           });
       });
   };
+  /**
+   *
+   * @param {ImageData} imageData
+   * @param {object} opts
+   *  opts.type 'image/png' 'image/jpg'
+   *  opts.encoderOptions [0, 1]
+   */
+  var imageData2Base64 = function (imageData, opts) {
+      if (opts === void 0) { opts = { type: 'image/png', encoderOptions: 1 }; }
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = imageData.width;
+      canvas.height = imageData.height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.putImageData(imageData, 0, 0);
+      var base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
+      return base64;
+  };
+  //# sourceMappingURL=image-file.js.map
 
   var IMG_LIMIT_SIZE = 2000 * 2000;
   var PIECE_SIZE = 1000 * 1000;
@@ -108,12 +127,26 @@
       canvas = null;
       return base64;
   };
+  //# sourceMappingURL=compress.js.map
+
+  var digitImageData2ImageData = function (digitImgData) {
+      var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
+      var imgData = new ImageData(width, height);
+      data.forEach(function (num, i) {
+          imgData.data[i] = num;
+      });
+      return imgData;
+  };
+  //# sourceMappingURL=image-data.js.map
 
   var util = {
       getImageBySrc: getImageBySrc,
       getImageDataBySrc: getImageDataBySrc,
-      compressImage: compressImage
+      compressImage: compressImage,
+      imageData2Base64: imageData2Base64,
+      digitImageData2ImageData: digitImageData2ImageData
   };
+  //# sourceMappingURL=browser-util.js.map
 
   return util;
 

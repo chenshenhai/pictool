@@ -228,6 +228,11 @@
             this.width = width;
             this.height = height;
         }
+        DigitImageData.prototype.setData = function (data) {
+            this.data = data.map(function (item) {
+                return item;
+            });
+        };
         DigitImageData.prototype.pixelAt = function (x, y) {
             var _a = this, width = _a.width, data = _a.data;
             var idx = (width * y + x) * 4;
@@ -245,11 +250,11 @@
         };
         return DigitImageData;
     }());
-    //# sourceMappingURL=digit-image-data.js.map
 
     var grayscale = function (imgData) {
-        var width = imgData.width, height = imgData.height;
+        var width = imgData.width, height = imgData.height, data = imgData.data;
         var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
         for (var x = 0; x < width; x++) {
             for (var y = 0; y < height; y++) {
                 var idx = (width * y + x) * 4;
@@ -331,13 +336,20 @@
 
     var digit = {
         transform: transform,
-        algorithm: algorithm
+        algorithm: algorithm,
+        DigitImageData: DigitImageData
     };
     //# sourceMappingURL=index.js.map
 
+    var transform$1 = digit.transform, algorithm$1 = digit.algorithm, DigitImageData$1 = digit.DigitImageData;
+    var digit$1 = {
+        transform: transform$1,
+        algorithm: algorithm$1,
+        DigitImageData: DigitImageData$1
+    };
     //# sourceMappingURL=digit.js.map
 
-    return digit;
+    return digit$1;
 
 }));
 //# sourceMappingURL=digit.js.map

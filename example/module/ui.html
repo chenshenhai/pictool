@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   </head>
   <body>
-    <p>hello world</p>
     <button id="J_BtnPictoolUI">open Pictool.UI</button>
 
     <script src="./../../dist/ui.js"></script>
@@ -36,10 +35,10 @@
             tool.show();
           });
 
-        }).then(function(err) {
+        }).catch(function(err) {
           console.log(err);
         });
-      }).then(function(err) {
+      }).catch(function(err) {
         console.log(err);
       })
     })();

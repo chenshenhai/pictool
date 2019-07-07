@@ -38,3 +38,21 @@ export const getImageDataBySrc = function(imageSrc: string): Promise<ImageData|E
     });
   });
 };
+
+/**
+ * 
+ * @param {ImageData} imageData 
+ * @param {object} opts 
+ *  opts.type 'image/png' 'image/jpg'
+ *  opts.encoderOptions [0, 1]
+ */
+export const imageData2Base64 = function(imageData: ImageData, opts = {type: 'image/png',  encoderOptions: 1 }): string {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = imageData.width;
+  canvas.height = imageData.height;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.putImageData(imageData, 0, 0);
+  const base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
+  return base64;
+}

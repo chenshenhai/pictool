@@ -1,8 +1,9 @@
 import { DigitImageData, DigitImageDataRGBA } from './../digit-image-data';
 
 export const grayscale = function(imgData: DigitImageData): DigitImageData {
-  const { width, height } = imgData;
+  const { width, height, data } = imgData;
   const digitImg = new DigitImageData({width, height});
+  digitImg.setData(data);
 
   for (let x = 0; x < width; x ++) {
     for (let y = 0; y < height; y ++) {

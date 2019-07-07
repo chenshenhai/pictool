@@ -1,0 +1,50 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  </head>
+  <body>
+
+    <div>
+      <img src="./../image/pexels-photo-004.jpg" />
+    </div>
+    <br/>
+    <div id="display">
+      <img />
+    </div>
+
+    <script src="./../../dist/browser-util.js"></script>
+    <script src="./../../dist/digit.js"></script>
+    <script>
+    (function() {
+      // 测试图片来自 www.pexels.com
+      // test photo from www.pexels.com
+
+      var browserUtil = Pictool.browserUtil;
+      var digit = Pictool.digit;
+
+      var src = './../image/pexels-photo-004.jpg';
+      browserUtil.getImageBySrc(src).then(function(originImg) {
+        var targetImgSrc = browserUtil.compressImage(originImg);
+        
+        browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+          var grayData = digit.algorithm.grayscale(targetImgData);
+          var imgData = browserUtil.digitImageData2ImageData(grayData);
+          grayData.destory();
+          grayData = null;
+
+          var base64 = browserUtil.imageData2Base64(imgData);
+          document.querySelector('#display').innerHTML = `
+            <img src="${base64}" />
+          `;
+
+        }).catch(function(err) {
+          console.log(err);
+        });
+      }).catch(function(err) {
+        console.log(err);
+      })
+    })();
+    </script>
+  </body>
+</html>

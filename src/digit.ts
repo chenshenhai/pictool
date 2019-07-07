@@ -1,3 +1,8 @@
 import digit from './core/digit/index';
 
-export default digit;
+const { transform, algorithm, DigitImageData } = digit;
+export default {
+  transform,
+  algorithm,
+  DigitImageData,
+};

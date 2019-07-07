@@ -36,6 +36,7 @@
     var H_MAX = 360;
     var S_MAX = 100;
     var L_MAX = 100;
+    //# sourceMappingURL=static.js.map
 
     // const H2RGBNum = function(l: number): number {
     //   let num = l / H_MAX * RGBA_MAX;
@@ -111,6 +112,7 @@
         }
         return { r: r, g: g, b: b };
     };
+    //# sourceMappingURL=hsl2rgb.js.map
 
     var parseRGBNum = function (origin) {
         return origin * 100 / RGBA_MAX; // [1, 100]
@@ -188,6 +190,7 @@
         }
         return { h: h, s: s, l: l };
     };
+    //# sourceMappingURL=rgb2hsl.js.map
 
     var transformImageData = function (imageData, opts) {
         var data = imageData.data, width = imageData.width, height = imageData.height;
@@ -214,10 +217,125 @@
         RGB2HSL: RGB2HSL,
         transformImageData: transformImageData
     };
+    //# sourceMappingURL=index.js.map
+
+    var DigitImageData = /** @class */ (function () {
+        function DigitImageData(opts) {
+            var width = opts.width, height = opts.height;
+            var size = width * height * 4;
+            var data = new Uint8ClampedArray(size);
+            this.data = data;
+            this.width = width;
+            this.height = height;
+        }
+        DigitImageData.prototype.pixelAt = function (x, y) {
+            var _a = this, width = _a.width, data = _a.data;
+            var idx = (width * y + x) * 4;
+            var r = data[idx];
+            var g = data[idx + 1];
+            var b = data[idx + 2];
+            var a = data[idx + 3];
+            var rgba = { r: r, g: g, b: b, a: a };
+            return rgba;
+        };
+        DigitImageData.prototype.destory = function () {
+            this.data = null;
+            this.width = null;
+            this.height = null;
+        };
+        return DigitImageData;
+    }());
+    //# sourceMappingURL=digit-image-data.js.map
+
+    var grayscale = function (imgData) {
+        var width = imgData.width, height = imgData.height;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var idx = (width * y + x) * 4;
+                var px = digitImg.pixelAt(x, y);
+                var gray = Math.round((px.r + px.g + px.b) / 3);
+                digitImg.data[idx] = gray;
+                digitImg.data[idx + 1] = gray;
+                digitImg.data[idx + 2] = gray;
+                digitImg.data[idx + 3] = 255;
+            }
+        }
+        return digitImg;
+    };
+    //# sourceMappingURL=grayscale.js.map
+
+    // Thanks to https://github.com/miguelmota/sobel/
+    function imgDataAt(digitData, x, y) {
+        var width = digitData.width, data = digitData.data;
+        var idx = (width * y + x) * 4;
+        var num = data[idx];
+        if (!(num >= 0 && num < 255)) {
+            num = 0;
+        }
+        return num;
+    }
+    var sobel = function (imgData) {
+        var width = imgData.width, height = imgData.height;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        var kernelX = [
+            [-1, 0, 1],
+            [-2, 0, 2],
+            [-1, 0, 1]
+        ];
+        var kernelY = [
+            [-1, -2, -1],
+            [0, 0, 0],
+            [1, 2, 1]
+        ];
+        var grayImg = grayscale(imgData);
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var pixelX = ((kernelX[0][0] * imgDataAt(grayImg, x - 1, y - 1)) +
+                    (kernelX[0][1] * imgDataAt(grayImg, x, y - 1)) +
+                    (kernelX[0][2] * imgDataAt(grayImg, x + 1, y - 1)) +
+                    (kernelX[1][0] * imgDataAt(grayImg, x - 1, y)) +
+                    (kernelX[1][1] * imgDataAt(grayImg, x, y)) +
+                    (kernelX[1][2] * imgDataAt(grayImg, x + 1, y)) +
+                    (kernelX[2][0] * imgDataAt(grayImg, x - 1, y + 1)) +
+                    (kernelX[2][1] * imgDataAt(grayImg, x, y + 1)) +
+                    (kernelX[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
+                var pixelY = ((kernelY[0][0] * imgDataAt(grayImg, x - 1, y - 1)) +
+                    (kernelY[0][1] * imgDataAt(grayImg, x, y - 1)) +
+                    (kernelY[0][2] * imgDataAt(grayImg, x + 1, y - 1)) +
+                    (kernelY[1][0] * imgDataAt(grayImg, x - 1, y)) +
+                    (kernelY[1][1] * imgDataAt(grayImg, x, y)) +
+                    (kernelY[1][2] * imgDataAt(grayImg, x + 1, y)) +
+                    (kernelY[2][0] * imgDataAt(grayImg, x - 1, y + 1)) +
+                    (kernelY[2][1] * imgDataAt(grayImg, x, y + 1)) +
+                    (kernelY[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
+                var magnitude = Math.round(Math.sqrt((pixelX * pixelX) + (pixelY * pixelY)));
+                var idx = (width * y + x) * 4;
+                digitImg.data[idx] = magnitude;
+                digitImg.data[idx + 1] = magnitude;
+                digitImg.data[idx + 2] = magnitude;
+                digitImg.data[idx + 3] = 255;
+            }
+        }
+        grayImg.destory();
+        grayImg = null;
+        return digitImg;
+    };
+    //# sourceMappingURL=sobel.js.map
+
+    var algorithm = {
+        grayscale: grayscale,
+        sobel: sobel
+    };
+    //# sourceMappingURL=index.js.map
 
     var digit = {
-        transform: transform
+        transform: transform,
+        algorithm: algorithm
     };
+    //# sourceMappingURL=index.js.map
+
+    //# sourceMappingURL=digit.js.map
 
     return digit;
 

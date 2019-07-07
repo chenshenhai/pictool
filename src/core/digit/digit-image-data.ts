@@ -3,6 +3,13 @@ export interface DigitImageDataOpts {
   height: number;
 }
 
+export interface DigitImageDataRGBA {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}
+
 
 export class DigitImageData {
 
@@ -18,5 +25,21 @@ export class DigitImageData {
     this.width = width;
     this.height = height;
   }
-  
+
+  pixelAt(x: number, y: number): DigitImageDataRGBA {
+    const { width, data } = this;
+    const idx = (width * y + x) * 4;
+    const r = data[idx];
+    const g = data[idx + 1];
+    const b = data[idx + 2];
+    const a = data[idx + 3];
+    const rgba: DigitImageDataRGBA = {r, g, b, a};
+    return rgba;
+  }
+ 
+  destory() {
+    this.data = null;
+    this.width = null;
+    this.height = null; 
+  }
 }

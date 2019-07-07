@@ -1,0 +1,49 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  </head>
+  <body>
+    <p>hello world</p>
+    <button id="J_BtnPictoolUI">open Pictool.UI</button>
+
+    <script src="./../../dist/ui.js"></script>
+    <script src="./../../dist/browser-util.js"></script>
+    
+    <script>
+    (function() {
+      // 测试图片来自 www.pexels.com
+      // test photo from www.pexels.com
+      // const testImg = './image/github-404.png';
+      var src = './../image/pexels-photo-001.jpg';
+      Pictool.browserUtil.getImageBySrc(src).then(function(originImg) {
+        var targetImgSrc = Pictool.browserUtil.compressImage(originImg);
+        Pictool.browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+        
+          var tool = new Pictool.UI(targetImgData, {
+            uiConfig: {
+              zIndex: 1234,
+            },
+            workerConfig: {
+              use: true,
+              path: './../../dist/worker.js',
+            }
+          });
+          tool.show();
+
+          var btn = document.querySelector('#J_BtnPictoolUI');
+          btn.addEventListener('click', function() {
+            tool.show();
+          });
+
+        }).then(function(err) {
+          console.log(err);
+        });
+      }).then(function(err) {
+        console.log(err);
+      })
+    })();
+    
+    </script>
+  </body>
+</html>

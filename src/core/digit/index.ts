@@ -1,10 +1,10 @@
 import transform from './transform/index';
-import algorithm from './algorithm/index';
+import process from './process/index';
 import { DigitImageData } from './digit-image-data';
 
 const digit = {
   transform,
-  algorithm,
+  process,
   DigitImageData,
 }
 

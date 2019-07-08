@@ -30,7 +30,7 @@
         browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
         
 
-          var rsData = digit.algorithm.invert(targetImgData);
+          var rsData = digit.process.grayscale(targetImgData);
           var imgData = browserUtil.digitImageData2ImageData(rsData);
 
           // const tempData = {

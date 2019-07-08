@@ -347,7 +347,7 @@
     };
     //# sourceMappingURL=invert.js.map
 
-    var algorithm = {
+    var process = {
         grayscale: grayscale,
         sobel: sobel,
         invert: invert
@@ -356,18 +356,17 @@
 
     var digit = {
         transform: transform,
-        algorithm: algorithm,
+        process: process,
         DigitImageData: DigitImageData
     };
     //# sourceMappingURL=index.js.map
 
-    var transform$1 = digit.transform, algorithm$1 = digit.algorithm, DigitImageData$1 = digit.DigitImageData;
+    var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
         transform: transform$1,
-        algorithm: algorithm$1,
+        process: process$1,
         DigitImageData: DigitImageData$1
     };
-    //# sourceMappingURL=digit.js.map
 
     return digit$1;
 

@@ -250,6 +250,7 @@
         };
         return DigitImageData;
     }());
+    //# sourceMappingURL=digit-image-data.js.map
 
     var grayscale = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -328,9 +329,28 @@
     };
     //# sourceMappingURL=sobel.js.map
 
+    var invert = function (imgData) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var idx = (width * y + x) * 4;
+                var px = digitImg.pixelAt(x, y);
+                digitImg.data[idx] = RGBA_MAX - px.r;
+                digitImg.data[idx + 1] = RGBA_MAX - px.g;
+                digitImg.data[idx + 2] = RGBA_MAX - px.b;
+                digitImg.data[idx + 3] = px.a;
+            }
+        }
+        return digitImg;
+    };
+    //# sourceMappingURL=invert.js.map
+
     var algorithm = {
         grayscale: grayscale,
-        sobel: sobel
+        sobel: sobel,
+        invert: invert
     };
     //# sourceMappingURL=index.js.map
 

@@ -1,13 +1,13 @@
-enum EffectProcessAction {
-  brightness = '',
-};
 
 
-export interface EffectProcess {
-  process: string;
-  args: any[];
-}
+class Effect {
+  private _imageData: ImageData = null;
 
-export const effect = function(process) {
+  constructor(imageData: ImageData) {
+    this._imageData = imageData;
+  }
+  
+  alogrithm(key: string, args: any[]) {
 
+  }
 }

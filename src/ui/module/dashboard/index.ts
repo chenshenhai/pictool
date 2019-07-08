@@ -154,7 +154,6 @@ export class Dashboard {
       navList: [{
         name: '原图',
         feedback() {
-          // TODO
           const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           return Promise.resolve(sketchSchema);
         }

@@ -367,6 +367,7 @@
         process: process$1,
         DigitImageData: DigitImageData$1
     };
+    //# sourceMappingURL=digit.js.map
 
     return digit$1;
 

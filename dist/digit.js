@@ -36,6 +36,7 @@
     var H_MAX = 360;
     var S_MAX = 100;
     var L_MAX = 100;
+    //# sourceMappingURL=static.js.map
 
     // const H2RGBNum = function(l: number): number {
     //   let num = l / H_MAX * RGBA_MAX;
@@ -111,6 +112,7 @@
         }
         return { r: r, g: g, b: b };
     };
+    //# sourceMappingURL=hsl2rgb.js.map
 
     var parseRGBNum = function (origin) {
         return origin * 100 / RGBA_MAX; // [1, 100]
@@ -148,7 +150,6 @@
         }
     }
     var RGB2HSL = function (cell, opts) {
-        var percent = opts.percent, value = opts.value;
         var orginR = cell.r;
         var orginG = cell.g;
         var orginB = cell.b;
@@ -193,35 +194,37 @@
         h = Math.round(h);
         s = Math.round(s * 100);
         l = Math.round(l);
-        if (value) {
-            if (isHueValue(value.h)) {
+        if (opts && opts.value) {
+            var value = opts.value;
+            if (value.h && isHueValue(value.h)) {
                 h = value.h;
                 h = Math.min(360, h);
                 h = Math.max(0, h);
             }
-            if (isStaurationValue(value.s)) {
+            if (value.s && isStaurationValue(value.s)) {
                 s = value.s;
                 s = Math.min(100, s);
                 s = Math.max(0, s);
             }
-            if (isLightnessValue(value.l)) {
+            if (value.l && isLightnessValue(value.l)) {
                 l = value.l;
                 l = Math.min(100, l);
                 l = Math.max(0, l);
             }
         }
-        else if (percent) {
-            if (isPercent(percent.h)) {
+        else if (opts && opts.percent) {
+            var percent = opts.percent;
+            if (percent.h && isPercent(percent.h)) {
                 h = Math.floor(h * (100 + percent.h) / 100);
                 h = Math.min(360, h);
                 h = Math.max(0, h);
             }
-            if (isPercent(percent.s)) {
+            if (percent.s && isPercent(percent.s)) {
                 s = Math.floor(s * (100 + percent.s) / 100);
                 s = Math.min(100, s);
                 s = Math.max(0, s);
             }
-            if (isPercent(percent.l)) {
+            if (percent.l && isPercent(percent.l)) {
                 l = Math.floor(l * (100 + percent.l) / 100);
                 l = Math.min(100, l);
                 l = Math.max(0, l);
@@ -261,6 +264,7 @@
         };
         return DigitImageData;
     }());
+    //# sourceMappingURL=digit-image-data.js.map
 
     var transformImageData = function (imageData, opts) {
         var data = imageData.data, width = imageData.width, height = imageData.height;
@@ -307,6 +311,7 @@
         RGB2HSL: RGB2HSL,
         transformImageData: transformImageData,
     };
+    //# sourceMappingURL=index.js.map
 
     var grayscale = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -325,6 +330,7 @@
         }
         return digitImg;
     };
+    //# sourceMappingURL=grayscale.js.map
 
     // Thanks to https://github.com/miguelmota/sobel/
     function imgDataAt(digitData, x, y) {
@@ -382,6 +388,7 @@
         grayImg = null;
         return digitImg;
     };
+    //# sourceMappingURL=sobel.js.map
 
     var invert = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -399,6 +406,7 @@
         }
         return digitImg;
     };
+    //# sourceMappingURL=invert.js.map
 
     var hue = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -415,6 +423,7 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
+    //# sourceMappingURL=hue.js.map
 
     var lightness = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -431,6 +440,7 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
+    //# sourceMappingURL=lightness.js.map
 
     var saturation = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -447,6 +457,7 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
+    //# sourceMappingURL=saturation.js.map
 
     var process = {
         grayscale: grayscale,
@@ -456,12 +467,14 @@
         lightness: lightness,
         saturation: saturation,
     };
+    //# sourceMappingURL=index.js.map
 
     var digit = {
         transform: transform,
         process: process,
         DigitImageData: DigitImageData,
     };
+    //# sourceMappingURL=index.js.map
 
     var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
@@ -469,6 +482,7 @@
         process: process$1,
         DigitImageData: DigitImageData$1,
     };
+    //# sourceMappingURL=digit.js.map
 
     return digit$1;
 

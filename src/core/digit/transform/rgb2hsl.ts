@@ -6,7 +6,7 @@ const parseRGBNum = function(origin: number): number {
   return origin * 100 / RGBA_MAX; // [1, 100]
 }
 
-function isPercent(num) {
+function isPercent(num: number) {
   if(num >= -100 && num <= 100) {
     return true;
   } else {
@@ -14,7 +14,7 @@ function isPercent(num) {
   }
 }
 
-function isHueValue(num) {
+function isHueValue(num: number) {
   if(num >= 0 && num <= 360) {
     return true;
   } else {
@@ -22,7 +22,7 @@ function isHueValue(num) {
   }
 }
 
-function isLightnessValue(num) {
+function isLightnessValue(num: number) {
   if(num >= 0 && num <= 100) {
     return true;
   } else {
@@ -30,7 +30,7 @@ function isLightnessValue(num) {
   }
 }
 
-function isStaurationValue(num) {
+function isStaurationValue(num: number) {
   if(num >= 0 && num <= 100) {
     return true;
   } else {
@@ -57,8 +57,6 @@ export interface HSLTransformOpts {
 }
 
 export const RGB2HSL = function(cell: RGBCell, opts?: HSLTransformOpts): HSLCell {
-  
-  const { percent, value } = opts;
   
   const orginR = cell.r;
   const orginG = cell.g;
@@ -107,38 +105,40 @@ export const RGB2HSL = function(cell: RGBCell, opts?: HSLTransformOpts): HSLCell
   s = Math.round(s * 100);
   l = Math.round(l);
 
-  if (value) {
-    if (isHueValue(value.h)) {
+  if (opts && opts.value) {
+    const { value } = opts;
+    if (value.h && isHueValue(value.h)) {
       h = value.h;
       h = Math.min(360, h);
       h = Math.max(0, h);
     }
   
-    if (isStaurationValue(value.s)) {
+    if (value.s && isStaurationValue(value.s)) {
       s = value.s;
       s = Math.min(100, s);
       s = Math.max(0, s);
     }
   
-    if (isLightnessValue(value.l)) {
+    if (value.l && isLightnessValue(value.l)) {
       l = value.l;
       l = Math.min(100, l);
       l = Math.max(0, l);
     }
-  } else if (percent) {
-    if (isPercent(percent.h)) {
+  } else if (opts && opts.percent) {
+    const { percent } = opts;
+    if (percent.h && isPercent(percent.h)) {
       h = Math.floor(h * (100 + percent.h) / 100);
       h = Math.min(360, h);
       h = Math.max(0, h);
     }
   
-    if (isPercent(percent.s)) {
+    if (percent.s && isPercent(percent.s)) {
       s = Math.floor(s * (100 + percent.s) / 100);
       s = Math.min(100, s);
       s = Math.max(0, s);
     }
   
-    if (isPercent(percent.l)) {
+    if (percent.l && isPercent(percent.l)) {
       l = Math.floor(l * (100 + percent.l) / 100)
       l = Math.min(100, l);
       l = Math.max(0, l);

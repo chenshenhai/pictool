@@ -32,7 +32,6 @@
       };
       return DigitImageData;
   }());
-  //# sourceMappingURL=digit-image-data.js.map
 
   var grayscale = function (imgData) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -51,7 +50,6 @@
       }
       return digitImg;
   };
-  //# sourceMappingURL=grayscale.js.map
 
   // Thanks to https://github.com/miguelmota/sobel/
   function imgDataAt(digitData, x, y) {
@@ -109,7 +107,6 @@
       grayImg = null;
       return digitImg;
   };
-  //# sourceMappingURL=sobel.js.map
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -117,7 +114,6 @@
   var H_MAX = 360;
   var S_MAX = 100;
   var L_MAX = 100;
-  //# sourceMappingURL=static.js.map
 
   var invert = function (imgData) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -135,7 +131,6 @@
       }
       return digitImg;
   };
-  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -237,7 +232,6 @@
       }
       return { r: r, g: g, b: b };
   };
-  //# sourceMappingURL=hsl2rgb.js.map
 
   var parseRGBNum = function (origin) {
       return origin * 100 / RGBA_MAX; // [1, 100]
@@ -403,7 +397,6 @@
       RGB2HSL: RGB2HSL,
       transformImageData: transformImageData,
   };
-  //# sourceMappingURL=index.js.map
 
   var hue = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -420,7 +413,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=hue.js.map
 
   var lightness = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -437,7 +429,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -454,7 +445,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=saturation.js.map
 
   var process = {
       grayscale: grayscale,
@@ -464,7 +454,6 @@
       lightness: lightness,
       saturation: saturation,
   };
-  //# sourceMappingURL=index.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
@@ -474,7 +463,6 @@
       });
       return imgData;
   };
-  //# sourceMappingURL=image-data.js.map
 
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
@@ -503,7 +491,6 @@
       };
       return Effect;
   }());
-  //# sourceMappingURL=index.js.map
 
   var filterPersonSkinImageData = function (opts) {
       var imageData = opts.imageData;
@@ -549,14 +536,12 @@
       }
       return filteredImageData;
   };
-  //# sourceMappingURL=person.js.map
 
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
       var filteredImageData = transform.transformImageData(imageData, options);
       return filteredImageData;
   };
-  //# sourceMappingURL=transform.js.map
 
   var origin = function (opts) {
       var imageData = opts.imageData;
@@ -586,7 +571,6 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -606,7 +590,6 @@
           'result': result
       }, undefined);
   };
-  //# sourceMappingURL=worker.js.map
 
 }());
 //# sourceMappingURL=worker.js.map

@@ -9,6 +9,8 @@ import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
 import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
+import { adjustMenuConfig } from './config';
+
 export interface DashboardOpts {
   zIndex: number;
   workerConfig: WorkerConfig;
@@ -200,110 +202,38 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
-      title: '调节',
+      title: adjustMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: [{
-        name: '亮度',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          
-          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-            percent: 50,
-            range: {max: 100, min: -100},
-            onChange: function(data) {
-              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-              asyncWorker({
-                key: 'lightness',
-                param: { imageData, options: {
-                  percent: Math.round(data.value)
-                }}
-              }, workerConfig).then(function(rs: ImageData) {
-                const newSchema = schemaParser.parseImageDataToSchema(rs);
-                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              }).catch(function(err) {
-                console.log(err);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              })
-            }
-          });
-          return null;
+      navList: adjustMenuConfig.menu.map(function(conf) {
+        return {
+          name: conf.name,
+          feedback() {
+            const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+            const imageData = schemaParser.parseImageData(sketchSchema);
+            
+            eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
+              percent: conf.percent,
+              range: {max: conf.range.max, min: conf.range.min },
+              onChange: function(data) {
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
+                asyncWorker({
+                  key: conf.filter,
+                  param: { imageData, options: conf.parseOptions(data), }
+                }, workerConfig).then(function(rs: ImageData) {
+                  const newSchema = schemaParser.parseImageDataToSchema(rs);
+                  eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
+                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                }).catch(function(err) {
+                  console.log(err);
+                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                })
+              }
+            });
+            return null;
+          }
         }
-      }, {
-        name: '饱和度',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          
-          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-            percent: 50,
-            onChange: function(data) {
-              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-              asyncWorker({
-                key: 'transform',
-                param: { imageData, options: {
-                  percent: {
-                    s: data.value || 0,
-                  }
-                }}
-              }, workerConfig).then(function(rs: ImageData) {
-                const newSchema = schemaParser.parseImageDataToSchema(rs);
-                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              }).catch(function(err) {
-                console.log(err);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              })
-            }
-          });
-          return null;
-        }
-      }, {
-        name: '色阶',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          
-          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-            percent: 50,
-            onChange: function(data) {
-              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-              asyncWorker({
-                key: 'transform',
-                param: { imageData, options: {
-                  percent: {
-                    h: data.value || 0,
-                  }
-                }}
-              }, workerConfig).then(function(rs: ImageData) {
-                const newSchema = schemaParser.parseImageDataToSchema(rs);
-                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              }).catch(function(err) {
-                console.log(err);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              })
-            }
-          });
-          return null;
-        }
-      }, {
-        name: '锐化',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }, {
-        name: '虚化',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }, ]
+      }),
     });
     return panel;
   }

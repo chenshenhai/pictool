@@ -231,6 +231,7 @@
         }
         return { h: h, s: s, l: l };
     };
+    //# sourceMappingURL=rgb2hsl.js.map
 
     var DigitImageData = /** @class */ (function () {
         function DigitImageData(opts) {
@@ -407,6 +408,23 @@
     };
     //# sourceMappingURL=invert.js.map
 
+    var hue = function (imgData, opts) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        var percent = null;
+        var value = null;
+        if (opts.value) {
+            value = { h: opts.value };
+        }
+        else if (opts.percent) {
+            percent = { h: opts.percent };
+        }
+        digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+        return digitImg;
+    };
+    //# sourceMappingURL=hue.js.map
+
     var lightness = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
         var digitImg = new DigitImageData({ width: width, height: height });
@@ -429,6 +447,7 @@
         sobel: sobel,
         invert: invert,
         lightness: lightness,
+        hue: hue,
     };
     //# sourceMappingURL=index.js.map
 

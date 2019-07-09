@@ -67,7 +67,7 @@ export class Panel {
         </div>
         <div class="pictool-panel-navigation">
           <div class="pictool-panel-navlist ${isBeyond === true ? 'panel-beyond-width' : ''}" 
-            style="${isBeyond === true ? `width: ${(navList.length + 1) * 80}px` : ''}"
+            style="${isBeyond === true ? `width: ${(navList.length + 1) * 120}px` : ''}"
           >
           ${istype.array(navList) && navList.map(function(nav: NavBtn, idx) {
     return ` 

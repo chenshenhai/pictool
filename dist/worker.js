@@ -356,6 +356,7 @@
       }
       return { h: h, s: s, l: l };
   };
+  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformImageData = function (imageData, opts) {
       var data = imageData.data, width = imageData.width, height = imageData.height;
@@ -404,6 +405,23 @@
   };
   //# sourceMappingURL=index.js.map
 
+  var hue = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { h: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { h: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=hue.js.map
+
   var lightness = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
       var digitImg = new DigitImageData({ width: width, height: height });
@@ -426,6 +444,7 @@
       sobel: sobel,
       invert: invert,
       lightness: lightness,
+      hue: hue,
   };
   //# sourceMappingURL=index.js.map
 
@@ -527,6 +546,12 @@
       var rsImageData = effect.process('grayscale').getImageData();
       return rsImageData;
   };
+  var hue$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('hue', options).getImageData();
+      return rsImageData;
+  };
   var lightness$1 = function (opts) {
       var imageData = opts.imageData, options = opts.options;
       var effect = new Effect(imageData);
@@ -537,6 +562,7 @@
 
   var filterMap = /*#__PURE__*/Object.freeze({
     gray: gray,
+    hue: hue$1,
     lightness: lightness$1,
     personSkin: filterPersonSkinImageData,
     transform: filterTransform

@@ -143,8 +143,8 @@ export class Progress {
     let percent = parseInt(percentAttr, 10);
     percent = Math.min(100, percent);
     percent = Math.max(0, percent);
-    percent = this._rangeList[percent]
-    return percent;
+    const value = this._rangeList[percent]
+    return value;
   }
 
   private _getViewAbsoluteLeft(elem){

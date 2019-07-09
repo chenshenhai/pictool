@@ -25,3 +25,10 @@ export const lightness = function(opts: FilterOpts ) {
   const rsImageData = effect.process('lightness', options).getImageData();
   return rsImageData;
 }
+
+export const saturation = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  const effect = new Effect(imageData);
+  const rsImageData = effect.process('saturation', options).getImageData();
+  return rsImageData;
+}

@@ -439,12 +439,30 @@
   };
   //# sourceMappingURL=lightness.js.map
 
+  var saturation = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { s: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { s: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=saturation.js.map
+
   var process = {
       grayscale: grayscale,
       sobel: sobel,
       invert: invert,
-      lightness: lightness,
       hue: hue,
+      lightness: lightness,
+      saturation: saturation,
   };
   //# sourceMappingURL=index.js.map
 
@@ -558,12 +576,18 @@
       var rsImageData = effect.process('lightness', options).getImageData();
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
+  var saturation$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('saturation', options).getImageData();
+      return rsImageData;
+  };
 
   var filterMap = /*#__PURE__*/Object.freeze({
     gray: gray,
     hue: hue$1,
     lightness: lightness$1,
+    saturation: saturation$1,
     personSkin: filterPersonSkinImageData,
     transform: filterTransform
   });

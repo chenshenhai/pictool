@@ -10,7 +10,7 @@ export interface LightnessOpts {
   value?: number; // [0, 100]
 } 
 
-export const lightness = function(
+export const saturation = function(
   imgData: DigitImageData,
   opts: LightnessOpts
 ): DigitImageData {
@@ -21,9 +21,9 @@ export const lightness = function(
   let percent: HSLTransformPercent = null;
   let value: HSLTransformValue = null;
   if (opts.value) {
-    value = { l: opts.value }
+    value = { s: opts.value }
   } else if (opts.percent) {
-    percent = { l: opts.percent }
+    percent = { s: opts.percent }
   }
   digitImg = transformDigitImageData(digitImg, {percent, value});
 

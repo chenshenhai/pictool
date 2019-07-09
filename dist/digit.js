@@ -442,12 +442,30 @@
     };
     //# sourceMappingURL=lightness.js.map
 
+    var saturation = function (imgData, opts) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        var percent = null;
+        var value = null;
+        if (opts.value) {
+            value = { s: opts.value };
+        }
+        else if (opts.percent) {
+            percent = { s: opts.percent };
+        }
+        digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+        return digitImg;
+    };
+    //# sourceMappingURL=saturation.js.map
+
     var process = {
         grayscale: grayscale,
         sobel: sobel,
         invert: invert,
-        lightness: lightness,
         hue: hue,
+        lightness: lightness,
+        saturation: saturation,
     };
     //# sourceMappingURL=index.js.map
 

@@ -29,6 +29,20 @@ export const adjustMenuConfig = {
           value: Math.round(data.value)
         }
       }
-    }
+    },
+    {
+      name: 'Saturation',
+      percent: 50,
+      range: {
+        min: -100,
+        max: 100, 
+      },
+      filter: 'saturation',
+      parseOptions(data) {
+        return {
+          percent: Math.round(data.value)
+        }
+      }
+    },
   ]
 }

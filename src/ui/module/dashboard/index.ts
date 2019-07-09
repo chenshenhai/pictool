@@ -9,6 +9,10 @@ import eventHub from './../../service/event-hub';
 import schemaParser from './../../service/schema-parser';
 import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
+
+import { adjustMenuConfig } from './config/adjust';
+import { filterMenuConfig } from './config/filter';
+
 export interface DashboardOpts {
   zIndex: number;
   workerConfig: WorkerConfig;
@@ -35,19 +39,11 @@ export class Dashboard {
       <div class="pictool-module-dashboard" style="z-index:${zIndex};">
         <div class="pictool-dashboard-navlist">
           <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
-            <span>滤镜</span>
+            <span>${filterMenuConfig.title}</span>
           </div>
           <div class="pictool-dashboard-nav-btn dashboard-adjust" data-nav-action="adjust" >
-            <span>调节</span>
+            <span>${adjustMenuConfig.title}</span>
           </div>
-          <div class="pictool-dashboard-nav-btn dashboard-edit" data-nav-action="edit" >
-            <span>编辑</span>
-          </div>
-          <!--
-          <div class="pictool-dashboard-nav-btn dashboard-text" data-nav-action="text" >
-            <span>文字</span>
-          </div>
-          -->
         </div>
       </div>
     `;
@@ -64,8 +60,6 @@ export class Dashboard {
     const { zIndex, workerConfig, } = options;
     const btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
     const btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
-    const btnEdit = this._mount.querySelector('[data-nav-action="edit"]');
-    const btnText = this._mount.querySelector('[data-nav-action="text"]');
 
     const opts : ActionSheetOpts = {
       mount: this._mount,
@@ -82,20 +76,11 @@ export class Dashboard {
       adjustPanel.show();
     });
 
-    const editPanel = this._initEditPanel();
-    btnEdit.addEventListener('click', function() {
-      editPanel.show();
-    });
-
-    // btnText.addEventListener('click', function() {
-    //   console.log('text')
-    // });
-
     const progress = new Progress({
       mount: this._mount,
       percent: 40,
       max: 100,
-      min: -100,
+      min: 0,
       customStyle: {
         'z-index': zIndex + 1,
         'position': 'fixed',
@@ -112,7 +97,8 @@ export class Dashboard {
     progress.hide();
 
     eventHub.on('GlobalEvent.moduleDashboard.progress.show', function(opts = {}) {
-      const { percent, onChange, } = opts;
+      const { percent, onChange, range, } = opts;
+      progress.resetRange(range.min, range.max);
       progress.resetOnChange(onChange);
       progress.resetPercent(percent);
       progress.show();
@@ -121,10 +107,9 @@ export class Dashboard {
     eventHub.on('GlobalEvent.moduleDashboard.progress.hide', function() {
       progress.resetOnChange(null);
       progress.resetPercent(50);
+      progress.resetRange(0, 100);
       progress.hide();
     });
-
-
 
     const loading = new Loading({
       zIndex: zIndex + 1000,
@@ -148,51 +133,29 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
-      title: '滤镜',
+      title: filterMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: [{
-        name: '原图',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
+      navList: filterMenuConfig.menu.map(function(conf) {
+        return {
+          name: conf.name,
+          feedback() {
+            const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+            const imageData = schemaParser.parseImageData(sketchSchema);
+            return new Promise(function(resolve, reject) {
+              asyncWorker({
+                key: conf.filter,
+                param: { imageData, options: {} }
+              }, workerConfig).then(function(rs: ImageData) {
+                const newSchema = schemaParser.parseImageDataToSchema(rs);
+                resolve(newSchema);
+              }).then(function(err) {
+                reject(err);
+              })
+            });
+          }
         }
-      }, {
-        name: '黑白',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          return new Promise(function(resolve, reject) {
-            asyncWorker({
-              key: 'gray',
-              param: { imageData, options: {} }
-            }, workerConfig).then(function(rs: ImageData) {
-              const newSchema = schemaParser.parseImageDataToSchema(rs);
-              resolve(newSchema);
-            }).then(function(err) {
-              reject(err);
-            })
-          });
-        }
-      }, {
-        name: '人物识别',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          return new Promise(function(resolve, reject) {
-            asyncWorker({
-              key: 'personSkin',
-              param: { imageData, options: {} }
-            }, workerConfig).then(function(rs: ImageData) {
-              const newSchema = schemaParser.parseImageDataToSchema(rs);
-              resolve(newSchema);
-            }).then(function(err) {
-              reject(err);
-            })
-          });
-        }
-      }]
+      }),
     });
     return panel;
   }
@@ -201,111 +164,38 @@ export class Dashboard {
     const options: DashboardOpts = this._opts;
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
-      title: '调节',
+      title: adjustMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: [{
-        name: '亮度',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          
-          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-            percent: 50,
-            onChange: function(data) {
-              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-              asyncWorker({
-                key: 'transform',
-                param: { imageData, options: {
-                  percent: {
-                    l: data.value || 0,
-                  }
-                }}
-              }, workerConfig).then(function(rs: ImageData) {
-                const newSchema = schemaParser.parseImageDataToSchema(rs);
-                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              }).catch(function(err) {
-                console.log(err);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              })
-            }
-          });
-          return null;
+      navList: adjustMenuConfig.menu.map(function(conf) {
+        return {
+          name: conf.name,
+          feedback() {
+            const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+            const imageData = schemaParser.parseImageData(sketchSchema);
+            
+            eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
+              percent: conf.percent,
+              range: {max: conf.range.max, min: conf.range.min },
+              onChange: function(data) {
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
+                asyncWorker({
+                  key: conf.filter,
+                  param: { imageData, options: conf.parseOptions(data), }
+                }, workerConfig).then(function(rs: ImageData) {
+                  const newSchema = schemaParser.parseImageDataToSchema(rs);
+                  eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
+                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                }).catch(function(err) {
+                  console.log(err);
+                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                })
+              }
+            });
+            return null;
+          }
         }
-      }, {
-        name: '饱和度',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          
-          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-            percent: 50,
-            onChange: function(data) {
-              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-              asyncWorker({
-                key: 'transform',
-                param: { imageData, options: {
-                  percent: {
-                    s: data.value || 0,
-                  }
-                }}
-              }, workerConfig).then(function(rs: ImageData) {
-                const newSchema = schemaParser.parseImageDataToSchema(rs);
-                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              }).catch(function(err) {
-                console.log(err);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              })
-            }
-          });
-          return null;
-        }
-      }, {
-        name: '色阶',
-        feedback() {
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          const imageData = schemaParser.parseImageData(sketchSchema);
-          
-          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-            percent: 50,
-            onChange: function(data) {
-              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-              asyncWorker({
-                key: 'transform',
-                param: { imageData, options: {
-                  percent: {
-                    h: data.value || 0,
-                  }
-                }}
-              }, workerConfig).then(function(rs: ImageData) {
-                const newSchema = schemaParser.parseImageDataToSchema(rs);
-                eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              }).catch(function(err) {
-                console.log(err);
-                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-              })
-            }
-          });
-          return null;
-        }
-      }, {
-        name: '锐化',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }, {
-        name: '虚化',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }, ]
+      }),
     });
     return panel;
   }

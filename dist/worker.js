@@ -1,72 +1,143 @@
 (function () {
   'use strict';
 
-  var filterGrayImageData = function (opts) {
-      var imageData = opts.imageData;
-      var data = imageData.data;
-      var width = imageData.width;
-      var height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var redChannel = data[i + 0];
-          var greenChannel = data[i + 1];
-          var blueChannel = data[i + 2];
-          // const alphaChannel = data[i + 3];
-          var grayChannel = (redChannel + greenChannel + blueChannel) / 3;
-          filteredImageData.data[i + 0] = grayChannel;
-          filteredImageData.data[i + 1] = grayChannel;
-          filteredImageData.data[i + 2] = grayChannel;
-          filteredImageData.data[i + 3] = 255;
+  var DigitImageData = /** @class */ (function () {
+      function DigitImageData(opts) {
+          var width = opts.width, height = opts.height;
+          var size = width * height * 4;
+          var data = new Uint8ClampedArray(size);
+          this.data = data;
+          this.width = width;
+          this.height = height;
       }
-      return filteredImageData;
-  };
-  //# sourceMappingURL=gray.js.map
+      DigitImageData.prototype.setData = function (data) {
+          this.data = data.map(function (item) {
+              return item;
+          });
+      };
+      DigitImageData.prototype.pixelAt = function (x, y) {
+          var _a = this, width = _a.width, data = _a.data;
+          var idx = (width * y + x) * 4;
+          var r = data[idx];
+          var g = data[idx + 1];
+          var b = data[idx + 2];
+          var a = data[idx + 3];
+          var rgba = { r: r, g: g, b: b, a: a };
+          return rgba;
+      };
+      DigitImageData.prototype.destory = function () {
+          this.data = null;
+          this.width = null;
+          this.height = null;
+      };
+      return DigitImageData;
+  }());
+  //# sourceMappingURL=digit-image-data.js.map
 
-  var filterPersonSkinImageData = function (opts) {
-      var imageData = opts.imageData;
-      var data = imageData.data;
-      var width = imageData.width;
-      var height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var red = data[i * 4];
-          var green = data[i * 4 + 1];
-          var blue = data[i * 4 + 2];
-          var alpha = 255; // data[i * 4 + 3];
-          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
-              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else if (red > 220 && green > 210 && blue > 170) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else {
-                  filteredImageData.data[i * 4] = red;
-                  filteredImageData.data[i * 4 + 1] = green;
-                  filteredImageData.data[i * 4 + 2] = blue;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-          }
-          else {
-              // filteredImageData.data[i * 4] = red;
-              // filteredImageData.data[i * 4 + 1] = green;
-              // filteredImageData.data[i * 4 + 2] = blue;
-              // filteredImageData.data[i * 4 + 3] = alpha;
-              filteredImageData.data[i * 4] = 255;
-              filteredImageData.data[i * 4 + 1] = 255;
-              filteredImageData.data[i * 4 + 2] = 255;
-              filteredImageData.data[i * 4 + 3] = 255;
+  var grayscale = function (imgData) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              var gray = Math.round((px.r + px.g + px.b) / 3);
+              digitImg.data[idx] = gray;
+              digitImg.data[idx + 1] = gray;
+              digitImg.data[idx + 2] = gray;
+              digitImg.data[idx + 3] = 255;
           }
       }
-      return filteredImageData;
+      return digitImg;
   };
-  //# sourceMappingURL=person.js.map
+
+  //# sourceMappingURL=grayscale.js.map
+
+  // Thanks to https://github.com/miguelmota/sobel/
+  function imgDataAt(digitData, x, y) {
+      var width = digitData.width, data = digitData.data;
+      var idx = (width * y + x) * 4;
+      var num = data[idx];
+      if (!(num >= 0 && num < 255)) {
+          num = 0;
+      }
+      return num;
+  }
+  var sobel = function (imgData) {
+      var width = imgData.width, height = imgData.height;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      var kernelX = [
+          [-1, 0, 1],
+          [-2, 0, 2],
+          [-1, 0, 1]
+      ];
+      var kernelY = [
+          [-1, -2, -1],
+          [0, 0, 0],
+          [1, 2, 1]
+      ];
+      var grayImg = grayscale(imgData);
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var pixelX = ((kernelX[0][0] * imgDataAt(grayImg, x - 1, y - 1)) +
+                  (kernelX[0][1] * imgDataAt(grayImg, x, y - 1)) +
+                  (kernelX[0][2] * imgDataAt(grayImg, x + 1, y - 1)) +
+                  (kernelX[1][0] * imgDataAt(grayImg, x - 1, y)) +
+                  (kernelX[1][1] * imgDataAt(grayImg, x, y)) +
+                  (kernelX[1][2] * imgDataAt(grayImg, x + 1, y)) +
+                  (kernelX[2][0] * imgDataAt(grayImg, x - 1, y + 1)) +
+                  (kernelX[2][1] * imgDataAt(grayImg, x, y + 1)) +
+                  (kernelX[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
+              var pixelY = ((kernelY[0][0] * imgDataAt(grayImg, x - 1, y - 1)) +
+                  (kernelY[0][1] * imgDataAt(grayImg, x, y - 1)) +
+                  (kernelY[0][2] * imgDataAt(grayImg, x + 1, y - 1)) +
+                  (kernelY[1][0] * imgDataAt(grayImg, x - 1, y)) +
+                  (kernelY[1][1] * imgDataAt(grayImg, x, y)) +
+                  (kernelY[1][2] * imgDataAt(grayImg, x + 1, y)) +
+                  (kernelY[2][0] * imgDataAt(grayImg, x - 1, y + 1)) +
+                  (kernelY[2][1] * imgDataAt(grayImg, x, y + 1)) +
+                  (kernelY[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
+              var magnitude = Math.round(Math.sqrt((pixelX * pixelX) + (pixelY * pixelY)));
+              var idx = (width * y + x) * 4;
+              digitImg.data[idx] = magnitude;
+              digitImg.data[idx + 1] = magnitude;
+              digitImg.data[idx + 2] = magnitude;
+              digitImg.data[idx + 3] = 255;
+          }
+      }
+      grayImg.destory();
+      grayImg = null;
+      return digitImg;
+  };
+  //# sourceMappingURL=sobel.js.map
+
+  var RGBA_MID = 255 / 2;
+  var RGBA_MAX = 255;
+  var RGBA_MIN = 0;
+  var H_MAX = 360;
+  var S_MAX = 100;
+  var L_MAX = 100;
+  //# sourceMappingURL=static.js.map
+
+  var invert = function (imgData) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              digitImg.data[idx] = RGBA_MAX - px.r;
+              digitImg.data[idx + 1] = RGBA_MAX - px.g;
+              digitImg.data[idx + 2] = RGBA_MAX - px.b;
+              digitImg.data[idx + 3] = px.a;
+          }
+      }
+      return digitImg;
+  };
+  
+  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -94,13 +165,6 @@
       return __assign.apply(this, arguments);
   };
 
-  var RGBA_MID = 255 / 2;
-  var RGBA_MAX = 255;
-  var RGBA_MIN = 0;
-  var H_MAX = 360;
-  var S_MAX = 100;
-  var L_MAX = 100;
-  //# sourceMappingURL=static.js.map
 
   // const H2RGBNum = function(l: number): number {
   //   let num = l / H_MAX * RGBA_MAX;
@@ -189,8 +253,32 @@
           return false;
       }
   }
-  var RGB2HSL = function (cell, percent) {
-      // console.log('percent ==', percent);
+  function isHueValue(num) {
+      if (num >= 0 && num <= 360) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isLightnessValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isStaurationValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var RGB2HSL = function (cell, opts) {
+      var percent = opts.percent, value = opts.value;
       var orginR = cell.r;
       var orginG = cell.g;
       var orginB = cell.b;
@@ -235,7 +323,24 @@
       h = Math.round(h);
       s = Math.round(s * 100);
       l = Math.round(l);
-      if (percent) {
+      if (value) {
+          if (isHueValue(value.h)) {
+              h = value.h;
+              h = Math.min(360, h);
+              h = Math.max(0, h);
+          }
+          if (isStaurationValue(value.s)) {
+              s = value.s;
+              s = Math.min(100, s);
+              s = Math.max(0, s);
+          }
+          if (isLightnessValue(value.l)) {
+              l = value.l;
+              l = Math.min(100, l);
+              l = Math.max(0, l);
+          }
+      }
+      else if (percent) {
           if (isPercent(percent.h)) {
               h = Math.floor(h * (100 + percent.h) / 100);
               h = Math.min(360, h);
@@ -258,7 +363,6 @@
 
   var transformImageData = function (imageData, opts) {
       var data = imageData.data, width = imageData.width, height = imageData.height;
-      var _a = opts.percent, percent = _a === void 0 ? {} : _a;
       var filteredImageData = new ImageData(width, height);
       for (var i = 0; i < data.length; i += 4) {
           var r = data[i];
@@ -266,7 +370,7 @@
           var b = data[i + 2];
           var a = data[i + 3];
           var cell = { r: r, g: g, b: b };
-          var hslCell = RGB2HSL(cell, percent);
+          var hslCell = RGB2HSL(cell, opts);
           var rsHsl = __assign({}, hslCell);
           var rgbCell = HSL2RGB(rsHsl);
           filteredImageData.data[i] = rgbCell.r;
@@ -276,12 +380,180 @@
       }
       return filteredImageData;
   };
+  var transformDigitImageData = function (digitImageData, opts) {
+      var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
+      var rsImageData = new DigitImageData({ width: width, height: height });
+      for (var i = 0; i < data.length; i += 4) {
+          var r = data[i];
+          var g = data[i + 1];
+          var b = data[i + 2];
+          var a = data[i + 3];
+          var cell = { r: r, g: g, b: b };
+          var hslCell = RGB2HSL(cell, opts);
+          var rsHsl = __assign({}, hslCell);
+          var rgbCell = HSL2RGB(rsHsl);
+          rsImageData.data[i] = rgbCell.r;
+          rsImageData.data[i + 1] = rgbCell.g;
+          rsImageData.data[i + 2] = rgbCell.b;
+          rsImageData.data[i + 3] = a;
+      }
+      digitImageData.destory();
+      digitImageData = null;
+      return rsImageData;
+  };
   var transform = {
       HSL2RGB: HSL2RGB,
       RGB2HSL: RGB2HSL,
-      transformImageData: transformImageData
+      transformImageData: transformImageData,
   };
   //# sourceMappingURL=index.js.map
+
+  var hue = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { h: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { h: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=hue.js.map
+
+  var lightness = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { l: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { l: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=lightness.js.map
+
+  var saturation = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { s: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { s: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=saturation.js.map
+
+  var process = {
+      grayscale: grayscale,
+      sobel: sobel,
+      invert: invert,
+      hue: hue,
+      lightness: lightness,
+      saturation: saturation,
+  };
+  //# sourceMappingURL=index.js.map
+
+  var digitImageData2ImageData = function (digitImgData) {
+      var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
+      var imgData = new ImageData(width, height);
+      data.forEach(function (num, i) {
+          imgData.data[i] = num;
+      });
+      return imgData;
+  };
+  //# sourceMappingURL=image-data.js.map
+
+  var Effect = /** @class */ (function () {
+      function Effect(imageData) {
+          this._imageData = null;
+          this._imageData = imageData;
+      }
+      Effect.prototype.process = function (method, opts) {
+          if (typeof process[method] !== 'function') {
+              throw new Error("Pictool.digit.process." + method + " is not a function ");
+          }
+          var digitData = new DigitImageData({
+              width: this._imageData.width,
+              height: this._imageData.height,
+          });
+          digitData.setData(this._imageData.data);
+          var rsDightData = process[method](digitData, opts);
+          this._imageData = digitImageData2ImageData(rsDightData);
+          digitData.destory();
+          digitData = null;
+          rsDightData.destory();
+          rsDightData = null;
+          return this;
+      };
+      Effect.prototype.getImageData = function () {
+          return this._imageData;
+      };
+      return Effect;
+  }());
+  //# sourceMappingURL=index.js.map
+
+  var filterPersonSkinImageData = function (opts) {
+      var imageData = opts.imageData;
+      var data = imageData.data;
+      var width = imageData.width;
+      var height = imageData.height;
+      var filteredImageData = new ImageData(width, height);
+      for (var i = 0; i < data.length; i += 4) {
+          var red = data[i * 4];
+          var green = data[i * 4 + 1];
+          var blue = data[i * 4 + 2];
+          var alpha = 255; // data[i * 4 + 3];
+          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
+              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else if (red > 220 && green > 210 && blue > 170) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else {
+                  filteredImageData.data[i * 4] = red;
+                  filteredImageData.data[i * 4 + 1] = green;
+                  filteredImageData.data[i * 4 + 2] = blue;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+          }
+          else {
+              // filteredImageData.data[i * 4] = red;
+              // filteredImageData.data[i * 4 + 1] = green;
+              // filteredImageData.data[i * 4 + 2] = blue;
+              // filteredImageData.data[i * 4 + 3] = alpha;
+              filteredImageData.data[i * 4] = 255;
+              filteredImageData.data[i * 4 + 1] = 255;
+              filteredImageData.data[i * 4 + 2] = 255;
+              filteredImageData.data[i * 4 + 3] = 255;
+          }
+      }
+      return filteredImageData;
+  };
+  
+  //# sourceMappingURL=person.js.map
 
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
@@ -290,10 +562,43 @@
   };
   //# sourceMappingURL=transform.js.map
 
+  var origin = function (opts) {
+      var imageData = opts.imageData;
+      return imageData;
+  };
+  var grayscale$1 = function (opts) {
+      var imageData = opts.imageData;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('grayscale').getImageData();
+      return rsImageData;
+  };
+  var hue$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('hue', options).getImageData();
+      return rsImageData;
+  };
+  var lightness$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('lightness', options).getImageData();
+      return rsImageData;
+  };
+  var saturation$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('saturation', options).getImageData();
+      return rsImageData;
+  };
+  
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
-    gray: filterGrayImageData,
+    origin: origin,
+    grayscale: grayscale$1,
+    hue: hue$1,
+    lightness: lightness$1,
+    saturation: saturation$1,
     personSkin: filterPersonSkinImageData,
     transform: filterTransform
   });

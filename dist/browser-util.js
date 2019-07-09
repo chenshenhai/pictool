@@ -37,7 +37,7 @@
               ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
               var imgData = ctx.getImageData(0, 0, drawWidth, drawHeight);
               resolve(imgData);
-          })["catch"](function (err) {
+          }).catch(function (err) {
               reject(err);
           });
       });
@@ -60,7 +60,6 @@
       var base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
       return base64;
   };
-  //# sourceMappingURL=image-file.js.map
 
   var IMG_LIMIT_SIZE = 2000 * 2000;
   var PIECE_SIZE = 1000 * 1000;
@@ -127,7 +126,6 @@
       canvas = null;
       return base64;
   };
-  //# sourceMappingURL=compress.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
@@ -137,16 +135,14 @@
       });
       return imgData;
   };
-  //# sourceMappingURL=image-data.js.map
 
   var util = {
       getImageBySrc: getImageBySrc,
       getImageDataBySrc: getImageDataBySrc,
       compressImage: compressImage,
       imageData2Base64: imageData2Base64,
-      digitImageData2ImageData: digitImageData2ImageData
+      digitImageData2ImageData: digitImageData2ImageData,
   };
-  //# sourceMappingURL=browser-util.js.map
 
   return util;
 

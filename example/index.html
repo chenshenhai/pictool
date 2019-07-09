@@ -16,7 +16,9 @@
     <script>
       var module = [
         'ui',
-        'digit-algorithm-grayscale'
+        'digit-process-grayscale',
+        'digit-process-sobel',
+        'digit-process-invert'
       ]
       var listHtml = module.map(function(mod) {
         var path = './module/'+ mod +'.html';

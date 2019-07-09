@@ -125,8 +125,32 @@
             return false;
         }
     }
-    var RGB2HSL = function (cell, percent) {
-        // console.log('percent ==', percent);
+    function isHueValue(num) {
+        if (num >= 0 && num <= 360) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function isLightnessValue(num) {
+        if (num >= 0 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function isStaurationValue(num) {
+        if (num >= 0 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    var RGB2HSL = function (cell, opts) {
+        var percent = opts.percent, value = opts.value;
         var orginR = cell.r;
         var orginG = cell.g;
         var orginB = cell.b;
@@ -171,7 +195,24 @@
         h = Math.round(h);
         s = Math.round(s * 100);
         l = Math.round(l);
-        if (percent) {
+        if (value) {
+            if (isHueValue(value.h)) {
+                h = value.h;
+                h = Math.min(360, h);
+                h = Math.max(0, h);
+            }
+            if (isStaurationValue(value.s)) {
+                s = value.s;
+                s = Math.min(100, s);
+                s = Math.max(0, s);
+            }
+            if (isLightnessValue(value.l)) {
+                l = value.l;
+                l = Math.min(100, l);
+                l = Math.max(0, l);
+            }
+        }
+        else if (percent) {
             if (isPercent(percent.h)) {
                 h = Math.floor(h * (100 + percent.h) / 100);
                 h = Math.min(360, h);
@@ -191,33 +232,6 @@
         return { h: h, s: s, l: l };
     };
     //# sourceMappingURL=rgb2hsl.js.map
-
-    var transformImageData = function (imageData, opts) {
-        var data = imageData.data, width = imageData.width, height = imageData.height;
-        var _a = opts.percent, percent = _a === void 0 ? {} : _a;
-        var filteredImageData = new ImageData(width, height);
-        for (var i = 0; i < data.length; i += 4) {
-            var r = data[i];
-            var g = data[i + 1];
-            var b = data[i + 2];
-            var a = data[i + 3];
-            var cell = { r: r, g: g, b: b };
-            var hslCell = RGB2HSL(cell, percent);
-            var rsHsl = __assign({}, hslCell);
-            var rgbCell = HSL2RGB(rsHsl);
-            filteredImageData.data[i] = rgbCell.r;
-            filteredImageData.data[i + 1] = rgbCell.g;
-            filteredImageData.data[i + 2] = rgbCell.b;
-            filteredImageData.data[i + 3] = a;
-        }
-        return filteredImageData;
-    };
-    var transform = {
-        HSL2RGB: HSL2RGB,
-        RGB2HSL: RGB2HSL,
-        transformImageData: transformImageData
-    };
-    //# sourceMappingURL=index.js.map
 
     var DigitImageData = /** @class */ (function () {
         function DigitImageData(opts) {
@@ -251,6 +265,7 @@
         return DigitImageData;
     }());
     //# sourceMappingURL=digit-image-data.js.map
+
 
     var grayscale = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -329,24 +344,97 @@
     };
     //# sourceMappingURL=sobel.js.map
 
-    var algorithm = {
+    var invert = function (imgData) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var idx = (width * y + x) * 4;
+                var px = digitImg.pixelAt(x, y);
+                digitImg.data[idx] = RGBA_MAX - px.r;
+                digitImg.data[idx + 1] = RGBA_MAX - px.g;
+                digitImg.data[idx + 2] = RGBA_MAX - px.b;
+                digitImg.data[idx + 3] = px.a;
+            }
+        }
+        return digitImg;
+    };
+    //# sourceMappingURL=invert.js.map
+
+    var hue = function (imgData, opts) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        var percent = null;
+        var value = null;
+        if (opts.value) {
+            value = { h: opts.value };
+        }
+        else if (opts.percent) {
+            percent = { h: opts.percent };
+        }
+        digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+        return digitImg;
+    };
+    //# sourceMappingURL=hue.js.map
+
+    var lightness = function (imgData, opts) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        var percent = null;
+        var value = null;
+        if (opts.value) {
+            value = { l: opts.value };
+        }
+        else if (opts.percent) {
+            percent = { l: opts.percent };
+        }
+        digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+        return digitImg;
+    };
+    //# sourceMappingURL=lightness.js.map
+
+    var saturation = function (imgData, opts) {
+        var width = imgData.width, height = imgData.height, data = imgData.data;
+        var digitImg = new DigitImageData({ width: width, height: height });
+        digitImg.setData(data);
+        var percent = null;
+        var value = null;
+        if (opts.value) {
+            value = { s: opts.value };
+        }
+        else if (opts.percent) {
+            percent = { s: opts.percent };
+        }
+        digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+        return digitImg;
+    };
+    //# sourceMappingURL=saturation.js.map
+
+    var process = {
         grayscale: grayscale,
-        sobel: sobel
+        sobel: sobel,
+        invert: invert,
+        hue: hue,
+        lightness: lightness,
+        saturation: saturation,
     };
     //# sourceMappingURL=index.js.map
 
     var digit = {
         transform: transform,
-        algorithm: algorithm,
-        DigitImageData: DigitImageData
+        process: process,
+        DigitImageData: DigitImageData,
     };
     //# sourceMappingURL=index.js.map
 
-    var transform$1 = digit.transform, algorithm$1 = digit.algorithm, DigitImageData$1 = digit.DigitImageData;
+    var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
         transform: transform$1,
-        algorithm: algorithm$1,
-        DigitImageData: DigitImageData$1
+        process: process$1,
+        DigitImageData: DigitImageData$1,
     };
     //# sourceMappingURL=digit.js.map
 

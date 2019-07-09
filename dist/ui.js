@@ -145,7 +145,7 @@
       json: function (data) {
           return parsePrototype(data) === 'Object';
       },
-      "function": function (data) {
+      function: function (data) {
           return parsePrototype(data) === 'Function';
       },
       asyncFunction: function (data) {
@@ -160,7 +160,7 @@
       undefined: function (data) {
           return parsePrototype(data) === 'Undefined';
       },
-      "null": function (data) {
+      null: function (data) {
           return parsePrototype(data) === 'Null';
       },
       promise: function (data) {
@@ -204,7 +204,7 @@
           executeAction: function (ctx, args) {
               ctx.putImageData(args[0], args[1], args[2]);
           }
-      }
+      },
   };
   var drawAction = function (ctx, method, args) {
       var action = context2dRenderActionMap[method];
@@ -308,7 +308,7 @@
               layerList.push(schema);
           });
           return {
-              layerList: layerList
+              layerList: layerList,
           };
       };
       Sketch.prototype.mergeLayer = function () {
@@ -373,7 +373,7 @@
               width: width + "px",
               height: height + "px",
               position: 'relative',
-              display: 'inline-block'
+              display: 'inline-block',
           });
           var canvasStack = this.getCanvasStack();
           container.setAttribute('style', style);
@@ -387,7 +387,7 @@
                   height: height + "px",
                   position: 'absolute',
                   left: '0',
-                  top: '0'
+                  top: '0',
               }));
               container.appendChild(canvas);
           }
@@ -428,7 +428,7 @@
           this._listeners.set(eventKey, callback);
       };
       EventEmitter.prototype.remove = function (eventKey) {
-          this._listeners["delete"](eventKey);
+          this._listeners.delete(eventKey);
       };
       EventEmitter.prototype.trigger = function (eventKey) {
           var args = [];
@@ -436,7 +436,7 @@
               args[_i - 1] = arguments[_i];
           }
           var listener = this._listeners.get(eventKey);
-          if (istype["function"](listener)) {
+          if (istype.function(listener)) {
               listener.apply(void 0, args);
               return true;
           }
@@ -479,8 +479,8 @@
                       key: 'image',
                       drawActionList: [{
                               method: 'putImageData',
-                              args: [imageData, 0, 0]
-                          }]
+                              args: [imageData, 0, 0],
+                          }],
                   },
               ]
           };
@@ -517,7 +517,7 @@
               height: height,
               width: width,
               layerCount: layerCount,
-              container: hiddenSketchpad
+              container: hiddenSketchpad,
           };
           var sketchpad = new Sketchpad(padOpts);
           this._sketchpad = sketchpad;
@@ -583,11 +583,7 @@
           this._rangeList = [];
           var options = this._options;
           var _a = options.max, max = _a === void 0 ? 100 : _a, _b = options.min, min = _b === void 0 ? 0 : _b;
-          var item = (max - min) / 100;
-          for (var i = min; i < max; i += item) {
-              this._rangeList.push(i);
-          }
-          this._rangeList.push(max);
+          this.resetRange(max, min);
       }
       Progress.prototype._render = function () {
           if (this._hasRendered === true) {
@@ -617,6 +613,14 @@
       Progress.prototype.resetOnChange = function (onChange) {
           this._options.onChange = onChange;
       };
+      Progress.prototype.resetRange = function (min, max) {
+          this._rangeList = [];
+          var item = (max - min) / 100;
+          for (var i = min; i < max; i += item) {
+              this._rangeList.push(i);
+          }
+          this._rangeList.push(max);
+      };
       Progress.prototype._triggerEvent = function () {
           var that = this;
           var options = this._options;
@@ -636,11 +640,11 @@
           outer.addEventListener('touchend', function () {
               var value = that._getInnerValue();
               var data = {
-                  value: value
+                  value: value,
               };
               var options = that._options;
               var onChange = options.onChange;
-              if (istype["function"](onChange)) {
+              if (istype.function(onChange)) {
                   onChange(data);
               }
           });
@@ -673,8 +677,8 @@
           var percent = parseInt(percentAttr, 10);
           percent = Math.min(100, percent);
           percent = Math.max(0, percent);
-          percent = this._rangeList[percent];
-          return percent;
+          var value = this._rangeList[percent];
+          return value;
       };
       Progress.prototype._getViewAbsoluteLeft = function (elem) {
           var actualLeft = elem.offsetLeft;
@@ -791,7 +795,7 @@
           }
           var contentMount = component.querySelector('div.pictool-actionsheet-content');
           if (typeof afterRender === 'function') {
-              var args = { contentMount: contentMount };
+              var args = { contentMount: contentMount, };
               afterRender(args);
           }
           this._hasRendered = true;
@@ -841,7 +845,7 @@
           var opts = this._opts;
           var navList = opts.navList, title = opts.title;
           var isBeyond = navList.length > 4;
-          var html = "\n      <div class=\"pictool-module-panel\">\n        <div class=\"pictool-panel-header\">\n          <div class=\"pictool-panel-btn-close\"></div>\n          <div class=\"pictool-panel-title\">" + (title || '') + "</div>\n        </div>\n        <div class=\"pictool-panel-navigation\">\n          <div class=\"pictool-panel-navlist " + (isBeyond === true ? 'panel-beyond-width' : '') + "\" \n            style=\"" + (isBeyond === true ? "width: " + (navList.length + 1) * 80 + "px" : '') + "\"\n          >\n          " + (istype.array(navList) && navList.map(function (nav, idx) {
+          var html = "\n      <div class=\"pictool-module-panel\">\n        <div class=\"pictool-panel-header\">\n          <div class=\"pictool-panel-btn-close\"></div>\n          <div class=\"pictool-panel-title\">" + (title || '') + "</div>\n        </div>\n        <div class=\"pictool-panel-navigation\">\n          <div class=\"pictool-panel-navlist " + (isBeyond === true ? 'panel-beyond-width' : '') + "\" \n            style=\"" + (isBeyond === true ? "width: " + (navList.length + 1) * 120 + "px" : '') + "\"\n          >\n          " + (istype.array(navList) && navList.map(function (nav, idx) {
               return " \n            <div class=\"pictool-panel-nav-btn panelnav-icon\"\n              data-panel-nav-idx=\"" + idx + "\"\n            >\n              <span>" + nav.name + "</span>\n            </div>\n            ";
           }).join('')) + "\n          </div>\n        </div>\n      </div>\n    ";
           mount.innerHTML = html;
@@ -872,11 +876,11 @@
                               if (rs) {
                                   eventHub.trigger('GlobalEvent.moduleSketch.renderImage', rs);
                               }
-                          })["catch"](function (err) {
+                          }).catch(function (err) {
                               console.log(err);
                           });
                       }
-                      else if (istype["null"](primise) !== true) {
+                      else if (istype.null(primise) !== true) {
                           console.warn('feedback is not a promise or null');
                       }
                       navElemList.forEach(function (nav) {
@@ -891,72 +895,119 @@
   }());
   //# sourceMappingURL=index.js.map
 
-  var filterGrayImageData = function (opts) {
-      var imageData = opts.imageData;
-      var data = imageData.data;
-      var width = imageData.width;
-      var height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var redChannel = data[i + 0];
-          var greenChannel = data[i + 1];
-          var blueChannel = data[i + 2];
-          // const alphaChannel = data[i + 3];
-          var grayChannel = (redChannel + greenChannel + blueChannel) / 3;
-          filteredImageData.data[i + 0] = grayChannel;
-          filteredImageData.data[i + 1] = grayChannel;
-          filteredImageData.data[i + 2] = grayChannel;
-          filteredImageData.data[i + 3] = 255;
+  var DigitImageData = /** @class */ (function () {
+      function DigitImageData(opts) {
+          var width = opts.width, height = opts.height;
+          var size = width * height * 4;
+          var data = new Uint8ClampedArray(size);
+          this.data = data;
+          this.width = width;
+          this.height = height;
       }
-      return filteredImageData;
-  };
-  //# sourceMappingURL=gray.js.map
 
-  var filterPersonSkinImageData = function (opts) {
-      var imageData = opts.imageData;
-      var data = imageData.data;
-      var width = imageData.width;
-      var height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var red = data[i * 4];
-          var green = data[i * 4 + 1];
-          var blue = data[i * 4 + 2];
-          var alpha = 255; // data[i * 4 + 3];
-          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
-              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else if (red > 220 && green > 210 && blue > 170) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else {
-                  filteredImageData.data[i * 4] = red;
-                  filteredImageData.data[i * 4 + 1] = green;
-                  filteredImageData.data[i * 4 + 2] = blue;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-          }
-          else {
-              // filteredImageData.data[i * 4] = red;
-              // filteredImageData.data[i * 4 + 1] = green;
-              // filteredImageData.data[i * 4 + 2] = blue;
-              // filteredImageData.data[i * 4 + 3] = alpha;
-              filteredImageData.data[i * 4] = 255;
-              filteredImageData.data[i * 4 + 1] = 255;
-              filteredImageData.data[i * 4 + 2] = 255;
-              filteredImageData.data[i * 4 + 3] = 255;
+      DigitImageData.prototype.setData = function (data) {
+          this.data = data.map(function (item) {
+              return item;
+          });
+      };
+      DigitImageData.prototype.pixelAt = function (x, y) {
+          var _a = this, width = _a.width, data = _a.data;
+          var idx = (width * y + x) * 4;
+          var r = data[idx];
+          var g = data[idx + 1];
+          var b = data[idx + 2];
+          var a = data[idx + 3];
+          var rgba = { r: r, g: g, b: b, a: a };
+          return rgba;
+      };
+      DigitImageData.prototype.destory = function () {
+          this.data = null;
+          this.width = null;
+          this.height = null;
+      };
+      return DigitImageData;
+  }());
+  //# sourceMappingURL=digit-image-data.js.map
+
+
+  var grayscale = function (imgData) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              var gray = Math.round((px.r + px.g + px.b) / 3);
+              digitImg.data[idx] = gray;
+              digitImg.data[idx + 1] = gray;
+              digitImg.data[idx + 2] = gray;
+              digitImg.data[idx + 3] = 255;
           }
       }
-      return filteredImageData;
+      return digitImg;
   };
-  //# sourceMappingURL=person.js.map
+  //# sourceMappingURL=grayscale.js.map
+
+  // Thanks to https://github.com/miguelmota/sobel/
+  function imgDataAt(digitData, x, y) {
+      var width = digitData.width, data = digitData.data;
+      var idx = (width * y + x) * 4;
+      var num = data[idx];
+      if (!(num >= 0 && num < 255)) {
+          num = 0;
+      }
+      return num;
+  }
+  var sobel = function (imgData) {
+      var width = imgData.width, height = imgData.height;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      var kernelX = [
+          [-1, 0, 1],
+          [-2, 0, 2],
+          [-1, 0, 1]
+      ];
+      var kernelY = [
+          [-1, -2, -1],
+          [0, 0, 0],
+          [1, 2, 1]
+      ];
+      var grayImg = grayscale(imgData);
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var pixelX = ((kernelX[0][0] * imgDataAt(grayImg, x - 1, y - 1)) +
+                  (kernelX[0][1] * imgDataAt(grayImg, x, y - 1)) +
+                  (kernelX[0][2] * imgDataAt(grayImg, x + 1, y - 1)) +
+                  (kernelX[1][0] * imgDataAt(grayImg, x - 1, y)) +
+                  (kernelX[1][1] * imgDataAt(grayImg, x, y)) +
+                  (kernelX[1][2] * imgDataAt(grayImg, x + 1, y)) +
+                  (kernelX[2][0] * imgDataAt(grayImg, x - 1, y + 1)) +
+                  (kernelX[2][1] * imgDataAt(grayImg, x, y + 1)) +
+                  (kernelX[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
+              var pixelY = ((kernelY[0][0] * imgDataAt(grayImg, x - 1, y - 1)) +
+                  (kernelY[0][1] * imgDataAt(grayImg, x, y - 1)) +
+                  (kernelY[0][2] * imgDataAt(grayImg, x + 1, y - 1)) +
+                  (kernelY[1][0] * imgDataAt(grayImg, x - 1, y)) +
+                  (kernelY[1][1] * imgDataAt(grayImg, x, y)) +
+                  (kernelY[1][2] * imgDataAt(grayImg, x + 1, y)) +
+                  (kernelY[2][0] * imgDataAt(grayImg, x - 1, y + 1)) +
+                  (kernelY[2][1] * imgDataAt(grayImg, x, y + 1)) +
+                  (kernelY[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
+              var magnitude = Math.round(Math.sqrt((pixelX * pixelX) + (pixelY * pixelY)));
+              var idx = (width * y + x) * 4;
+              digitImg.data[idx] = magnitude;
+              digitImg.data[idx + 1] = magnitude;
+              digitImg.data[idx + 2] = magnitude;
+              digitImg.data[idx + 3] = 255;
+          }
+      }
+      grayImg.destory();
+      grayImg = null;
+      return digitImg;
+  };
+
+  //# sourceMappingURL=sobel.js.map
+
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -965,6 +1016,26 @@
   var S_MAX = 100;
   var L_MAX = 100;
   //# sourceMappingURL=static.js.map
+
+
+  var invert = function (imgData) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              digitImg.data[idx] = RGBA_MAX - px.r;
+              digitImg.data[idx + 1] = RGBA_MAX - px.g;
+              digitImg.data[idx + 2] = RGBA_MAX - px.b;
+              digitImg.data[idx + 3] = px.a;
+          }
+      }
+      return digitImg;
+  };
+  //# sourceMappingURL=invert.js.map
+
 
   // const H2RGBNum = function(l: number): number {
   //   let num = l / H_MAX * RGBA_MAX;
@@ -1053,8 +1124,32 @@
           return false;
       }
   }
-  var RGB2HSL = function (cell, percent) {
-      // console.log('percent ==', percent);
+  function isHueValue(num) {
+      if (num >= 0 && num <= 360) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isLightnessValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isStaurationValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var RGB2HSL = function (cell, opts) {
+      var percent = opts.percent, value = opts.value;
       var orginR = cell.r;
       var orginG = cell.g;
       var orginB = cell.b;
@@ -1099,7 +1194,24 @@
       h = Math.round(h);
       s = Math.round(s * 100);
       l = Math.round(l);
-      if (percent) {
+      if (value) {
+          if (isHueValue(value.h)) {
+              h = value.h;
+              h = Math.min(360, h);
+              h = Math.max(0, h);
+          }
+          if (isStaurationValue(value.s)) {
+              s = value.s;
+              s = Math.min(100, s);
+              s = Math.max(0, s);
+          }
+          if (isLightnessValue(value.l)) {
+              l = value.l;
+              l = Math.min(100, l);
+              l = Math.max(0, l);
+          }
+      }
+      else if (percent) {
           if (isPercent(percent.h)) {
               h = Math.floor(h * (100 + percent.h) / 100);
               h = Math.min(360, h);
@@ -1122,7 +1234,6 @@
 
   var transformImageData = function (imageData, opts) {
       var data = imageData.data, width = imageData.width, height = imageData.height;
-      var _a = opts.percent, percent = _a === void 0 ? {} : _a;
       var filteredImageData = new ImageData(width, height);
       for (var i = 0; i < data.length; i += 4) {
           var r = data[i];
@@ -1130,7 +1241,7 @@
           var b = data[i + 2];
           var a = data[i + 3];
           var cell = { r: r, g: g, b: b };
-          var hslCell = RGB2HSL(cell, percent);
+          var hslCell = RGB2HSL(cell, opts);
           var rsHsl = __assign({}, hslCell);
           var rgbCell = HSL2RGB(rsHsl);
           filteredImageData.data[i] = rgbCell.r;
@@ -1140,12 +1251,181 @@
       }
       return filteredImageData;
   };
+  var transformDigitImageData = function (digitImageData, opts) {
+      var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
+      var rsImageData = new DigitImageData({ width: width, height: height });
+      for (var i = 0; i < data.length; i += 4) {
+          var r = data[i];
+          var g = data[i + 1];
+          var b = data[i + 2];
+          var a = data[i + 3];
+          var cell = { r: r, g: g, b: b };
+          var hslCell = RGB2HSL(cell, opts);
+          var rsHsl = __assign({}, hslCell);
+          var rgbCell = HSL2RGB(rsHsl);
+          rsImageData.data[i] = rgbCell.r;
+          rsImageData.data[i + 1] = rgbCell.g;
+          rsImageData.data[i + 2] = rgbCell.b;
+          rsImageData.data[i + 3] = a;
+      }
+      digitImageData.destory();
+      digitImageData = null;
+      return rsImageData;
+  };
   var transform = {
       HSL2RGB: HSL2RGB,
       RGB2HSL: RGB2HSL,
-      transformImageData: transformImageData
+      transformImageData: transformImageData,
   };
   //# sourceMappingURL=index.js.map
+
+  var hue = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { h: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { h: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=hue.js.map
+
+  var lightness = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { l: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { l: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+
+  //# sourceMappingURL=lightness.js.map
+
+  var saturation = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { s: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { s: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=saturation.js.map
+
+  var process = {
+      grayscale: grayscale,
+      sobel: sobel,
+      invert: invert,
+      hue: hue,
+      lightness: lightness,
+      saturation: saturation,
+  };
+  //# sourceMappingURL=index.js.map
+
+  var digitImageData2ImageData = function (digitImgData) {
+      var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
+      var imgData = new ImageData(width, height);
+      data.forEach(function (num, i) {
+          imgData.data[i] = num;
+      });
+      return imgData;
+  };
+  //# sourceMappingURL=image-data.js.map
+
+  var Effect = /** @class */ (function () {
+      function Effect(imageData) {
+          this._imageData = null;
+          this._imageData = imageData;
+      }
+      Effect.prototype.process = function (method, opts) {
+          if (typeof process[method] !== 'function') {
+              throw new Error("Pictool.digit.process." + method + " is not a function ");
+          }
+          var digitData = new DigitImageData({
+              width: this._imageData.width,
+              height: this._imageData.height,
+          });
+          digitData.setData(this._imageData.data);
+          var rsDightData = process[method](digitData, opts);
+          this._imageData = digitImageData2ImageData(rsDightData);
+          digitData.destory();
+          digitData = null;
+          rsDightData.destory();
+          rsDightData = null;
+          return this;
+      };
+      Effect.prototype.getImageData = function () {
+          return this._imageData;
+      };
+      return Effect;
+  }());
+  //# sourceMappingURL=index.js.map
+
+  var filterPersonSkinImageData = function (opts) {
+      var imageData = opts.imageData;
+      var data = imageData.data;
+      var width = imageData.width;
+      var height = imageData.height;
+      var filteredImageData = new ImageData(width, height);
+      for (var i = 0; i < data.length; i += 4) {
+          var red = data[i * 4];
+          var green = data[i * 4 + 1];
+          var blue = data[i * 4 + 2];
+          var alpha = 255; // data[i * 4 + 3];
+          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
+              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else if (red > 220 && green > 210 && blue > 170) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else {
+                  filteredImageData.data[i * 4] = red;
+                  filteredImageData.data[i * 4 + 1] = green;
+                  filteredImageData.data[i * 4 + 2] = blue;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+          }
+          else {
+              // filteredImageData.data[i * 4] = red;
+              // filteredImageData.data[i * 4 + 1] = green;
+              // filteredImageData.data[i * 4 + 2] = blue;
+              // filteredImageData.data[i * 4 + 3] = alpha;
+              filteredImageData.data[i * 4] = 255;
+              filteredImageData.data[i * 4 + 1] = 255;
+              filteredImageData.data[i * 4 + 2] = 255;
+              filteredImageData.data[i * 4 + 3] = 255;
+          }
+      }
+      return filteredImageData;
+  };
+  //# sourceMappingURL=person.js.map
+
 
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
@@ -1154,10 +1434,43 @@
   };
   //# sourceMappingURL=transform.js.map
 
+  var origin = function (opts) {
+      var imageData = opts.imageData;
+      return imageData;
+  };
+  var grayscale$1 = function (opts) {
+      var imageData = opts.imageData;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('grayscale').getImageData();
+      return rsImageData;
+  };
+  var hue$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('hue', options).getImageData();
+      return rsImageData;
+  };
+  var lightness$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('lightness', options).getImageData();
+      return rsImageData;
+  };
+  var saturation$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('saturation', options).getImageData();
+      return rsImageData;
+  };
+
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
-    gray: filterGrayImageData,
+    origin: origin,
+    grayscale: grayscale$1,
+    hue: hue$1,
+    lightness: lightness$1,
+    saturation: saturation$1,
     personSkin: filterPersonSkinImageData,
     transform: filterTransform
   });
@@ -1181,7 +1494,7 @@
           };
           worker_1.postMessage({
               key: key,
-              param: param
+              param: param,
           });
       }
       else {
@@ -1223,6 +1536,72 @@
   };
   //# sourceMappingURL=worker.js.map
 
+
+  var adjustMenuConfig = {
+      title: 'Adjust',
+      menu: [
+          {
+              name: 'Lightness',
+              percent: 50,
+              range: {
+                  min: -100,
+                  max: 100,
+              },
+              filter: 'lightness',
+              parseOptions: function (data) {
+                  return {
+                      percent: Math.round(data.value)
+                  };
+              }
+          },
+          {
+              name: 'Hue',
+              percent: 50,
+              range: {
+                  min: 0,
+                  max: 360,
+              },
+              filter: 'hue',
+              parseOptions: function (data) {
+                  console.log('data = ', data);
+                  return {
+                      value: Math.round(data.value)
+                  };
+              }
+          },
+          {
+              name: 'Saturation',
+              percent: 50,
+              range: {
+                  min: -100,
+                  max: 100,
+              },
+              filter: 'saturation',
+              parseOptions: function (data) {
+                  return {
+                      percent: Math.round(data.value)
+                  };
+              }
+          },
+      ]
+  };
+  //# sourceMappingURL=adjust.js.map
+
+  var filterMenuConfig = {
+      title: 'Filter',
+      menu: [
+          {
+              name: 'Origin',
+              filter: 'origin',
+          },
+          {
+              name: 'Grayscale',
+              filter: 'grayscale',
+          },
+      ]
+  };
+  //# sourceMappingURL=filter.js.map
+
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {
           this._mount = null;
@@ -1238,7 +1617,7 @@
           }
           var options = this._opts;
           var zIndex = options.zIndex;
-          var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-filter\" data-nav-action=\"filter\" >\n            <span>\u6EE4\u955C</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>\u8C03\u8282</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-edit\" data-nav-action=\"edit\" >\n            <span>\u7F16\u8F91</span>\n          </div>\n          <!--\n          <div class=\"pictool-dashboard-nav-btn dashboard-text\" data-nav-action=\"text\" >\n            <span>\u6587\u5B57</span>\n          </div>\n          -->\n        </div>\n      </div>\n    ";
+          var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-filter\" data-nav-action=\"filter\" >\n            <span>" + filterMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>" + adjustMenuConfig.title + "</span>\n          </div>\n        </div>\n      </div>\n    ";
           this._mount.innerHTML = html;
           this._registerEvent();
           this._hasRendered = true;
@@ -1251,12 +1630,10 @@
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
           var btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
-          var btnEdit = this._mount.querySelector('[data-nav-action="edit"]');
-          var btnText = this._mount.querySelector('[data-nav-action="text"]');
           var opts = {
               mount: this._mount,
               height: 120,
-              zIndex: zIndex + 1
+              zIndex: zIndex + 1,
           };
           var filterPanel = this._initFilterPanel();
           btnFiler.addEventListener('click', function () {
@@ -1266,25 +1643,18 @@
           btnAdjust.addEventListener('click', function () {
               adjustPanel.show();
           });
-          var editPanel = this._initEditPanel();
-          btnEdit.addEventListener('click', function () {
-              editPanel.show();
-          });
-          // btnText.addEventListener('click', function() {
-          //   console.log('text')
-          // });
           var progress = new Progress({
               mount: this._mount,
               percent: 40,
               max: 100,
-              min: -100,
+              min: 0,
               customStyle: {
                   'z-index': zIndex + 1,
                   'position': 'fixed',
                   'bottom': '140px',
                   'left': '5%',
                   'right': '5%',
-                  'width': 'auto'
+                  'width': 'auto',
               },
               // TODO
               onChange: function (data) {
@@ -1294,7 +1664,8 @@
           progress.hide();
           eventHub.on('GlobalEvent.moduleDashboard.progress.show', function (opts) {
               if (opts === void 0) { opts = {}; }
-              var percent = opts.percent, onChange = opts.onChange;
+              var percent = opts.percent, onChange = opts.onChange, range = opts.range;
+              progress.resetRange(range.min, range.max);
               progress.resetOnChange(onChange);
               progress.resetPercent(percent);
               progress.show();
@@ -1302,10 +1673,11 @@
           eventHub.on('GlobalEvent.moduleDashboard.progress.hide', function () {
               progress.resetOnChange(null);
               progress.resetPercent(50);
+              progress.resetRange(0, 100);
               progress.hide();
           });
           var loading = new Loading({
-              zIndex: zIndex + 1000
+              zIndex: zIndex + 1000,
           });
           eventHub.on('GlobalEvent.moduleDashboard.loading.show', function (opts) {
               var timeout = -1;
@@ -1322,24 +1694,18 @@
           var options = this._opts;
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var panel = new Panel({
-              title: '滤镜',
+              title: filterMenuConfig.title,
               mount: this._mount,
               zIndex: zIndex + 1,
-              navList: [{
-                      name: '原图',
-                      feedback: function () {
-                          // TODO
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          return Promise.resolve(sketchSchema);
-                      }
-                  }, {
-                      name: '黑白',
+              navList: filterMenuConfig.menu.map(function (conf) {
+                  return {
+                      name: conf.name,
                       feedback: function () {
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
                           var imageData = schemaParser.parseImageData(sketchSchema);
                           return new Promise(function (resolve, reject) {
                               asyncWorker({
-                                  key: 'gray',
+                                  key: conf.filter,
                                   param: { imageData: imageData, options: {} }
                               }, workerConfig).then(function (rs) {
                                   var newSchema = schemaParser.parseImageDataToSchema(rs);
@@ -1349,24 +1715,8 @@
                               });
                           });
                       }
-                  }, {
-                      name: '人物识别',
-                      feedback: function () {
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
-                          return new Promise(function (resolve, reject) {
-                              asyncWorker({
-                                  key: 'personSkin',
-                                  param: { imageData: imageData, options: {} }
-                              }, workerConfig).then(function (rs) {
-                                  var newSchema = schemaParser.parseImageDataToSchema(rs);
-                                  resolve(newSchema);
-                              }).then(function (err) {
-                                  reject(err);
-                              });
-                          });
-                      }
-                  }]
+                  };
+              }),
           });
           return panel;
       };
@@ -1374,30 +1724,28 @@
           var options = this._opts;
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var panel = new Panel({
-              title: '调节',
+              title: adjustMenuConfig.title,
               mount: this._mount,
               zIndex: zIndex + 1,
-              navList: [{
-                      name: '亮度',
+              navList: adjustMenuConfig.menu.map(function (conf) {
+                  return {
+                      name: conf.name,
                       feedback: function () {
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
                           var imageData = schemaParser.parseImageData(sketchSchema);
                           eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-                              percent: 50,
+                              percent: conf.percent,
+                              range: { max: conf.range.max, min: conf.range.min },
                               onChange: function (data) {
                                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
                                   asyncWorker({
-                                      key: 'transform',
-                                      param: { imageData: imageData, options: {
-                                              percent: {
-                                                  l: data.value || 0
-                                              }
-                                          } }
+                                      key: conf.filter,
+                                      param: { imageData: imageData, options: conf.parseOptions(data), }
                                   }, workerConfig).then(function (rs) {
                                       var newSchema = schemaParser.parseImageDataToSchema(rs);
                                       eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
                                       eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-                                  })["catch"](function (err) {
+                                  }).catch(function (err) {
                                       console.log(err);
                                       eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   });
@@ -1405,77 +1753,8 @@
                           });
                           return null;
                       }
-                  }, {
-                      name: '饱和度',
-                      feedback: function () {
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
-                          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-                              percent: 50,
-                              onChange: function (data) {
-                                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-                                  asyncWorker({
-                                      key: 'transform',
-                                      param: { imageData: imageData, options: {
-                                              percent: {
-                                                  s: data.value || 0
-                                              }
-                                          } }
-                                  }, workerConfig).then(function (rs) {
-                                      var newSchema = schemaParser.parseImageDataToSchema(rs);
-                                      eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                                      eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-                                  })["catch"](function (err) {
-                                      console.log(err);
-                                      eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-                                  });
-                              }
-                          });
-                          return null;
-                      }
-                  }, {
-                      name: '色阶',
-                      feedback: function () {
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
-                          eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
-                              percent: 50,
-                              onChange: function (data) {
-                                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
-                                  asyncWorker({
-                                      key: 'transform',
-                                      param: { imageData: imageData, options: {
-                                              percent: {
-                                                  h: data.value || 0
-                                              }
-                                          } }
-                                  }, workerConfig).then(function (rs) {
-                                      var newSchema = schemaParser.parseImageDataToSchema(rs);
-                                      eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
-                                      eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-                                  })["catch"](function (err) {
-                                      console.log(err);
-                                      eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-                                  });
-                              }
-                          });
-                          return null;
-                      }
-                  }, {
-                      name: '锐化',
-                      feedback: function () {
-                          // TODO
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          return Promise.resolve(sketchSchema);
-                      }
-                  }, {
-                      name: '虚化',
-                      feedback: function () {
-                          // TODO
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          return Promise.resolve(sketchSchema);
-                      }
-                  },]
+                  };
+              }),
           });
           return panel;
       };
@@ -1527,12 +1806,12 @@
           var btnSave = this._mount.querySelector('div.pictool-header-btn-save');
           var options = this._opts;
           btnClose.addEventListener('click', function () {
-              if (istype["function"](options.closeFeedback)) {
+              if (istype.function(options.closeFeedback)) {
                   options.closeFeedback();
               }
           });
           btnSave.addEventListener('click', function () {
-              if (istype["function"](options.saveFeedback)) {
+              if (istype.function(options.saveFeedback)) {
                   options.saveFeedback();
               }
           });
@@ -1569,10 +1848,10 @@
                           eventHub.trigger('GlobalEvent.moduleSketch.downloadImage');
                       }
                   });
-                  var sketch = new Sketch$1(contentMount, { imageData: imageData });
+                  var sketch = new Sketch$1(contentMount, { imageData: imageData, });
                   var dashboard = new Dashboard(footerMount, {
                       zIndex: zIndex + 1,
-                      workerConfig: workerConfig
+                      workerConfig: workerConfig,
                   });
                   that._sketch = sketch;
                   that._dashboard = dashboard;

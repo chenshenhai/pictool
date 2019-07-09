@@ -1426,7 +1426,11 @@
   };
   //# sourceMappingURL=transform.js.map
 
-  var gray = function (opts) {
+  var origin = function (opts) {
+      var imageData = opts.imageData;
+      return imageData;
+  };
+  var grayscale$1 = function (opts) {
       var imageData = opts.imageData;
       var effect = new Effect(imageData);
       var rsImageData = effect.process('grayscale').getImageData();
@@ -1453,7 +1457,8 @@
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
-    gray: gray,
+    origin: origin,
+    grayscale: grayscale$1,
     hue: hue$1,
     lightness: lightness$1,
     saturation: saturation$1,
@@ -1570,7 +1575,22 @@
           },
       ]
   };
-  //# sourceMappingURL=config.js.map
+  //# sourceMappingURL=adjust.js.map
+
+  var filterMenuConfig = {
+      title: 'Filter',
+      menu: [
+          {
+              name: 'Origin',
+              filter: 'origin',
+          },
+          {
+              name: 'Grayscale',
+              filter: 'grayscale',
+          },
+      ]
+  };
+  //# sourceMappingURL=filter.js.map
 
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {
@@ -1587,7 +1607,7 @@
           }
           var options = this._opts;
           var zIndex = options.zIndex;
-          var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-filter\" data-nav-action=\"filter\" >\n            <span>\u6EE4\u955C</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>\u8C03\u8282</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-edit\" data-nav-action=\"edit\" >\n            <span>\u7F16\u8F91</span>\n          </div>\n          <!--\n          <div class=\"pictool-dashboard-nav-btn dashboard-text\" data-nav-action=\"text\" >\n            <span>\u6587\u5B57</span>\n          </div>\n          -->\n        </div>\n      </div>\n    ";
+          var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-filter\" data-nav-action=\"filter\" >\n            <span>" + filterMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>" + adjustMenuConfig.title + "</span>\n          </div>\n        </div>\n      </div>\n    ";
           this._mount.innerHTML = html;
           this._registerEvent();
           this._hasRendered = true;
@@ -1600,8 +1620,6 @@
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
           var btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
-          var btnEdit = this._mount.querySelector('[data-nav-action="edit"]');
-          var btnText = this._mount.querySelector('[data-nav-action="text"]');
           var opts = {
               mount: this._mount,
               height: 120,
@@ -1615,13 +1633,6 @@
           btnAdjust.addEventListener('click', function () {
               adjustPanel.show();
           });
-          var editPanel = this._initEditPanel();
-          btnEdit.addEventListener('click', function () {
-              editPanel.show();
-          });
-          // btnText.addEventListener('click', function() {
-          //   console.log('text')
-          // });
           var progress = new Progress({
               mount: this._mount,
               percent: 40,
@@ -1673,23 +1684,18 @@
           var options = this._opts;
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var panel = new Panel({
-              title: '滤镜',
+              title: filterMenuConfig.title,
               mount: this._mount,
               zIndex: zIndex + 1,
-              navList: [{
-                      name: '原图',
-                      feedback: function () {
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          return Promise.resolve(sketchSchema);
-                      }
-                  }, {
-                      name: '黑白',
+              navList: filterMenuConfig.menu.map(function (conf) {
+                  return {
+                      name: conf.name,
                       feedback: function () {
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
                           var imageData = schemaParser.parseImageData(sketchSchema);
                           return new Promise(function (resolve, reject) {
                               asyncWorker({
-                                  key: 'gray',
+                                  key: conf.filter,
                                   param: { imageData: imageData, options: {} }
                               }, workerConfig).then(function (rs) {
                                   var newSchema = schemaParser.parseImageDataToSchema(rs);
@@ -1699,24 +1705,8 @@
                               });
                           });
                       }
-                  }, {
-                      name: '人物识别',
-                      feedback: function () {
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
-                          return new Promise(function (resolve, reject) {
-                              asyncWorker({
-                                  key: 'personSkin',
-                                  param: { imageData: imageData, options: {} }
-                              }, workerConfig).then(function (rs) {
-                                  var newSchema = schemaParser.parseImageDataToSchema(rs);
-                                  resolve(newSchema);
-                              }).then(function (err) {
-                                  reject(err);
-                              });
-                          });
-                      }
-                  }]
+                  };
+              }),
           });
           return panel;
       };

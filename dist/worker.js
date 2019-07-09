@@ -558,7 +558,11 @@
   };
   //# sourceMappingURL=transform.js.map
 
-  var gray = function (opts) {
+  var origin = function (opts) {
+      var imageData = opts.imageData;
+      return imageData;
+  };
+  var grayscale$1 = function (opts) {
       var imageData = opts.imageData;
       var effect = new Effect(imageData);
       var rsImageData = effect.process('grayscale').getImageData();
@@ -582,9 +586,11 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
+  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
-    gray: gray,
+    origin: origin,
+    grayscale: grayscale$1,
     hue: hue$1,
     lightness: lightness$1,
     saturation: saturation$1,

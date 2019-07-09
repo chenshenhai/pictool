@@ -31,11 +31,7 @@ export class Progress {
 
     const options = this._options;
     const { max = 100,  min = 0 } = options;
-    const item = (max - min) / 100;
-    for (let i = min; i < max; i += item) {
-      this._rangeList.push(i);
-    }
-    this._rangeList.push(max);
+    this.resetRange(max, min);
   }
 
   private _render() {
@@ -76,6 +72,15 @@ export class Progress {
 
   resetOnChange(onChange: Function) {
     this._options.onChange = onChange;
+  }
+
+  resetRange(min: number, max: number) {
+    this._rangeList = [];
+    const item = (max - min) / 100;
+    for (let i = min; i < max; i += item) {
+      this._rangeList.push(i);
+    }
+    this._rangeList.push(max);
   }
 
   private _triggerEvent() {

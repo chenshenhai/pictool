@@ -137,98 +137,6 @@
   };
   //# sourceMappingURL=invert.js.map
 
-  var process = {
-      grayscale: grayscale,
-      sobel: sobel,
-      invert: invert
-  };
-  //# sourceMappingURL=index.js.map
-
-  var digitImageData2ImageData = function (digitImgData) {
-      var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
-      var imgData = new ImageData(width, height);
-      data.forEach(function (num, i) {
-          imgData.data[i] = num;
-      });
-      return imgData;
-  };
-  //# sourceMappingURL=image-data.js.map
-
-  var Effect = /** @class */ (function () {
-      function Effect(imageData) {
-          this._imageData = null;
-          this._imageData = imageData;
-      }
-      Effect.prototype.process = function (method, opts) {
-          if (typeof process[method] !== 'function') {
-              throw new Error("Pictool.digit.process." + method + " is not a function ");
-          }
-          var digitData = new DigitImageData({
-              width: this._imageData.width,
-              height: this._imageData.height
-          });
-          digitData.setData(this._imageData.data);
-          var rsDightData = process[method](digitData, opts);
-          this._imageData = digitImageData2ImageData(rsDightData);
-          digitData.destory();
-          digitData = null;
-          rsDightData.destory();
-          rsDightData = null;
-          return this;
-      };
-      Effect.prototype.getImageData = function () {
-          return this._imageData;
-      };
-      return Effect;
-  }());
-  //# sourceMappingURL=index.js.map
-
-  var filterPersonSkinImageData = function (opts) {
-      var imageData = opts.imageData;
-      var data = imageData.data;
-      var width = imageData.width;
-      var height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var red = data[i * 4];
-          var green = data[i * 4 + 1];
-          var blue = data[i * 4 + 2];
-          var alpha = 255; // data[i * 4 + 3];
-          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
-              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else if (red > 220 && green > 210 && blue > 170) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else {
-                  filteredImageData.data[i * 4] = red;
-                  filteredImageData.data[i * 4 + 1] = green;
-                  filteredImageData.data[i * 4 + 2] = blue;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-          }
-          else {
-              // filteredImageData.data[i * 4] = red;
-              // filteredImageData.data[i * 4 + 1] = green;
-              // filteredImageData.data[i * 4 + 2] = blue;
-              // filteredImageData.data[i * 4 + 3] = alpha;
-              filteredImageData.data[i * 4] = 255;
-              filteredImageData.data[i * 4 + 1] = 255;
-              filteredImageData.data[i * 4 + 2] = 255;
-              filteredImageData.data[i * 4 + 3] = 255;
-          }
-      }
-      return filteredImageData;
-  };
-  //# sourceMappingURL=person.js.map
-
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
   Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -342,8 +250,32 @@
           return false;
       }
   }
-  var RGB2HSL = function (cell, percent) {
-      // console.log('percent ==', percent);
+  function isHueValue(num) {
+      if (num >= 0 && num <= 360) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isLightnessValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isStaurationValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var RGB2HSL = function (cell, opts) {
+      var percent = opts.percent, value = opts.value;
       var orginR = cell.r;
       var orginG = cell.g;
       var orginB = cell.b;
@@ -388,7 +320,24 @@
       h = Math.round(h);
       s = Math.round(s * 100);
       l = Math.round(l);
-      if (percent) {
+      if (value) {
+          if (isHueValue(value.h)) {
+              h = value.h;
+              h = Math.min(360, h);
+              h = Math.max(0, h);
+          }
+          if (isStaurationValue(value.s)) {
+              s = value.s;
+              s = Math.min(100, s);
+              s = Math.max(0, s);
+          }
+          if (isLightnessValue(value.l)) {
+              l = value.l;
+              l = Math.min(100, l);
+              l = Math.max(0, l);
+          }
+      }
+      else if (percent) {
           if (isPercent(percent.h)) {
               h = Math.floor(h * (100 + percent.h) / 100);
               h = Math.min(360, h);
@@ -407,11 +356,9 @@
       }
       return { h: h, s: s, l: l };
   };
-  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformImageData = function (imageData, opts) {
       var data = imageData.data, width = imageData.width, height = imageData.height;
-      var _a = opts.percent, percent = _a === void 0 ? {} : _a;
       var filteredImageData = new ImageData(width, height);
       for (var i = 0; i < data.length; i += 4) {
           var r = data[i];
@@ -419,7 +366,7 @@
           var b = data[i + 2];
           var a = data[i + 3];
           var cell = { r: r, g: g, b: b };
-          var hslCell = RGB2HSL(cell, percent);
+          var hslCell = RGB2HSL(cell, opts);
           var rsHsl = __assign({}, hslCell);
           var rgbCell = HSL2RGB(rsHsl);
           filteredImageData.data[i] = rgbCell.r;
@@ -429,12 +376,143 @@
       }
       return filteredImageData;
   };
+  var transformDigitImageData = function (digitImageData, opts) {
+      var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
+      var rsImageData = new DigitImageData({ width: width, height: height });
+      for (var i = 0; i < data.length; i += 4) {
+          var r = data[i];
+          var g = data[i + 1];
+          var b = data[i + 2];
+          var a = data[i + 3];
+          var cell = { r: r, g: g, b: b };
+          var hslCell = RGB2HSL(cell, opts);
+          var rsHsl = __assign({}, hslCell);
+          var rgbCell = HSL2RGB(rsHsl);
+          rsImageData.data[i] = rgbCell.r;
+          rsImageData.data[i + 1] = rgbCell.g;
+          rsImageData.data[i + 2] = rgbCell.b;
+          rsImageData.data[i + 3] = a;
+      }
+      digitImageData.destory();
+      digitImageData = null;
+      return rsImageData;
+  };
   var transform = {
       HSL2RGB: HSL2RGB,
       RGB2HSL: RGB2HSL,
-      transformImageData: transformImageData
+      transformImageData: transformImageData,
   };
   //# sourceMappingURL=index.js.map
+
+  var lightness = function (imgData, opts) {
+      var width = imgData.width, height = imgData.height, data = imgData.data;
+      var digitImg = new DigitImageData({ width: width, height: height });
+      digitImg.setData(data);
+      var percent = null;
+      var value = null;
+      if (opts.value) {
+          value = { l: opts.value };
+      }
+      else if (opts.percent) {
+          percent = { l: opts.percent };
+      }
+      digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
+      return digitImg;
+  };
+  //# sourceMappingURL=lightness.js.map
+
+  var process = {
+      grayscale: grayscale,
+      sobel: sobel,
+      invert: invert,
+      lightness: lightness,
+  };
+  //# sourceMappingURL=index.js.map
+
+  var digitImageData2ImageData = function (digitImgData) {
+      var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
+      var imgData = new ImageData(width, height);
+      data.forEach(function (num, i) {
+          imgData.data[i] = num;
+      });
+      return imgData;
+  };
+  //# sourceMappingURL=image-data.js.map
+
+  var Effect = /** @class */ (function () {
+      function Effect(imageData) {
+          this._imageData = null;
+          this._imageData = imageData;
+      }
+      Effect.prototype.process = function (method, opts) {
+          if (typeof process[method] !== 'function') {
+              throw new Error("Pictool.digit.process." + method + " is not a function ");
+          }
+          var digitData = new DigitImageData({
+              width: this._imageData.width,
+              height: this._imageData.height,
+          });
+          digitData.setData(this._imageData.data);
+          var rsDightData = process[method](digitData, opts);
+          this._imageData = digitImageData2ImageData(rsDightData);
+          digitData.destory();
+          digitData = null;
+          rsDightData.destory();
+          rsDightData = null;
+          return this;
+      };
+      Effect.prototype.getImageData = function () {
+          return this._imageData;
+      };
+      return Effect;
+  }());
+  //# sourceMappingURL=index.js.map
+
+  var filterPersonSkinImageData = function (opts) {
+      var imageData = opts.imageData;
+      var data = imageData.data;
+      var width = imageData.width;
+      var height = imageData.height;
+      var filteredImageData = new ImageData(width, height);
+      for (var i = 0; i < data.length; i += 4) {
+          var red = data[i * 4];
+          var green = data[i * 4 + 1];
+          var blue = data[i * 4 + 2];
+          var alpha = 255; // data[i * 4 + 3];
+          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
+              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else if (red > 220 && green > 210 && blue > 170) {
+                  filteredImageData.data[i * 4] = 1;
+                  filteredImageData.data[i * 4 + 1] = 1;
+                  filteredImageData.data[i * 4 + 2] = 1;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+              else {
+                  filteredImageData.data[i * 4] = red;
+                  filteredImageData.data[i * 4 + 1] = green;
+                  filteredImageData.data[i * 4 + 2] = blue;
+                  filteredImageData.data[i * 4 + 3] = alpha;
+              }
+          }
+          else {
+              // filteredImageData.data[i * 4] = red;
+              // filteredImageData.data[i * 4 + 1] = green;
+              // filteredImageData.data[i * 4 + 2] = blue;
+              // filteredImageData.data[i * 4 + 3] = alpha;
+              filteredImageData.data[i * 4] = 255;
+              filteredImageData.data[i * 4 + 1] = 255;
+              filteredImageData.data[i * 4 + 2] = 255;
+              filteredImageData.data[i * 4 + 3] = 255;
+          }
+      }
+      return filteredImageData;
+  };
+  //# sourceMappingURL=person.js.map
 
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
@@ -449,10 +527,17 @@
       var rsImageData = effect.process('grayscale').getImageData();
       return rsImageData;
   };
+  var lightness$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('lightness', options).getImageData();
+      return rsImageData;
+  };
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     gray: gray,
+    lightness: lightness$1,
     personSkin: filterPersonSkinImageData,
     transform: filterTransform
   });

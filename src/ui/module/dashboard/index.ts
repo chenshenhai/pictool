@@ -95,7 +95,7 @@ export class Dashboard {
       mount: this._mount,
       percent: 40,
       max: 100,
-      min: -100,
+      min: 0,
       customStyle: {
         'z-index': zIndex + 1,
         'position': 'fixed',
@@ -112,7 +112,8 @@ export class Dashboard {
     progress.hide();
 
     eventHub.on('GlobalEvent.moduleDashboard.progress.show', function(opts = {}) {
-      const { percent, onChange, } = opts;
+      const { percent, onChange, range, } = opts;
+      progress.resetRange(range.min, range.max);
       progress.resetOnChange(onChange);
       progress.resetPercent(percent);
       progress.show();
@@ -121,10 +122,9 @@ export class Dashboard {
     eventHub.on('GlobalEvent.moduleDashboard.progress.hide', function() {
       progress.resetOnChange(null);
       progress.resetPercent(50);
+      progress.resetRange(0, 100);
       progress.hide();
     });
-
-
 
     const loading = new Loading({
       zIndex: zIndex + 1000,
@@ -211,14 +211,13 @@ export class Dashboard {
           
           eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
             percent: 50,
+            range: {max: 100, min: -100},
             onChange: function(data) {
               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
-                key: 'transform',
+                key: 'lightness',
                 param: { imageData, options: {
-                  percent: {
-                    l: data.value || 0,
-                  }
+                  percent: Math.round(data.value)
                 }}
               }, workerConfig).then(function(rs: ImageData) {
                 const newSchema = schemaParser.parseImageDataToSchema(rs);

@@ -37,7 +37,7 @@
               ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
               var imgData = ctx.getImageData(0, 0, drawWidth, drawHeight);
               resolve(imgData);
-          })["catch"](function (err) {
+          }).catch(function (err) {
               reject(err);
           });
       });
@@ -141,7 +141,7 @@
       getImageDataBySrc: getImageDataBySrc,
       compressImage: compressImage,
       imageData2Base64: imageData2Base64,
-      digitImageData2ImageData: digitImageData2ImageData
+      digitImageData2ImageData: digitImageData2ImageData,
   };
 
   return util;

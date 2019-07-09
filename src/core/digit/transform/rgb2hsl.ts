@@ -14,15 +14,51 @@ function isPercent(num) {
   }
 }
 
+function isHueValue(num) {
+  if(num >= 0 && num <= 360) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isLightnessValue(num) {
+  if(num >= 0 && num <= 100) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isStaurationValue(num) {
+  if(num >= 0 && num <= 100) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
 export interface HSLTransformPercent {
   h?: number; // [-100, 100]
   s?: number; // [-100, 100]
   l?: number; // [-100, 100]
 }
 
-export const RGB2HSL = function(cell: RGBCell, percent?: HSLTransformPercent): HSLCell {
+export interface HSLTransformValue {
+  h?: number; // [0, 360]
+  s?: number; // [0, 100]
+  l?: number; // [0, 100]
+}
+
+export interface HSLTransformOpts {
+  percent?: HSLTransformPercent;
+  value?: HSLTransformValue;
+}
+
+export const RGB2HSL = function(cell: RGBCell, opts?: HSLTransformOpts): HSLCell {
   
-  // console.log('percent ==', percent);
+  const { percent, value } = opts;
   
   const orginR = cell.r;
   const orginG = cell.g;
@@ -71,7 +107,25 @@ export const RGB2HSL = function(cell: RGBCell, percent?: HSLTransformPercent): H
   s = Math.round(s * 100);
   l = Math.round(l);
 
-  if (percent) {
+  if (value) {
+    if (isHueValue(value.h)) {
+      h = value.h;
+      h = Math.min(360, h);
+      h = Math.max(0, h);
+    }
+  
+    if (isStaurationValue(value.s)) {
+      s = value.s;
+      s = Math.min(100, s);
+      s = Math.max(0, s);
+    }
+  
+    if (isLightnessValue(value.l)) {
+      l = value.l;
+      l = Math.min(100, l);
+      l = Math.max(0, l);
+    }
+  } else if (percent) {
     if (isPercent(percent.h)) {
       h = Math.floor(h * (100 + percent.h) / 100);
       h = Math.min(360, h);
@@ -93,9 +147,3 @@ export const RGB2HSL = function(cell: RGBCell, percent?: HSLTransformPercent): H
 
   return { h, s, l };
 }
-
-
-export interface ImageData2HSLOpts {
-  percent: HSLTransformPercent
-}
-

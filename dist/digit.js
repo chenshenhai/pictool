@@ -36,7 +36,6 @@
     var H_MAX = 360;
     var S_MAX = 100;
     var L_MAX = 100;
-    //# sourceMappingURL=static.js.map
 
     // const H2RGBNum = function(l: number): number {
     //   let num = l / H_MAX * RGBA_MAX;
@@ -112,7 +111,6 @@
         }
         return { r: r, g: g, b: b };
     };
-    //# sourceMappingURL=hsl2rgb.js.map
 
     var parseRGBNum = function (origin) {
         return origin * 100 / RGBA_MAX; // [1, 100]
@@ -231,7 +229,6 @@
         }
         return { h: h, s: s, l: l };
     };
-    //# sourceMappingURL=rgb2hsl.js.map
 
     var DigitImageData = /** @class */ (function () {
         function DigitImageData(opts) {
@@ -264,8 +261,52 @@
         };
         return DigitImageData;
     }());
-    //# sourceMappingURL=digit-image-data.js.map
 
+    var transformImageData = function (imageData, opts) {
+        var data = imageData.data, width = imageData.width, height = imageData.height;
+        var filteredImageData = new ImageData(width, height);
+        for (var i = 0; i < data.length; i += 4) {
+            var r = data[i];
+            var g = data[i + 1];
+            var b = data[i + 2];
+            var a = data[i + 3];
+            var cell = { r: r, g: g, b: b };
+            var hslCell = RGB2HSL(cell, opts);
+            var rsHsl = __assign({}, hslCell);
+            var rgbCell = HSL2RGB(rsHsl);
+            filteredImageData.data[i] = rgbCell.r;
+            filteredImageData.data[i + 1] = rgbCell.g;
+            filteredImageData.data[i + 2] = rgbCell.b;
+            filteredImageData.data[i + 3] = a;
+        }
+        return filteredImageData;
+    };
+    var transformDigitImageData = function (digitImageData, opts) {
+        var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
+        var rsImageData = new DigitImageData({ width: width, height: height });
+        for (var i = 0; i < data.length; i += 4) {
+            var r = data[i];
+            var g = data[i + 1];
+            var b = data[i + 2];
+            var a = data[i + 3];
+            var cell = { r: r, g: g, b: b };
+            var hslCell = RGB2HSL(cell, opts);
+            var rsHsl = __assign({}, hslCell);
+            var rgbCell = HSL2RGB(rsHsl);
+            rsImageData.data[i] = rgbCell.r;
+            rsImageData.data[i + 1] = rgbCell.g;
+            rsImageData.data[i + 2] = rgbCell.b;
+            rsImageData.data[i + 3] = a;
+        }
+        digitImageData.destory();
+        digitImageData = null;
+        return rsImageData;
+    };
+    var transform = {
+        HSL2RGB: HSL2RGB,
+        RGB2HSL: RGB2HSL,
+        transformImageData: transformImageData,
+    };
 
     var grayscale = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -284,7 +325,6 @@
         }
         return digitImg;
     };
-    //# sourceMappingURL=grayscale.js.map
 
     // Thanks to https://github.com/miguelmota/sobel/
     function imgDataAt(digitData, x, y) {
@@ -342,7 +382,6 @@
         grayImg = null;
         return digitImg;
     };
-    //# sourceMappingURL=sobel.js.map
 
     var invert = function (imgData) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -360,7 +399,6 @@
         }
         return digitImg;
     };
-    //# sourceMappingURL=invert.js.map
 
     var hue = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -377,7 +415,6 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
-    //# sourceMappingURL=hue.js.map
 
     var lightness = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -394,7 +431,6 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
-    //# sourceMappingURL=lightness.js.map
 
     var saturation = function (imgData, opts) {
         var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -411,7 +447,6 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
-    //# sourceMappingURL=saturation.js.map
 
     var process = {
         grayscale: grayscale,
@@ -421,14 +456,12 @@
         lightness: lightness,
         saturation: saturation,
     };
-    //# sourceMappingURL=index.js.map
 
     var digit = {
         transform: transform,
         process: process,
         DigitImageData: DigitImageData,
     };
-    //# sourceMappingURL=index.js.map
 
     var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
@@ -436,7 +469,6 @@
         process: process$1,
         DigitImageData: DigitImageData$1,
     };
-    //# sourceMappingURL=digit.js.map
 
     return digit$1;
 

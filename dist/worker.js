@@ -51,6 +51,7 @@
       }
       return digitImg;
   };
+
   //# sourceMappingURL=grayscale.js.map
 
   // Thanks to https://github.com/miguelmota/sobel/
@@ -135,6 +136,7 @@
       }
       return digitImg;
   };
+  
   //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
@@ -162,6 +164,7 @@
       };
       return __assign.apply(this, arguments);
   };
+
 
   // const H2RGBNum = function(l: number): number {
   //   let num = l / H_MAX * RGBA_MAX;
@@ -549,6 +552,7 @@
       }
       return filteredImageData;
   };
+  
   //# sourceMappingURL=person.js.map
 
   var filterTransform = function (filerOpts) {
@@ -586,6 +590,7 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
+  
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({

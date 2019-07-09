@@ -904,6 +904,7 @@
           this.width = width;
           this.height = height;
       }
+
       DigitImageData.prototype.setData = function (data) {
           this.data = data.map(function (item) {
               return item;
@@ -927,6 +928,7 @@
       return DigitImageData;
   }());
   //# sourceMappingURL=digit-image-data.js.map
+
 
   var grayscale = function (imgData) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -1003,7 +1005,9 @@
       grayImg = null;
       return digitImg;
   };
+
   //# sourceMappingURL=sobel.js.map
+
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -1012,6 +1016,7 @@
   var S_MAX = 100;
   var L_MAX = 100;
   //# sourceMappingURL=static.js.map
+
 
   var invert = function (imgData) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -1030,6 +1035,7 @@
       return digitImg;
   };
   //# sourceMappingURL=invert.js.map
+
 
   // const H2RGBNum = function(l: number): number {
   //   let num = l / H_MAX * RGBA_MAX;
@@ -1305,6 +1311,7 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+
   //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
@@ -1419,6 +1426,7 @@
   };
   //# sourceMappingURL=person.js.map
 
+
   var filterTransform = function (filerOpts) {
       var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
       var filteredImageData = transform.transformImageData(imageData, options);
@@ -1454,6 +1462,7 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
+
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
@@ -1526,6 +1535,7 @@
       });
   };
   //# sourceMappingURL=worker.js.map
+
 
   var adjustMenuConfig = {
       title: 'Adjust',

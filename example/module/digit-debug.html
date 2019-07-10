@@ -36,7 +36,7 @@
         browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
         
 
-          var rsData = digit.process.hue(targetImgData, { percent: 75 });
+          var rsData = digit.process.saturation(targetImgData, { percent: -60 });
           var imgData = browserUtil.digitImageData2ImageData(rsData);
 
           const tempData = {

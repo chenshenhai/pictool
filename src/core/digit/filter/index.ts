@@ -1,10 +1,6 @@
 import { FilterOpts } from './filter';
 import { Effect } from './../effect/index';
 
-export { filterPersonSkinImageData  as personSkin } from './person';
-export { filterTransform as transform } from './transform';
-
-
 export const origin = function(opts: FilterOpts ) {
   const { imageData } = opts;
   return imageData;

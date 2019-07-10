@@ -11,7 +11,7 @@ import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
 
 import { adjustMenuConfig } from '../../config/adjust';
-import { filterMenuConfig } from '../../config/filter';
+import { effectMenuConfig } from '../../config/effect';
 import { processMenuConfig } from '../../config/process';
 
 export interface DashboardOpts {
@@ -45,8 +45,8 @@ export class Dashboard {
           <div class="pictool-dashboard-nav-btn dashboard-adjust" data-nav-action="adjust" >
             <span>${adjustMenuConfig.title}</span>
           </div>
-          <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
-            <span>${filterMenuConfig.title}</span>
+          <div class="pictool-dashboard-nav-btn dashboard-effect" data-nav-action="effect" >
+            <span>${effectMenuConfig.title}</span>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export class Dashboard {
     }
     const options: DashboardOpts = this._opts;
     const { zIndex, workerConfig, } = options;
-    const btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
+    const btnEffect = this._mount.querySelector('[data-nav-action="effect"]');
     const btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
     const btnProcess = this._mount.querySelector('[data-nav-action="process"]');
 
@@ -77,9 +77,9 @@ export class Dashboard {
       processPanel.show();
     });
 
-    const filterPanel = this._initFilterPanel();
-    btnFiler.addEventListener('click', function() {      
-      filterPanel.show();
+    const filterEffect = this._initEffectPanel();
+    btnEffect.addEventListener('click', function() {      
+      filterEffect.show();
     });
 
     const adjustPanel = this._initAdjustPanel();
@@ -174,14 +174,14 @@ export class Dashboard {
     return panel;
   }
 
-  private _initFilterPanel() {
+  private _initEffectPanel() {
     const options: DashboardOpts = this._opts;
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
-      title: filterMenuConfig.title,
+      title: effectMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: filterMenuConfig.menu.map(function(conf) {
+      navList: effectMenuConfig.menu.map(function(conf) {
         return {
           name: conf.name,
           feedback() {

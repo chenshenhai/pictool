@@ -1,5 +1,5 @@
-export const filterMenuConfig = {
-  title: 'Filter',
+export const effectMenuConfig = {
+  title: 'Effect',
   menu: [
     {
       name: 'Origin',

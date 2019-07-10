@@ -12,6 +12,8 @@ const imgHueVal180 =  require('./data/image-data-hue.val.180.json');
 const imgHuePer75 =  require('./data/image-data-hue.per.75.json');
 const imgSaturationVal50 = require('./data/image-data-saturation.val.50.json');
 const imgSaturationPer60 = require('./data/image-data-saturation.per.60.json');
+const imgLightnessVal70 = require('./data/image-data-lightness.val.70.json')
+const imgLightnessPer60 = require('./data/image-data-lightness.per.60.json')
 
 
 describe( 'test: Pictool.digit.process', ( ) => {
@@ -117,6 +119,37 @@ describe( 'test: Pictool.digit.process', ( ) => {
     digitImg.setData(img.data);
     const digitImgRs = process.saturation(digitImg, {percent: -60});
     const expectImg = imgSaturationPer60;
+    
+    expect(digitImgRs.width).to.deep.equal(expectImg.width);
+    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expectImg.data.forEach(function(num, i) {
+      // console.log(`expect index is: ${i}`)
+      expect(digitImgRs.data[i]).to.deep.equal(num);
+    });
+    done()
+  });
+
+  it('process.lightness({value: 70})', ( done ) => {
+    const digitImg = new DigitImageData({width: img.width, height: img.height});
+    digitImg.setData(img.data);
+    const digitImgRs = process.lightness(digitImg, {value: 70});
+    const expectImg = imgLightnessVal70;
+    
+    expect(digitImgRs.width).to.deep.equal(expectImg.width);
+    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expectImg.data.forEach(function(num, i) {
+      // console.log(`expect index is: ${i}`)
+      expect(digitImgRs.data[i]).to.deep.equal(num);
+    });
+    done()
+  });
+
+
+  it('process.lightness({percent: -60})', ( done ) => {
+    const digitImg = new DigitImageData({width: img.width, height: img.height});
+    digitImg.setData(img.data);
+    const digitImgRs = process.lightness(digitImg, {percent: -60});
+    const expectImg = imgLightnessPer60;
     
     expect(digitImgRs.width).to.deep.equal(expectImg.width);
     expect(digitImgRs.height).to.deep.equal(expectImg.height);

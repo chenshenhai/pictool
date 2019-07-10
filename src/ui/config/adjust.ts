@@ -1,5 +1,5 @@
 export const adjustMenuConfig = {
-  title: 'Adjust',
+  title: 'Adjustment',
   menu: [
     {
       name: 'Lightness',
@@ -10,6 +10,7 @@ export const adjustMenuConfig = {
       },
       filter: 'lightness',
       parseOptions(data) {
+        console.log('lightness.data = ', data);
         return {
           percent: Math.round(data.value)
         }
@@ -24,7 +25,7 @@ export const adjustMenuConfig = {
       },
       filter: 'hue',
       parseOptions(data) {
-        console.log('data = ', data);
+        console.log('hue.data = ', data);
         return {
           value: Math.round(data.value)
         }
@@ -39,6 +40,7 @@ export const adjustMenuConfig = {
       },
       filter: 'saturation',
       parseOptions(data) {
+        console.log('saturation.data = ', data);
         return {
           percent: Math.round(data.value)
         }

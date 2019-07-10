@@ -6,6 +6,7 @@ export const origin = function(opts: FilterOpts ) {
   return imageData;
 }
 
+// base image process filter
 
 export const grayscale = function(opts: FilterOpts ) {
   const { imageData } = opts;
@@ -35,9 +36,32 @@ export const saturation = function(opts: FilterOpts ) {
   return rsImageData;
 }
 
+export const invert = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  const effect = new Effect(imageData);
+  const rsImageData = effect.process('invert', options).getImageData();
+  return rsImageData;
+}
+
+export const sobel = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  const effect = new Effect(imageData);
+  const rsImageData = effect.process('sobel', options).getImageData();
+  return rsImageData;
+}
+
+// multiple image process filter
+
 export const lineDrawing = function(opts: FilterOpts ) {
   const { imageData, options } = opts;
   const effect = new Effect(imageData);
   const rsImageData = effect.process('sobel', options).process('invert', options).getImageData();
+  return rsImageData;
+}
+
+export const natural = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  const effect = new Effect(imageData);
+  const rsImageData = effect.process('saturation', {percent: 76 }).getImageData();
   return rsImageData;
 }

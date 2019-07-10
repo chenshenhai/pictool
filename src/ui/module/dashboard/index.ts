@@ -1,6 +1,6 @@
 import './index.less';
 
-import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
+// import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 import { Progress, ProcessOnChangeData } from './../../component/progress';
 import { Loading } from './../../component/loading/index';
 import { Panel, PanelOpts, } from '../panel/index';
@@ -10,8 +10,9 @@ import schemaParser from './../../service/schema-parser';
 import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
 
-import { adjustMenuConfig } from './config/adjust';
-import { filterMenuConfig } from './config/filter';
+import { adjustMenuConfig } from '../../config/adjust';
+import { filterMenuConfig } from '../../config/filter';
+import { processMenuConfig } from '../../config/process';
 
 export interface DashboardOpts {
   zIndex: number;
@@ -38,11 +39,14 @@ export class Dashboard {
     const html = `
       <div class="pictool-module-dashboard" style="z-index:${zIndex};">
         <div class="pictool-dashboard-navlist">
-          <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
-            <span>${filterMenuConfig.title}</span>
+          <div class="pictool-dashboard-nav-btn dashboard-process" data-nav-action="process" >
+            <span>${processMenuConfig.title}</span>
           </div>
           <div class="pictool-dashboard-nav-btn dashboard-adjust" data-nav-action="adjust" >
             <span>${adjustMenuConfig.title}</span>
+          </div>
+          <div class="pictool-dashboard-nav-btn dashboard-filter" data-nav-action="filter" >
+            <span>${filterMenuConfig.title}</span>
           </div>
         </div>
       </div>
@@ -60,12 +64,19 @@ export class Dashboard {
     const { zIndex, workerConfig, } = options;
     const btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
     const btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
+    const btnProcess = this._mount.querySelector('[data-nav-action="process"]');
 
-    const opts : ActionSheetOpts = {
-      mount: this._mount,
-      height: 120,
-      zIndex: zIndex + 1,
-    };
+    // const opts : ActionSheetOpts = {
+    //   mount: this._mount,
+    //   height: 120,
+    //   zIndex: zIndex + 1,
+    // };
+
+    const processPanel = this._initProcessPanel();
+    btnProcess.addEventListener('click', function() {      
+      processPanel.show();
+    });
+
     const filterPanel = this._initFilterPanel();
     btnFiler.addEventListener('click', function() {      
       filterPanel.show();
@@ -129,6 +140,40 @@ export class Dashboard {
 
   }
 
+  private _initProcessPanel() {
+    const options: DashboardOpts = this._opts;
+    const { zIndex, workerConfig, } = options;
+    const panel = new Panel({
+      title: processMenuConfig.title,
+      mount: this._mount,
+      zIndex: zIndex + 1,
+      navList: processMenuConfig.menu.map(function(conf) {
+        return {
+          name: conf.name,
+          feedback() {
+            const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+            const imageData = schemaParser.parseImageData(sketchSchema);
+            return new Promise(function(resolve, reject) {
+              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
+              asyncWorker({
+                key: conf.filter,
+                param: { imageData, options: {} }
+              }, workerConfig).then(function(rs: ImageData) {
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                const newSchema = schemaParser.parseImageDataToSchema(rs);
+                resolve(newSchema);
+              }).then(function(err) {
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                reject(err);
+              })
+            });
+          }
+        }
+      }),
+    });
+    return panel;
+  }
+
   private _initFilterPanel() {
     const options: DashboardOpts = this._opts;
     const { zIndex, workerConfig, } = options;
@@ -143,13 +188,16 @@ export class Dashboard {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
             const imageData = schemaParser.parseImageData(sketchSchema);
             return new Promise(function(resolve, reject) {
+              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
                 key: conf.filter,
                 param: { imageData, options: {} }
               }, workerConfig).then(function(rs: ImageData) {
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 resolve(newSchema);
               }).then(function(err) {
+                eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 reject(err);
               })
             });
@@ -196,25 +244,6 @@ export class Dashboard {
           }
         }
       }),
-    });
-    return panel;
-  }
-
-  private _initEditPanel() {
-    const options: DashboardOpts = this._opts;
-    const { zIndex, } = options;
-    const panel = new Panel({
-      title: '编辑',
-      mount: this._mount,
-      zIndex: zIndex + 1,
-      navList: [{
-        name: '旋转',
-        feedback() {
-          // TODO
-          const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          return Promise.resolve(sketchSchema);
-        }
-      }]
     });
     return panel;
   }

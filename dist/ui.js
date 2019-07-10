@@ -550,7 +550,7 @@
   }());
   //# sourceMappingURL=index.js.map
 
-  var css$2 = ".pictool-module-dashboard {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-dashboard .pictool-dashboard-navlist {\n  position: absolute;\n  height: 80px;\n  display: flex;\n  background: #ffffff;\n  width: 100%;\n  bottom: 0;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  padding-top: 40px;\n  position: relative;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-filter::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1561203862001\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8800\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M632 888H392c-4.4 0-8 3.6-8 8v32c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32v-32c0-4.4-3.6-8-8-8zM512 64c-181.1 0-328 146.9-328 328 0 121.4 66 227.4 164 284.1V792c0 17.7 14.3 32 32 32h264c17.7 0 32-14.3 32-32V676.1c98-56.7 164-162.7 164-284.1 0-181.1-146.9-328-328-328z m127.9 549.8L604 634.6V752H420V634.6l-35.9-20.8C305.4 568.3 256 484.5 256 392c0-141.4 114.6-256 256-256s256 114.6 256 256c0 92.5-49.4 176.3-128.1 221.8z\" p-id=\"8801\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-adjust::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561283541458\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8719\" width=\"200\" height=\"200\"><path d=\"M924.8 385.6c-22.6-53.4-54.9-101.3-96-142.4-41.1-41.1-89-73.4-142.4-96C631.1 123.8 572.5 112 512 112s-119.1 11.8-174.4 35.2c-53.4 22.6-101.3 54.9-142.4 96-41.1 41.1-73.4 89-96 142.4C75.8 440.9 64 499.5 64 560c0 132.7 58.3 257.7 159.9 343.1l1.7 1.4c5.8 4.8 13.1 7.5 20.6 7.5h531.7c7.5 0 14.8-2.7 20.6-7.5l1.7-1.4C901.7 817.7 960 692.7 960 560c0-60.5-11.9-119.1-35.2-174.4zM761.4 836H262.6C184.5 765.5 140 665.6 140 560c0-99.4 38.7-192.8 109-263 70.3-70.3 163.7-109 263-109 99.4 0 192.8 38.7 263 109 70.3 70.3 109 163.7 109 263 0 105.6-44.5 205.5-122.6 276z\" p-id=\"8720\" fill=\"%23666666\"></path><path d=\"M623.5 421.5c-3.1-3.1-8.2-3.1-11.3 0L527.7 506c-18.7-5-39.4-0.2-54.1 14.5-21.9 21.9-21.9 57.3 0 79.2 21.9 21.9 57.3 21.9 79.2 0 14.7-14.7 19.5-35.4 14.5-54.1l84.5-84.5c3.1-3.1 3.1-8.2 0-11.3l-28.3-28.3zM490 320h44c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8zM750 538v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8zM762.7 340.8l-31.1-31.1c-3.1-3.1-8.2-3.1-11.3 0l-56.6 56.6c-3.1 3.1-3.1 8.2 0 11.3l31.1 31.1c3.1 3.1 8.2 3.1 11.3 0l56.6-56.6c3.1-3.1 3.1-8.2 0-11.3zM304.1 309.7c-3.1-3.1-8.2-3.1-11.3 0l-31.1 31.1c-3.1 3.1-3.1 8.2 0 11.3l56.6 56.6c3.1 3.1 8.2 3.1 11.3 0l31.1-31.1c3.1-3.1 3.1-8.2 0-11.3l-56.6-56.6zM262 530h-80c-4.4 0-8 3.6-8 8v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8z\" p-id=\"8721\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-edit::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204025732\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9039\" width=\"200\" height=\"200\"><path d=\"M904 512h-56c-4.4 0-8 3.6-8 8v320H184V184h320c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V520c0-4.4-3.6-8-8-8z\" p-id=\"9040\" fill=\"%23666666\"></path><path d=\"M355.9 534.9L354 653.8c-0.1 8.9 7.1 16.2 16 16.2h0.4l118-2.9c2-0.1 4-0.9 5.4-2.3l415.9-415c3.1-3.1 3.1-8.2 0-11.3L785.4 114.3c-1.6-1.6-3.6-2.3-5.7-2.3s-4.1 0.8-5.7 2.3l-415.8 415c-1.4 1.5-2.3 3.5-2.3 5.6z m63.5 23.6L779.7 199l45.2 45.1-360.5 359.7-45.7 1.1 0.7-46.4z\" p-id=\"9041\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-text::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204122356\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9245\" width=\"200\" height=\"200\"><path d=\"M904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zM253.7 736h85c4.2 0 8-2.7 9.3-6.8l53.7-166h219.2l53.2 166c1.3 4 5 6.8 9.3 6.8h89.1c1.1 0 2.2-0.2 3.2-0.5 5.1-1.8 7.8-7.3 6-12.4L573.6 118.6c-1.4-3.9-5.1-6.6-9.2-6.6H462.1c-4.2 0-7.9 2.6-9.2 6.6L244.5 723.1c-0.4 1-0.5 2.1-0.5 3.2-0.1 5.3 4.3 9.7 9.7 9.7z m255.9-516.1h4.1l83.8 263.8H424.9l84.7-263.8z\" p-id=\"9246\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
+  var css$2 = ".pictool-module-dashboard {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-dashboard .pictool-dashboard-navlist {\n  position: absolute;\n  height: 80px;\n  display: flex;\n  background: #ffffff;\n  width: 100%;\n  bottom: 0;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  padding-top: 40px;\n  position: relative;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-process::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1562767097651\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8873\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M552 472m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z\" p-id=\"8874\" fill=\"%23666666\"></path><path d=\"M879 824.9L696.3 352V178H768v-68H256v68h71.7v174L145 824.9c-2.8 7.4-4.3 15.2-4.3 23.1 0 35.3 28.7 64 64 64h614.6c7.9 0 15.7-1.5 23.1-4.3 33-12.7 49.4-49.8 36.6-82.8zM395.7 364.7V180h232.6v184.7L719.2 600c-20.7-5.3-42.1-8-63.9-8-61.2 0-119.2 21.5-165.3 60-33.9 28.2-76.3 43.9-121.3 43.9-32.7 0-64.1-8.3-91.8-23.7l118.8-307.5zM210.5 844l41.7-107.8c35.7 18.1 75.4 27.8 116.6 27.8 61.2 0 119.2-21.5 165.3-60 33.9-28.2 76.3-43.9 121.3-43.9 35 0 68.4 9.5 97.6 27.1L813.5 844h-603z\" p-id=\"8875\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-filter::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1561203862001\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8800\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M632 888H392c-4.4 0-8 3.6-8 8v32c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32v-32c0-4.4-3.6-8-8-8zM512 64c-181.1 0-328 146.9-328 328 0 121.4 66 227.4 164 284.1V792c0 17.7 14.3 32 32 32h264c17.7 0 32-14.3 32-32V676.1c98-56.7 164-162.7 164-284.1 0-181.1-146.9-328-328-328z m127.9 549.8L604 634.6V752H420V634.6l-35.9-20.8C305.4 568.3 256 484.5 256 392c0-141.4 114.6-256 256-256s256 114.6 256 256c0 92.5-49.4 176.3-128.1 221.8z\" p-id=\"8801\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-adjust::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561283541458\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8719\" width=\"200\" height=\"200\"><path d=\"M924.8 385.6c-22.6-53.4-54.9-101.3-96-142.4-41.1-41.1-89-73.4-142.4-96C631.1 123.8 572.5 112 512 112s-119.1 11.8-174.4 35.2c-53.4 22.6-101.3 54.9-142.4 96-41.1 41.1-73.4 89-96 142.4C75.8 440.9 64 499.5 64 560c0 132.7 58.3 257.7 159.9 343.1l1.7 1.4c5.8 4.8 13.1 7.5 20.6 7.5h531.7c7.5 0 14.8-2.7 20.6-7.5l1.7-1.4C901.7 817.7 960 692.7 960 560c0-60.5-11.9-119.1-35.2-174.4zM761.4 836H262.6C184.5 765.5 140 665.6 140 560c0-99.4 38.7-192.8 109-263 70.3-70.3 163.7-109 263-109 99.4 0 192.8 38.7 263 109 70.3 70.3 109 163.7 109 263 0 105.6-44.5 205.5-122.6 276z\" p-id=\"8720\" fill=\"%23666666\"></path><path d=\"M623.5 421.5c-3.1-3.1-8.2-3.1-11.3 0L527.7 506c-18.7-5-39.4-0.2-54.1 14.5-21.9 21.9-21.9 57.3 0 79.2 21.9 21.9 57.3 21.9 79.2 0 14.7-14.7 19.5-35.4 14.5-54.1l84.5-84.5c3.1-3.1 3.1-8.2 0-11.3l-28.3-28.3zM490 320h44c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8zM750 538v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8zM762.7 340.8l-31.1-31.1c-3.1-3.1-8.2-3.1-11.3 0l-56.6 56.6c-3.1 3.1-3.1 8.2 0 11.3l31.1 31.1c3.1 3.1 8.2 3.1 11.3 0l56.6-56.6c3.1-3.1 3.1-8.2 0-11.3zM304.1 309.7c-3.1-3.1-8.2-3.1-11.3 0l-31.1 31.1c-3.1 3.1-3.1 8.2 0 11.3l56.6 56.6c3.1 3.1 8.2 3.1 11.3 0l31.1-31.1c3.1-3.1 3.1-8.2 0-11.3l-56.6-56.6zM262 530h-80c-4.4 0-8 3.6-8 8v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8z\" p-id=\"8721\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-edit::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204025732\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9039\" width=\"200\" height=\"200\"><path d=\"M904 512h-56c-4.4 0-8 3.6-8 8v320H184V184h320c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V520c0-4.4-3.6-8-8-8z\" p-id=\"9040\" fill=\"%23666666\"></path><path d=\"M355.9 534.9L354 653.8c-0.1 8.9 7.1 16.2 16 16.2h0.4l118-2.9c2-0.1 4-0.9 5.4-2.3l415.9-415c3.1-3.1 3.1-8.2 0-11.3L785.4 114.3c-1.6-1.6-3.6-2.3-5.7-2.3s-4.1 0.8-5.7 2.3l-415.8 415c-1.4 1.5-2.3 3.5-2.3 5.6z m63.5 23.6L779.7 199l45.2 45.1-360.5 359.7-45.7 1.1 0.7-46.4z\" p-id=\"9041\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-text::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204122356\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9245\" width=\"200\" height=\"200\"><path d=\"M904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zM253.7 736h85c4.2 0 8-2.7 9.3-6.8l53.7-166h219.2l53.2 166c1.3 4 5 6.8 9.3 6.8h89.1c1.1 0 2.2-0.2 3.2-0.5 5.1-1.8 7.8-7.3 6-12.4L573.6 118.6c-1.4-3.9-5.1-6.6-9.2-6.6H462.1c-4.2 0-7.9 2.6-9.2 6.6L244.5 723.1c-0.4 1-0.5 2.1-0.5 3.2-0.1 5.3 4.3 9.7 9.7 9.7z m255.9-516.1h4.1l83.8 263.8H424.9l84.7-263.8z\" p-id=\"9246\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
   styleInject(css$2);
 
   var css$3 = ".pictool-component-progress {\n  width: 100%;\n  height: 28px;\n  display: block;\n}\n.pictool-component-progress.progress-hidden {\n  display: none;\n}\n.pictool-component-progress .pictool-progress-outer {\n  position: relative;\n  height: 28px;\n  width: 100%;\n  background: #ffffff;\n  border-radius: 14px;\n  overflow: hidden;\n}\n.pictool-component-progress .pictool-progress-inner {\n  position: absolute;\n  height: 28px;\n  width: 100%;\n  background: #00d4ff;\n  border-radius: 14px;\n}\n";
@@ -1354,6 +1354,7 @@
       var imageData = opts.imageData;
       return imageData;
   };
+  // base image process filter
   var grayscale$1 = function (opts) {
       var imageData = opts.imageData;
       var effect = new Effect(imageData);
@@ -1378,13 +1379,31 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
+  var invert$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('invert', options).getImageData();
+      return rsImageData;
+  };
+  var sobel$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sobel', options).getImageData();
+      return rsImageData;
+  };
+  // multiple image process filter
   var lineDrawing = function (opts) {
       var imageData = opts.imageData, options = opts.options;
       var effect = new Effect(imageData);
       var rsImageData = effect.process('sobel', options).process('invert', options).getImageData();
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
+  var natural = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('saturation', { percent: 76 }).getImageData();
+      return rsImageData;
+  };
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -1392,7 +1411,10 @@
     hue: hue$1,
     lightness: lightness$1,
     saturation: saturation$1,
-    lineDrawing: lineDrawing
+    invert: invert$1,
+    sobel: sobel$1,
+    lineDrawing: lineDrawing,
+    natural: natural
   });
 
   var syncWorker = function (action, config) {
@@ -1457,7 +1479,7 @@
   //# sourceMappingURL=worker.js.map
 
   var adjustMenuConfig = {
-      title: 'Adjust',
+      title: 'Adjustment',
       menu: [
           {
               name: 'Lightness',
@@ -1468,6 +1490,7 @@
               },
               filter: 'lightness',
               parseOptions: function (data) {
+                  console.log('lightness.data = ', data);
                   return {
                       percent: Math.round(data.value)
                   };
@@ -1482,7 +1505,7 @@
               },
               filter: 'hue',
               parseOptions: function (data) {
-                  console.log('data = ', data);
+                  console.log('hue.data = ', data);
                   return {
                       value: Math.round(data.value)
                   };
@@ -1497,6 +1520,7 @@
               },
               filter: 'saturation',
               parseOptions: function (data) {
+                  console.log('saturation.data = ', data);
                   return {
                       percent: Math.round(data.value)
                   };
@@ -1514,15 +1538,39 @@
               filter: 'origin',
           },
           {
+              name: 'LineDrawing',
+              filter: 'lineDrawing',
+          },
+          {
+              name: 'Natural',
+              filter: 'natural',
+          }
+      ]
+  };
+  //# sourceMappingURL=filter.js.map
+
+  var processMenuConfig = {
+      title: 'Process',
+      menu: [
+          {
+              name: 'Origin',
+              filter: 'origin',
+          },
+          {
               name: 'Grayscale',
               filter: 'grayscale',
           },
           {
-              name: 'LineDrawing',
-              filter: 'lineDrawing',
+              name: 'Sobel',
+              filter: 'sobel',
+          },
+          {
+              name: 'Invert',
+              filter: 'invert',
           }
       ]
   };
+  //# sourceMappingURL=process.js.map
 
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {
@@ -1539,7 +1587,7 @@
           }
           var options = this._opts;
           var zIndex = options.zIndex;
-          var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-filter\" data-nav-action=\"filter\" >\n            <span>" + filterMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>" + adjustMenuConfig.title + "</span>\n          </div>\n        </div>\n      </div>\n    ";
+          var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-process\" data-nav-action=\"process\" >\n            <span>" + processMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>" + adjustMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-filter\" data-nav-action=\"filter\" >\n            <span>" + filterMenuConfig.title + "</span>\n          </div>\n        </div>\n      </div>\n    ";
           this._mount.innerHTML = html;
           this._registerEvent();
           this._hasRendered = true;
@@ -1552,11 +1600,16 @@
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var btnFiler = this._mount.querySelector('[data-nav-action="filter"]');
           var btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
-          var opts = {
-              mount: this._mount,
-              height: 120,
-              zIndex: zIndex + 1,
-          };
+          var btnProcess = this._mount.querySelector('[data-nav-action="process"]');
+          // const opts : ActionSheetOpts = {
+          //   mount: this._mount,
+          //   height: 120,
+          //   zIndex: zIndex + 1,
+          // };
+          var processPanel = this._initProcessPanel();
+          btnProcess.addEventListener('click', function () {
+              processPanel.show();
+          });
           var filterPanel = this._initFilterPanel();
           btnFiler.addEventListener('click', function () {
               filterPanel.show();
@@ -1612,6 +1665,39 @@
               loading.hide();
           });
       };
+      Dashboard.prototype._initProcessPanel = function () {
+          var options = this._opts;
+          var zIndex = options.zIndex, workerConfig = options.workerConfig;
+          var panel = new Panel({
+              title: processMenuConfig.title,
+              mount: this._mount,
+              zIndex: zIndex + 1,
+              navList: processMenuConfig.menu.map(function (conf) {
+                  return {
+                      name: conf.name,
+                      feedback: function () {
+                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
+                          var imageData = schemaParser.parseImageData(sketchSchema);
+                          return new Promise(function (resolve, reject) {
+                              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
+                              asyncWorker({
+                                  key: conf.filter,
+                                  param: { imageData: imageData, options: {} }
+                              }, workerConfig).then(function (rs) {
+                                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                                  var newSchema = schemaParser.parseImageDataToSchema(rs);
+                                  resolve(newSchema);
+                              }).then(function (err) {
+                                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
+                                  reject(err);
+                              });
+                          });
+                      }
+                  };
+              }),
+          });
+          return panel;
+      };
       Dashboard.prototype._initFilterPanel = function () {
           var options = this._opts;
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
@@ -1626,13 +1712,16 @@
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
                           var imageData = schemaParser.parseImageData(sketchSchema);
                           return new Promise(function (resolve, reject) {
+                              eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
                               asyncWorker({
                                   key: conf.filter,
                                   param: { imageData: imageData, options: {} }
                               }, workerConfig).then(function (rs) {
+                                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   var newSchema = schemaParser.parseImageDataToSchema(rs);
                                   resolve(newSchema);
                               }).then(function (err) {
+                                  eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   reject(err);
                               });
                           });
@@ -1677,24 +1766,6 @@
                       }
                   };
               }),
-          });
-          return panel;
-      };
-      Dashboard.prototype._initEditPanel = function () {
-          var options = this._opts;
-          var zIndex = options.zIndex;
-          var panel = new Panel({
-              title: '编辑',
-              mount: this._mount,
-              zIndex: zIndex + 1,
-              navList: [{
-                      name: '旋转',
-                      feedback: function () {
-                          // TODO
-                          var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          return Promise.resolve(sketchSchema);
-                      }
-                  }]
           });
           return panel;
       };

@@ -6,12 +6,12 @@ export const filterMenuConfig = {
       filter: 'origin',
     },
     {
-      name: 'Grayscale',
-      filter: 'grayscale',
-    },
-    {
       name: 'LineDrawing',
       filter: 'lineDrawing',
+    },
+    {
+      name: 'Natural',
+      filter: 'natural',
     }
   ]
 }

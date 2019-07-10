@@ -486,6 +486,7 @@
       var imageData = opts.imageData;
       return imageData;
   };
+  // base image process filter
   var grayscale$1 = function (opts) {
       var imageData = opts.imageData;
       var effect = new Effect(imageData);
@@ -510,13 +511,31 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
+  var invert$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('invert', options).getImageData();
+      return rsImageData;
+  };
+  var sobel$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sobel', options).getImageData();
+      return rsImageData;
+  };
+  // multiple image process filter
   var lineDrawing = function (opts) {
       var imageData = opts.imageData, options = opts.options;
       var effect = new Effect(imageData);
       var rsImageData = effect.process('sobel', options).process('invert', options).getImageData();
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
+  var natural = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('saturation', { percent: 76 }).getImageData();
+      return rsImageData;
+  };
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -524,7 +543,10 @@
     hue: hue$1,
     lightness: lightness$1,
     saturation: saturation$1,
-    lineDrawing: lineDrawing
+    invert: invert$1,
+    sobel: sobel$1,
+    lineDrawing: lineDrawing,
+    natural: natural
   });
 
   onmessage = function (event) {

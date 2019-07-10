@@ -19,7 +19,7 @@ interface PictoolOpts {
   workerConfig: WorkerConfig;
 }
 
-class Pictool {
+class PictoolUI {
   private _options: any;
   private _mask: Mask;
   private _imageData: ImageData = null;
@@ -73,4 +73,4 @@ class Pictool {
   }
 }
 
-export default Pictool;
+export default PictoolUI;

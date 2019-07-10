@@ -1818,8 +1818,8 @@
   //# sourceMappingURL=index.js.map
 
   var ZINDEX = 1000;
-  var Pictool = /** @class */ (function () {
-      function Pictool(imageData, options) {
+  var PictoolUI = /** @class */ (function () {
+      function PictoolUI(imageData, options) {
           if (options === void 0) { options = { uiConfig: {}, workerConfig: { use: false, path: '' } }; }
           this._imageData = null;
           this._sketch = null;
@@ -1857,21 +1857,20 @@
           });
           this._mask = mask;
       }
-      Pictool.prototype.show = function () {
+      PictoolUI.prototype.show = function () {
           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
           this._sketch.renderImage(sketchSchema);
           this._mask.show();
       };
-      Pictool.prototype.hide = function () {
+      PictoolUI.prototype.hide = function () {
           this._mask.hide();
       };
-      return Pictool;
+      return PictoolUI;
   }());
-  //# sourceMappingURL=index.js.map
 
   //# sourceMappingURL=ui.js.map
 
-  return Pictool;
+  return PictoolUI;
 
 }));
 //# sourceMappingURL=ui.js.map

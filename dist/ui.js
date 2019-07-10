@@ -1404,6 +1404,7 @@
       var rsImageData = effect.process('saturation', { percent: 76 }).getImageData();
       return rsImageData;
   };
+  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -1490,9 +1491,10 @@
               },
               filter: 'lightness',
               parseOptions: function (data) {
-                  console.log('lightness.data = ', data);
+                  var percent = Math.round(data.value);
+                  console.log('lightness.percent = ', percent);
                   return {
-                      percent: Math.round(data.value)
+                      percent: percent,
                   };
               }
           },
@@ -1505,9 +1507,10 @@
               },
               filter: 'hue',
               parseOptions: function (data) {
-                  console.log('hue.data = ', data);
+                  var value = Math.round(data.value);
+                  console.log('hue.value = ', value);
                   return {
-                      value: Math.round(data.value)
+                      value: value,
                   };
               }
           },
@@ -1520,9 +1523,10 @@
               },
               filter: 'saturation',
               parseOptions: function (data) {
-                  console.log('saturation.data = ', data);
+                  var percent = Math.round(data.value);
+                  console.log('saturation.percent = ', percent);
                   return {
-                      percent: Math.round(data.value)
+                      percent: percent,
                   };
               }
           },

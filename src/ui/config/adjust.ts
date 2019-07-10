@@ -10,9 +10,10 @@ export const adjustMenuConfig = {
       },
       filter: 'lightness',
       parseOptions(data) {
-        console.log('lightness.data = ', data);
+        const percent = Math.round(data.value);
+        console.log('lightness.percent = ', percent);
         return {
-          percent: Math.round(data.value)
+          percent,
         }
       }
     },
@@ -25,9 +26,10 @@ export const adjustMenuConfig = {
       },
       filter: 'hue',
       parseOptions(data) {
-        console.log('hue.data = ', data);
+        const value = Math.round(data.value);
+        console.log('hue.value = ', value);
         return {
-          value: Math.round(data.value)
+          value,
         }
       }
     },
@@ -40,9 +42,10 @@ export const adjustMenuConfig = {
       },
       filter: 'saturation',
       parseOptions(data) {
-        console.log('saturation.data = ', data);
+        const percent = Math.round(data.value);
+        console.log('saturation.percent = ', percent);
         return {
-          percent: Math.round(data.value)
+          percent,
         }
       }
     },

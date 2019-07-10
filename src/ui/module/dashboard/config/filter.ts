@@ -9,5 +9,9 @@ export const filterMenuConfig = {
       name: 'Grayscale',
       filter: 'grayscale',
     },
+    {
+      name: 'LineDrawing',
+      filter: 'lineDrawing',
+    }
   ]
 }

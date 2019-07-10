@@ -232,6 +232,7 @@
         }
         return { h: h, s: s, l: l };
     };
+    //# sourceMappingURL=rgb2hsl.js.map
 
     var DigitImageData = /** @class */ (function () {
         function DigitImageData(opts) {
@@ -464,8 +465,8 @@
         sobel: sobel,
         invert: invert,
         hue: hue,
-        lightness: lightness,
         saturation: saturation,
+        lightness: lightness,
     };
     //# sourceMappingURL=index.js.map
 
@@ -476,11 +477,51 @@
     };
     //# sourceMappingURL=index.js.map
 
+    var digitImageData2ImageData = function (digitImgData) {
+        var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
+        var imgData = new ImageData(width, height);
+        data.forEach(function (num, i) {
+            imgData.data[i] = num;
+        });
+        return imgData;
+    };
+    //# sourceMappingURL=image-data.js.map
+
+    var Effect = /** @class */ (function () {
+        function Effect(imageData) {
+            this._imageData = null;
+            this._imageData = imageData;
+        }
+        Effect.prototype.process = function (method, opts) {
+            if (typeof process[method] !== 'function') {
+                throw new Error("Pictool.digit.process." + method + " is not a function ");
+            }
+            var digitData = new DigitImageData({
+                width: this._imageData.width,
+                height: this._imageData.height,
+            });
+            digitData.setData(this._imageData.data);
+            var rsDightData = process[method](digitData, opts);
+            this._imageData = digitImageData2ImageData(rsDightData);
+            digitData.destory();
+            digitData = null;
+            rsDightData.destory();
+            rsDightData = null;
+            return this;
+        };
+        Effect.prototype.getImageData = function () {
+            return this._imageData;
+        };
+        return Effect;
+    }());
+    //# sourceMappingURL=index.js.map
+
     var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
         transform: transform$1,
         process: process$1,
         DigitImageData: DigitImageData$1,
+        Effect: Effect,
     };
     //# sourceMappingURL=digit.js.map
 

@@ -77,7 +77,27 @@ export class Sketch {
       </div>
     `;
     this._mount.innerHTML = html;
+    this._registerEvent();
     this._hasRendered = true;
+  }
+
+  private _registerEvent() {
+    if (this._hasRendered === true) {
+      return;
+    }
+    const that = this;
+    eventHub.on('GlobalEvent.moduleSketch.resizeCanvas', function() {
+      that._resizeSketch();
+    });
+  }
+
+  private _resizeSketch() {
+    const container = this._mount.querySelector('.pictool-sketch-container');
+    const canvas = container.querySelector('.pictool-sketch-canvas');
+    const height = container.clientHeight;
+    const width = container.clientWidth;
+    const size = Math.min(height, width);
+    canvas.setAttribute('style', `max-height: ${size}px; max-width: ${size}px; `);
   }
   
 }

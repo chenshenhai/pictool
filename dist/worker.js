@@ -357,26 +357,8 @@
       }
       return { h: h, s: s, l: l };
   };
+  //# sourceMappingURL=rgb2hsl.js.map
 
-  var transformImageData = function (imageData, opts) {
-      var data = imageData.data, width = imageData.width, height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var r = data[i];
-          var g = data[i + 1];
-          var b = data[i + 2];
-          var a = data[i + 3];
-          var cell = { r: r, g: g, b: b };
-          var hslCell = RGB2HSL(cell, opts);
-          var rsHsl = __assign({}, hslCell);
-          var rgbCell = HSL2RGB(rsHsl);
-          filteredImageData.data[i] = rgbCell.r;
-          filteredImageData.data[i + 1] = rgbCell.g;
-          filteredImageData.data[i + 2] = rgbCell.b;
-          filteredImageData.data[i + 3] = a;
-      }
-      return filteredImageData;
-  };
   var transformDigitImageData = function (digitImageData, opts) {
       var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
       var rsImageData = new DigitImageData({ width: width, height: height });
@@ -397,11 +379,6 @@
       digitImageData.destory();
       digitImageData = null;
       return rsImageData;
-  };
-  var transform = {
-      HSL2RGB: HSL2RGB,
-      RGB2HSL: RGB2HSL,
-      transformImageData: transformImageData,
   };
   //# sourceMappingURL=index.js.map
 
@@ -461,8 +438,8 @@
       sobel: sobel,
       invert: invert,
       hue: hue,
-      lightness: lightness,
       saturation: saturation,
+      lightness: lightness,
   };
   //# sourceMappingURL=index.js.map
 
@@ -505,63 +482,11 @@
   }());
   //# sourceMappingURL=index.js.map
 
-  var filterPersonSkinImageData = function (opts) {
-      var imageData = opts.imageData;
-      var data = imageData.data;
-      var width = imageData.width;
-      var height = imageData.height;
-      var filteredImageData = new ImageData(width, height);
-      for (var i = 0; i < data.length; i += 4) {
-          var red = data[i * 4];
-          var green = data[i * 4 + 1];
-          var blue = data[i * 4 + 2];
-          var alpha = 255; // data[i * 4 + 3];
-          if ((Math.abs(red - green) > 15) && (red > green) && (red > blue)) {
-              if (red > 95 && green > 40 && blue > 20 && (Math.max(red, green, blue) - Math.min(red, green, blue) > 15)) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else if (red > 220 && green > 210 && blue > 170) {
-                  filteredImageData.data[i * 4] = 1;
-                  filteredImageData.data[i * 4 + 1] = 1;
-                  filteredImageData.data[i * 4 + 2] = 1;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-              else {
-                  filteredImageData.data[i * 4] = red;
-                  filteredImageData.data[i * 4 + 1] = green;
-                  filteredImageData.data[i * 4 + 2] = blue;
-                  filteredImageData.data[i * 4 + 3] = alpha;
-              }
-          }
-          else {
-              // filteredImageData.data[i * 4] = red;
-              // filteredImageData.data[i * 4 + 1] = green;
-              // filteredImageData.data[i * 4 + 2] = blue;
-              // filteredImageData.data[i * 4 + 3] = alpha;
-              filteredImageData.data[i * 4] = 255;
-              filteredImageData.data[i * 4 + 1] = 255;
-              filteredImageData.data[i * 4 + 2] = 255;
-              filteredImageData.data[i * 4 + 3] = 255;
-          }
-      }
-      return filteredImageData;
-  };
-  //# sourceMappingURL=person.js.map
-
-  var filterTransform = function (filerOpts) {
-      var imageData = filerOpts.imageData, _a = filerOpts.options, options = _a === void 0 ? {} : _a;
-      var filteredImageData = transform.transformImageData(imageData, options);
-      return filteredImageData;
-  };
-  //# sourceMappingURL=transform.js.map
-
   var origin = function (opts) {
       var imageData = opts.imageData;
       return imageData;
   };
+  // base image process filter
   var grayscale$1 = function (opts) {
       var imageData = opts.imageData;
       var effect = new Effect(imageData);
@@ -586,6 +511,31 @@
       var rsImageData = effect.process('saturation', options).getImageData();
       return rsImageData;
   };
+  var invert$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('invert', options).getImageData();
+      return rsImageData;
+  };
+  var sobel$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sobel', options).getImageData();
+      return rsImageData;
+  };
+  // multiple image process filter
+  var lineDrawing = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sobel', options).process('invert', options).getImageData();
+      return rsImageData;
+  };
+  var natural = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('saturation', { percent: 76 }).getImageData();
+      return rsImageData;
+  };
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
@@ -594,8 +544,10 @@
     hue: hue$1,
     lightness: lightness$1,
     saturation: saturation$1,
-    personSkin: filterPersonSkinImageData,
-    transform: filterTransform
+    invert: invert$1,
+    sobel: sobel$1,
+    lineDrawing: lineDrawing,
+    natural: natural
   });
 
   onmessage = function (event) {

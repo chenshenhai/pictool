@@ -11,6 +11,6 @@ export default {
   sobel,
   invert,
   hue,
-  lightness,
   saturation,
+  lightness,
 }

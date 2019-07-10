@@ -111,6 +111,29 @@ export class Progress {
         onChange(data);
       }
     });
+
+
+    outer.addEventListener('mousedown', function(event: MouseEvent) {
+      const touchClientX = event.clientX;
+      let movePercent = that._calculateMovePercent(touchClientX);
+      that._setInnerMovePercent(movePercent);
+    })
+    // outer.addEventListener('mousemove', function(event: MouseEvent) {
+    //   const touchClientX = event.clientX;
+    //   let movePercent = that._calculateMovePercent(touchClientX);
+    //   that._setInnerMovePercent(movePercent);
+    // });
+    outer.addEventListener('mouseup', function() {
+      const value = that._getInnerValue();
+      const data: ProcessOnChangeData = {
+        value,
+      }
+      const options = that._options;
+      const { onChange, } = options;
+      if (istype.function(onChange)) {
+        onChange(data);
+      }
+    });
   }
 
   private _calculateMovePercent(touchClientX: number) {

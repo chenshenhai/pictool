@@ -19,7 +19,7 @@ interface PictoolOpts {
   workerConfig: WorkerConfig;
 }
 
-class Pictool {
+class PictoolUI {
   private _options: any;
   private _mask: Mask;
   private _imageData: ImageData = null;
@@ -66,6 +66,7 @@ class Pictool {
     const sketchSchema: SketchSchema = cacheHub.get('Sketch.originSketchSchema');
     this._sketch.renderImage(sketchSchema);
     this._mask.show();
+    eventHub.trigger('GlobalEvent.moduleSketch.resizeCanvas');
   }
 
   hide() {
@@ -73,4 +74,4 @@ class Pictool {
   }
 }
 
-export default Pictool;
+export default PictoolUI;

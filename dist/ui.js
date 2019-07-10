@@ -648,6 +648,27 @@
                   onChange(data);
               }
           });
+          outer.addEventListener('mousedown', function (event) {
+              var touchClientX = event.clientX;
+              var movePercent = that._calculateMovePercent(touchClientX);
+              that._setInnerMovePercent(movePercent);
+          });
+          // outer.addEventListener('mousemove', function(event: MouseEvent) {
+          //   const touchClientX = event.clientX;
+          //   let movePercent = that._calculateMovePercent(touchClientX);
+          //   that._setInnerMovePercent(movePercent);
+          // });
+          outer.addEventListener('mouseup', function () {
+              var value = that._getInnerValue();
+              var data = {
+                  value: value,
+              };
+              var options = that._options;
+              var onChange = options.onChange;
+              if (istype.function(onChange)) {
+                  onChange(data);
+              }
+          });
       };
       Progress.prototype._calculateMovePercent = function (touchClientX) {
           var component = this._component;
@@ -691,7 +712,6 @@
       };
       return Progress;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$4 = "@keyframes loading-animate {\n  0% {\n    width: 0%;\n  }\n  100% {\n    width: 90%;\n  }\n}\n.pictool-component-loading {\n  position: fixed;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 1000;\n  background: #000000aa;\n  display: none;\n}\n.pictool-component-loading.loading-show {\n  display: block;\n}\n.pictool-component-loading.loading-show .pictool-loading-inner {\n  height: 100%;\n  width: 90%;\n  background: -webkit-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -moz-linear-gradient(left, #4bf0f882, hsl(216, 67%, 55%));\n  background: -o-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -ms-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: linear-gradient(left, #4bf0f882, #3d7bd9);\n  border-radius: 10px;\n  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.2);\n  animation: loading-animate 10s linear;\n}\n.pictool-component-loading.loading-show .pictool-loading-outer {\n  position: absolute;\n  top: 50%;\n  left: 10%;\n  right: 10%;\n  height: 10px;\n  border-radius: 10px;\n  background: -webkit-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -moz-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -o-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -ms-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: linear-gradient(left, #e4e3e4, #e4e5e4);\n}\n";
   styleInject(css$4);
@@ -1867,6 +1887,7 @@
       };
       return PictoolUI;
   }());
+  //# sourceMappingURL=index.js.map
 
   //# sourceMappingURL=ui.js.map
 

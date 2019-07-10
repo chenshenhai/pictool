@@ -66,6 +66,7 @@ class PictoolUI {
     const sketchSchema: SketchSchema = cacheHub.get('Sketch.originSketchSchema');
     this._sketch.renderImage(sketchSchema);
     this._mask.show();
+    eventHub.trigger('GlobalEvent.moduleSketch.resizeCanvas');
   }
 
   hide() {

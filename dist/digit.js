@@ -485,32 +485,41 @@
         });
         return imgData;
     };
+    var imageData2DigitImageData = function (imgData) {
+        var data = imgData.data, width = imgData.width, height = imgData.height;
+        var digitImgData = new DigitImageData({ width: width, height: height });
+        digitImgData.setData(data);
+        return digitImgData;
+    };
     //# sourceMappingURL=image-data.js.map
 
     var Effect = /** @class */ (function () {
         function Effect(imageData) {
-            this._imageData = null;
-            this._imageData = imageData;
+            this._digitImageData = null;
+            if (imageData instanceof DigitImageData) {
+                this._digitImageData = imageData;
+            }
+            else {
+                this._digitImageData = imageData2DigitImageData(imageData);
+            }
         }
         Effect.prototype.process = function (method, opts) {
             if (typeof process[method] !== 'function') {
                 throw new Error("Pictool.digit.process." + method + " is not a function ");
             }
-            var digitData = new DigitImageData({
-                width: this._imageData.width,
-                height: this._imageData.height,
-            });
-            digitData.setData(this._imageData.data);
-            var rsDightData = process[method](digitData, opts);
-            this._imageData = digitImageData2ImageData(rsDightData);
-            digitData.destory();
-            digitData = null;
-            rsDightData.destory();
-            rsDightData = null;
+            this._digitImageData = process[method](this._digitImageData, opts);
             return this;
         };
         Effect.prototype.getImageData = function () {
-            return this._imageData;
+            var imageData = digitImageData2ImageData(this._digitImageData);
+            return imageData;
+        };
+        Effect.prototype.getDigitImageData = function () {
+            return this._digitImageData;
+        };
+        Effect.prototype.destory = function () {
+            this._digitImageData.destory();
+            this._digitImageData = null;
         };
         return Effect;
     }());

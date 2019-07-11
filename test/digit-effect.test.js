@@ -36,7 +36,7 @@ describe( 'test: Pictool.digit.Effect', ( ) => {
 
     const effect = new Effect(digitImg)
     const digitImgRs = effect.process('invert', {}).getDigitImageData();
-    digitImgRs.destory();
+    effect.destory();
 
     expect(digitImgRs.width).to.deep.equal(null);
     expect(digitImgRs.height).to.deep.equal(null);

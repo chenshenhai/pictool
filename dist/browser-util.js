@@ -60,6 +60,7 @@
       var base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
       return base64;
   };
+  //# sourceMappingURL=image-file.js.map
 
   var IMG_LIMIT_SIZE = 2000 * 2000;
   var PIECE_SIZE = 1000 * 1000;
@@ -126,6 +127,40 @@
       canvas = null;
       return base64;
   };
+  //# sourceMappingURL=compress.js.map
+
+  var DigitImageData = /** @class */ (function () {
+      function DigitImageData(opts) {
+          var width = opts.width, height = opts.height;
+          var size = width * height * 4;
+          var data = new Uint8ClampedArray(size);
+          this.data = data;
+          this.width = width;
+          this.height = height;
+      }
+      DigitImageData.prototype.setData = function (data) {
+          this.data = data.map(function (item) {
+              return item;
+          });
+      };
+      DigitImageData.prototype.pixelAt = function (x, y) {
+          var _a = this, width = _a.width, data = _a.data;
+          var idx = (width * y + x) * 4;
+          var r = data[idx];
+          var g = data[idx + 1];
+          var b = data[idx + 2];
+          var a = data[idx + 3];
+          var rgba = { r: r, g: g, b: b, a: a };
+          return rgba;
+      };
+      DigitImageData.prototype.destory = function () {
+          this.data = null;
+          this.width = null;
+          this.height = null;
+      };
+      return DigitImageData;
+  }());
+  //# sourceMappingURL=digit-image-data.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
@@ -135,6 +170,13 @@
       });
       return imgData;
   };
+  var imageData2DigitImageData = function (imgData) {
+      var data = imgData.data, width = imgData.width, height = imgData.height;
+      var digitImgData = new DigitImageData({ width: width, height: height });
+      digitImgData.setData(data);
+      return digitImgData;
+  };
+  //# sourceMappingURL=image-data.js.map
 
   var util = {
       getImageBySrc: getImageBySrc,
@@ -142,6 +184,7 @@
       compressImage: compressImage,
       imageData2Base64: imageData2Base64,
       digitImageData2ImageData: digitImageData2ImageData,
+      imageData2DigitImageData: imageData2DigitImageData,
   };
 
   return util;

@@ -8,3 +8,10 @@ export const digitImageData2ImageData = function(digitImgData: DigitImageData): 
   })
   return imgData;
 }
+
+export const imageData2DigitImageData = function(imgData: ImageData): DigitImageData {
+  const { data, width, height } = imgData;
+  const digitImgData = new DigitImageData({width, height});
+  digitImgData.setData(data);
+  return digitImgData;
+}

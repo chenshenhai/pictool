@@ -47,7 +47,6 @@
           });
       });
   };
-  //# sourceMappingURL=image-file.js.map
 
   var IMG_LIMIT_SIZE = 2000 * 2000;
   var PIECE_SIZE = 1000 * 1000;
@@ -114,7 +113,6 @@
       canvas = null;
       return base64;
   };
-  //# sourceMappingURL=compress.js.map
 
   var DigitImageData = /** @class */ (function () {
       function DigitImageData(opts) {
@@ -147,7 +145,6 @@
       };
       return DigitImageData;
   }());
-  //# sourceMappingURL=digit-image-data.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
@@ -184,7 +181,6 @@
       }
       return base64;
   };
-  //# sourceMappingURL=image-data.js.map
 
   var grayscale = function (imgData) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -203,7 +199,6 @@
       }
       return digitImg;
   };
-  //# sourceMappingURL=grayscale.js.map
 
   // Thanks to https://github.com/miguelmota/sobel/
   function imgDataAt(digitData, x, y) {
@@ -261,7 +256,6 @@
       grayImg = null;
       return digitImg;
   };
-  //# sourceMappingURL=sobel.js.map
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -269,7 +263,6 @@
   var H_MAX = 360;
   var S_MAX = 100;
   var L_MAX = 100;
-  //# sourceMappingURL=static.js.map
 
   var invert = function (imgData) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -287,7 +280,6 @@
       }
       return digitImg;
   };
-  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -389,7 +381,6 @@
       }
       return { r: r, g: g, b: b };
   };
-  //# sourceMappingURL=hsl2rgb.js.map
 
   var parseRGBNum = function (origin) {
       return origin * 100 / RGBA_MAX; // [1, 100]
@@ -509,7 +500,6 @@
       }
       return { h: h, s: s, l: l };
   };
-  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformDigitImageData = function (digitImageData, opts) {
       var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
@@ -532,7 +522,6 @@
       digitImageData = null;
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
 
   var hue = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -549,7 +538,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=hue.js.map
 
   var lightness = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -566,7 +554,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
       var width = imgData.width, height = imgData.height, data = imgData.data;
@@ -583,7 +570,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=saturation.js.map
 
   var process = {
       grayscale: grayscale,
@@ -593,7 +579,6 @@
       saturation: saturation,
       lightness: lightness,
   };
-  //# sourceMappingURL=index.js.map
 
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
@@ -625,7 +610,6 @@
       };
       return Effect;
   }());
-  //# sourceMappingURL=index.js.map
 
   var Sandbox = /** @class */ (function () {
       function Sandbox(imgSrc, opts) {
@@ -718,7 +702,6 @@
       };
       return Sandbox;
   }());
-  //# sourceMappingURL=sanbox.js.map
 
   var util = {
       getImageBySrc: getImageBySrc,
@@ -732,7 +715,6 @@
       util: util,
       Sandbox: Sandbox,
   };
-  //# sourceMappingURL=browser.js.map
 
   return browser;
 

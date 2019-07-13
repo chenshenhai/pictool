@@ -1,5 +1,16 @@
 const config = [
   {
+    input: 'src/index.ts',
+    output: {
+      file: 'dist/index.js',
+      format: 'umd',
+      name: 'Pictool',
+      amd: {
+        id: 'Pictool'
+      }
+    }
+  },
+  {
     input: 'src/ui.ts',
     output: {
       file: 'dist/ui.js',

@@ -29,13 +29,13 @@ const config = [
     }
   },
   {
-    input: 'src/browser-util.ts',
+    input: 'src/browser.ts',
     output: {
-      file: 'dist/browser-util.js',
+      file: 'dist/browser.js',
       format: 'umd',
-      name: 'Pictool.browserUtil',
+      name: 'Pictool.browser',
       amd: {
-        id: 'Pictool.browserUtil'
+        id: 'Pictool.browser'
       }
     }
   }

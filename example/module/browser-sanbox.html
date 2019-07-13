@@ -1,0 +1,43 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <style>
+    img {
+      max-height: 200px;
+      min-width: 100px;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div>
+      <img src="./../image/pexels-photo-001.jpg" />
+    </div>
+    <br/>
+    <div id="display">
+      <img />
+    </div>
+
+    <script src="./../../dist/browser-effect.js"></script>
+    <script>
+    (function() {
+      // 测试图片来自 www.pexels.com
+      // test photo from www.pexels.com
+
+      var src = './../image/pexels-photo-001.jpg';
+      var BrowserEffect = Pictool.BrowserEffect;
+
+      var browserEffect = new BrowserEffect(src);
+      browserEffect.process(function() {
+
+      });
+      
+      
+      // document.querySelector('#display').innerHTML = `
+      //       <img src="${base64}" />
+      //     `;
+    })();
+    </script>
+  </body>
+</html>

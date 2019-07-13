@@ -11,4 +11,6 @@ const util = {
   imageData2DigitImageData,
 };
 
-export default util;
+export default {
+  util,
+};

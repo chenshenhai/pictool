@@ -2,7 +2,7 @@
 const IMG_LIMIT_SIZE = 2000 * 2000;
 const PIECE_SIZE = 1000 * 1000;
 
-enum CompressImageTypeEnum {
+export enum CompressImageTypeEnum {
   png = 'image/png',
   jpg = 'image/jpg',
   jpeg = 'image/jpeg',

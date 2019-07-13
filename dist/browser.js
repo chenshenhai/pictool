@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define('Pictool.browserUtil', factory) :
-  (global = global || self, (global.Pictool = global.Pictool || {}, global.Pictool.browserUtil = factory()));
+  typeof define === 'function' && define.amd ? define('Pictool.browser', factory) :
+  (global = global || self, (global.Pictool = global.Pictool || {}, global.Pictool.browser = factory()));
 }(this, function () { 'use strict';
 
   /**
@@ -60,7 +60,6 @@
       var base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
       return base64;
   };
-  //# sourceMappingURL=image-file.js.map
 
   var IMG_LIMIT_SIZE = 2000 * 2000;
   var PIECE_SIZE = 1000 * 1000;
@@ -127,7 +126,6 @@
       canvas = null;
       return base64;
   };
-  //# sourceMappingURL=compress.js.map
 
   var DigitImageData = /** @class */ (function () {
       function DigitImageData(opts) {
@@ -160,7 +158,6 @@
       };
       return DigitImageData;
   }());
-  //# sourceMappingURL=digit-image-data.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
@@ -176,7 +173,6 @@
       digitImgData.setData(data);
       return digitImgData;
   };
-  //# sourceMappingURL=image-data.js.map
 
   var util = {
       getImageBySrc: getImageBySrc,
@@ -186,8 +182,11 @@
       digitImageData2ImageData: digitImageData2ImageData,
       imageData2DigitImageData: imageData2DigitImageData,
   };
+  var browser = {
+      util: util,
+  };
 
-  return util;
+  return browser;
 
 }));
-//# sourceMappingURL=browser-util.js.map
+//# sourceMappingURL=browser.js.map

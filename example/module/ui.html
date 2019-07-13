@@ -7,7 +7,7 @@
     <button id="J_BtnPictoolUI">open Pictool.UI</button>
 
     <script src="./../../dist/ui.js"></script>
-    <script src="./../../dist/browser-util.js"></script>
+    <script src="./../../dist/browser.js"></script>
     
     <script>
     (function() {
@@ -15,9 +15,9 @@
       // test photo from www.pexels.com
       // const testImg = './image/github-404.png';
       var src = './../image/pexels-photo-001.jpg';
-      Pictool.browserUtil.getImageBySrc(src).then(function(originImg) {
-        var targetImgSrc = Pictool.browserUtil.compressImage(originImg);
-        Pictool.browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+      Pictool.browser.util.getImageBySrc(src).then(function(originImg) {
+        var targetImgSrc = Pictool.browser.util.compressImage(originImg);
+        Pictool.browser.util.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
         
           var tool = new Pictool.UI(targetImgData, {
             uiConfig: {

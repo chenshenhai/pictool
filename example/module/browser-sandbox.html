@@ -19,24 +19,33 @@
       <img />
     </div>
 
-    <script src="./../../dist/browser-effect.js"></script>
+    <script src="./../../dist/browser.js"></script>
     <script>
     (function() {
       // 测试图片来自 www.pexels.com
       // test photo from www.pexels.com
 
       var src = './../image/pexels-photo-001.jpg';
-      var BrowserEffect = Pictool.BrowserEffect;
+      var Sandbox = Pictool.browser.Sandbox;
+      var sandbox = new Sandbox(src);
+      var dom = document.querySelector('#display');
 
-      var browserEffect = new BrowserEffect(src);
-      browserEffect.process(function() {
-
+      sandbox.queueProcess([
+        {
+          process: 'sobel',
+          options: {},
+        },
+        {
+          process: 'invert',
+          options: {},
+        }
+      ]).then(function(base64) {
+        dom.innerHTML = `<img src="${base64}" />`;
+      }).catch(function(err) {
+        console.log(err);
       });
       
       
-      // document.querySelector('#display').innerHTML = `
-      //       <img src="${base64}" />
-      //     `;
     })();
     </script>
   </body>

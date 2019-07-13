@@ -1,6 +1,8 @@
-import { getImageBySrc, getImageDataBySrc, imageData2Base64 } from './util/image-file';
+import { getImageBySrc, getImageDataBySrc, } from './util/image-file';
 import { compressImage } from './util/compress';
-import { digitImageData2ImageData, imageData2DigitImageData } from './util/image-data';
+import { digitImageData2ImageData, imageData2DigitImageData, imageData2Base64 } from './util/image-data';
+
+import { Sandbox } from './util/sanbox';
 
 const util = {
   getImageBySrc,
@@ -13,4 +15,5 @@ const util = {
 
 export default {
   util,
+  Sandbox,
 };

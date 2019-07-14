@@ -53,7 +53,7 @@
   var CompressImageTypeEnum;
   (function (CompressImageTypeEnum) {
       CompressImageTypeEnum["png"] = "image/png";
-      CompressImageTypeEnum["jpg"] = "image/jpg";
+      CompressImageTypeEnum["jpg"] = "image/webp";
       CompressImageTypeEnum["jpeg"] = "image/jpeg";
   })(CompressImageTypeEnum || (CompressImageTypeEnum = {}));
   var compressImage = function (img, opts) {
@@ -75,6 +75,9 @@
       var canvas = document.createElement('canvas');
       var tempCanvas = document.createElement('canvas');
       var context = canvas.getContext('2d');
+      if (!context) {
+          return null;
+      }
       canvas.width = outputW;
       canvas.height = outputH;
       context.fillStyle = '#FFFFFF';
@@ -86,6 +89,9 @@
           tempCanvas.width = pieceW;
           tempCanvas.height = pieceH;
           var tempContext = tempCanvas.getContext('2d');
+          if (!tempContext) {
+              return null;
+          }
           var sw = pieceW * ratio;
           var sh = pieceH * ratio;
           var dw = pieceW;

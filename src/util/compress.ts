@@ -4,7 +4,7 @@ const PIECE_SIZE = 1000 * 1000;
 
 export enum CompressImageTypeEnum {
   png = 'image/png',
-  jpg = 'image/jpg',
+  jpg = 'image/webp',
   jpeg = 'image/jpeg',
 }
 
@@ -16,7 +16,7 @@ export interface CompressImageOpts {
 export const compressImage = function(
   img: HTMLImageElement,
   opts: CompressImageOpts = {type: CompressImageTypeEnum.png,  encoderOptions: 1 }
-): string {
+): string|null {
   const {type, encoderOptions } = opts;
   const w = img.width;
   const h = img.height;
@@ -34,9 +34,13 @@ export const compressImage = function(
     ratio = 1;
   }
 
-  let canvas = document.createElement('canvas');
-  let tempCanvas = document.createElement('canvas');
-  let context = canvas.getContext('2d');
+  let canvas: HTMLCanvasElement|null = document.createElement('canvas');
+  let tempCanvas: HTMLCanvasElement|null = document.createElement('canvas');
+  let context: CanvasRenderingContext2D|null = canvas.getContext('2d');
+  if (!context) {
+    return null;
+  }
+
   canvas.width = outputW;
   canvas.height = outputH;
   context.fillStyle = '#FFFFFF';
@@ -51,7 +55,10 @@ export const compressImage = function(
 
     tempCanvas.width = pieceW;
     tempCanvas.height = pieceH;
-    let tempContext = tempCanvas.getContext('2d');
+    let tempContext: CanvasRenderingContext2D | null = tempCanvas.getContext('2d');
+    if (!tempContext) {
+      return null;
+    }
 
     const sw = pieceW * ratio;
     const sh = pieceH * ratio;

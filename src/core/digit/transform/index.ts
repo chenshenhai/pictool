@@ -26,8 +26,10 @@ const transformImageData = function(imageData: ImageData, opts: HSLTransformOpts
 }
 
 export const transformDigitImageData = function(digitImageData: DigitImageData, opts: HSLTransformOpts): DigitImageData {
-  const { data, width, height } = digitImageData;
-  const rsImageData = new DigitImageData({width, height});
+  const width: number = digitImageData.getWidth();
+  const height: number = digitImageData.getHeight();
+  const data: Uint8ClampedArray = digitImageData.getData();
+  const rsImageData = new DigitImageData({width, height, data});
   for(let i = 0; i < data.length; i += 4) {
     const r = data[i];
     const g = data[i + 1];
@@ -38,13 +40,13 @@ export const transformDigitImageData = function(digitImageData: DigitImageData, 
     const rsHsl: HSLCell = { ...{}, ...hslCell, }
 
     const rgbCell = HSL2RGB(rsHsl);
-    rsImageData.data[i] = rgbCell.r;
-    rsImageData.data[i + 1] = rgbCell.g;
-    rsImageData.data[i + 2] = rgbCell.b;
-    rsImageData.data[i + 3] = a;
+    rsImageData.setDataUnit(i, rgbCell.r);
+    rsImageData.setDataUnit(i + 1, rgbCell.g);
+    rsImageData.setDataUnit(i + 2, rgbCell.b);
+    rsImageData.setDataUnit(i + 3, a);
   }
   digitImageData.destory();
-  digitImageData = null;
+  // digitImageData = null;
   return rsImageData
 }
 

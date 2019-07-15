@@ -20,16 +20,17 @@ describe( 'test: Pictool.digit.process', ( ) => {
 
   it('process.grayscale', ( done ) => {
 
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.grayscale(digitImg);
     const expectImg = imgGrayscale;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+   
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
 
     done()
@@ -38,125 +39,142 @@ describe( 'test: Pictool.digit.process', ( ) => {
 
   it('process.invert', ( done ) => {
 
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.invert(digitImg);
     const expectImg = imgInvert;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+   
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
 
     done()
   });
 
   it('process.sobel', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.sobel(digitImg);
     const expectImg = imgSobel;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 
 
   it('process.hue({value: 180})', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.hue(digitImg, {value: 180});
     const expectImg = imgHueVal180;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 
   it('process.hue({percent: 75})', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.hue(digitImg, {percent: 75});
     const expectImg = imgHuePer75;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
+
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 
   it('process.saturation({value: 50})', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.saturation(digitImg, {value: 50});
     const expectImg = imgSaturationVal50;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 
   it('process.saturation({percent: -60})', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.saturation(digitImg, {percent: -60});
     const expectImg = imgSaturationPer60;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 
   it('process.lightness({value: 70})', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.lightness(digitImg, {value: 70});
     const expectImg = imgLightnessVal70;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 
 
   it('process.lightness({percent: -60})', ( done ) => {
-    const digitImg = new DigitImageData({width: img.width, height: img.height});
-    digitImg.setData(img.data);
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.lightness(digitImg, {percent: -60});
     const expectImg = imgLightnessPer60;
     
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    
+    const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
+
     done()
   });
 

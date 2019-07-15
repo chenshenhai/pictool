@@ -4,7 +4,9 @@ import { DigitImageData } from './../digit-image-data';
 import { grayscale } from './grayscale';
 
 function imgDataAt(digitData: DigitImageData, x: number,  y: number): number {
-  const { width, data } = digitData;
+  const width: number = digitData.getWidth();
+  // const height: number = digitData.getHeight();
+  const data: Uint8ClampedArray = digitData.getData();
   const idx = (width * y + x) * 4;
   let num = data[idx];
   if (!(num >= 0 && num < 255)) {
@@ -14,8 +16,10 @@ function imgDataAt(digitData: DigitImageData, x: number,  y: number): number {
 }
 
 export const sobel = function(imgData: DigitImageData): DigitImageData {
-  const { width, height } = imgData;
-  const digitImg = new DigitImageData({width, height});
+  const width: number = imgData.getWidth();
+  const height: number = imgData.getHeight();
+  const data: Uint8ClampedArray = new Uint8ClampedArray(width * height * 4)
+  const digitImg = new DigitImageData({width, height, data});
 
   const kernelX = [
     [-1, 0, 1],
@@ -29,7 +33,7 @@ export const sobel = function(imgData: DigitImageData): DigitImageData {
     [1, 2, 1]
   ];
 
-  let grayImg: DigitImageData = grayscale(imgData);
+  let grayImg: DigitImageData|null = grayscale(imgData);
 
   for (let x = 0; x < width; x ++) {
     for (let y = 0; y < height; y ++) {
@@ -58,10 +62,10 @@ export const sobel = function(imgData: DigitImageData): DigitImageData {
       );
       const magnitude = Math.round(Math.sqrt((pixelX * pixelX) + (pixelY * pixelY)));
       const idx = (width * y + x) * 4;
-      digitImg.data[idx] = magnitude;
-      digitImg.data[idx + 1] = magnitude;
-      digitImg.data[idx + 2] = magnitude;
-      digitImg.data[idx + 3] = 255;
+      digitImg.setDataUnit(idx, magnitude);
+      digitImg.setDataUnit(idx + 1, magnitude);
+      digitImg.setDataUnit(idx + 2, magnitude);
+      digitImg.setDataUnit(idx + 3, 255);
     }
     
   }

@@ -1,7 +1,9 @@
 import { DigitImageData } from './../core/digit/digit-image-data';
 
 export const digitImageData2ImageData = function(digitImgData: DigitImageData): ImageData {
-  const { data, width, height } = digitImgData;
+  const data: Uint8ClampedArray = digitImgData.getData();
+  const width: number = digitImgData.getWidth();
+  const height: number = digitImgData.getHeight();
   const imgData = new ImageData(width, height);
   data.forEach(function(num, i) {
     imgData.data[i] = num;
@@ -11,8 +13,7 @@ export const digitImageData2ImageData = function(digitImgData: DigitImageData): 
 
 export const imageData2DigitImageData = function(imgData: ImageData): DigitImageData {
   const { data, width, height } = imgData;
-  const digitImgData = new DigitImageData({width, height});
-  digitImgData.setData(data);
+  const digitImgData = new DigitImageData({width, height, data});
   return digitImgData;
 }
 

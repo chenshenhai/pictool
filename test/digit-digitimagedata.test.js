@@ -13,27 +13,47 @@ describe( 'test: Pictool.digit.DigitImageData', ( ) => {
     const digitImgRs = new DigitImageData({width: img.width, height: img.height});
     const expectImg = img;
 
-    expect(digitImgRs.width).to.deep.equal(expectImg.width);
-    expect(digitImgRs.height).to.deep.equal(expectImg.height);
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
     done()
   });
 
-  it('DigitImageData.setData(..)', ( done ) => {
-    const digitImgRs = new DigitImageData({width: img.width, height: img.height});
-    digitImgRs.setData(img.data);
+  it('DigitImageData.getData(..)', ( done ) => {
+    const digitImgRs = new DigitImageData({
+      width: img.width,
+      height: img.height,
+      data: img.data
+    });
+    const expectImg = img;
+
+    const rsData = digitImgRs.getData();
+
+    expectImg.data.forEach(function(num, i) {
+      expect(rsData[i]).to.deep.equal(num);
+    });
+
+    done()
+  });
+
+  it('DigitImageData.setDataUnit(..)', ( done ) => {
+    const digitImgRs = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const expectImg = img;
 
     expectImg.data.forEach(function(num, i) {
+      digitImgRs.setDataUnit(i, num);
+    });
+
+    const rsData = digitImgRs.getData();
+    expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
-      expect(digitImgRs.data[i]).to.deep.equal(num);
+      expect(rsData[i]).to.deep.equal(num);
     });
 
     done()
   });
 
   it('DigitImageData.pixelAt(..)', ( done ) => {
-    const digitImgRs = new DigitImageData({width: img.width, height: img.height});
-    digitImgRs.setData(img.data);
+    const digitImgRs = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const x = 3;
     const y = 4;
     const i = (y * img.width + x) * 4;
@@ -49,13 +69,13 @@ describe( 'test: Pictool.digit.DigitImageData', ( ) => {
   });
 
   it('DigitImageData.destory()', ( done ) => {
-    const digitImgRs = new DigitImageData({width: img.width, height: img.height});
-    digitImgRs.setData(img.data);
+    const digitImgRs = new DigitImageData({width: img.width, height: img.height, data: img.data});
     digitImgRs.destory();
 
-    expect(digitImgRs.width).to.deep.equal(null);
-    expect(digitImgRs.height).to.deep.equal(null);
-    expect(digitImgRs.data).to.deep.equal(null);
+    expect(digitImgRs.getWidth()).to.deep.equal(0);
+    expect(digitImgRs.getHeight()).to.deep.equal(0);
+    expect(digitImgRs.getData()).to.deep.equal(new Uint8ClampedArray(0));
+    
     done()
   });
 

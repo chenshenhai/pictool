@@ -14,12 +14,13 @@ export const hue = function(
   imgData: DigitImageData,
   opts: LightnessOpts
 ): DigitImageData {
-  const { width, height, data } = imgData;
-  let digitImg: DigitImageData = new DigitImageData({width, height});
-  digitImg.setData(data);
+  const width: number = imgData.getWidth();
+  const height: number = imgData.getHeight();
+  const data: Uint8ClampedArray = imgData.getData();
+  let digitImg: DigitImageData = new DigitImageData({width, height, data});
 
-  let percent: HSLTransformPercent = null;
-  let value: HSLTransformValue = null;
+  let percent: HSLTransformPercent|undefined = undefined;
+  let value: HSLTransformValue|undefined = undefined;
   if (opts.value) {
     value = { h: opts.value }
   } else if (opts.percent) {

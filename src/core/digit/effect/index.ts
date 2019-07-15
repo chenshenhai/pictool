@@ -3,7 +3,7 @@ import { DigitImageData } from './../digit-image-data';
 import { digitImageData2ImageData, imageData2DigitImageData } from '../../../util/image-data';
 
 export class Effect {
-  private _digitImageData: DigitImageData = null;
+  private _digitImageData: DigitImageData|null = null;
 
   constructor(imageData: ImageData|DigitImageData) {
     if (imageData instanceof DigitImageData) {
@@ -14,7 +14,7 @@ export class Effect {
   }
   
   public process(method: string, opts?: any): Effect {
-    if (typeof process[method] !== 'function') {
+    if (process && typeof process[method] !== 'function') {
       throw new Error(`Pictool.digit.process.${method} is not a function `);
     }
     this._digitImageData = process[method](this._digitImageData, opts);
@@ -26,12 +26,14 @@ export class Effect {
     return imageData;
   }
 
-  public getDigitImageData(): DigitImageData {
+  public getDigitImageData(): DigitImageData|null {
     return this._digitImageData;
   }
 
   public destory () {
-    this._digitImageData.destory();
-    this._digitImageData = null;
+    if (this._digitImageData) {
+      this._digitImageData.destory();
+      this._digitImageData = null;
+    }
   }
 }

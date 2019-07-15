@@ -171,6 +171,7 @@
       };
       return DigitImageData;
   }());
+  //# sourceMappingURL=digit-image-data.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.getData();
@@ -600,7 +601,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
       var width = imgData.getWidth();

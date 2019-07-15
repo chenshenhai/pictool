@@ -50,6 +50,7 @@
       };
       return DigitImageData;
   }());
+  //# sourceMappingURL=digit-image-data.js.map
 
   var grayscale = function (imgData) {
       var width = imgData.getWidth();
@@ -441,7 +442,6 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
-  //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
       var width = imgData.getWidth();

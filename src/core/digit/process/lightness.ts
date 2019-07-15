@@ -19,7 +19,6 @@ export const lightness = function(
   const data: Uint8ClampedArray = imgData.getData();
   let digitImg: DigitImageData = new DigitImageData({width, height, data});
 
-
   let percent: HSLTransformPercent|undefined = undefined;
   let value: HSLTransformValue|undefined = undefined;
   if (opts.value) {

@@ -42,7 +42,7 @@ export class Sandbox {
       this._getEffectAsync().then((effect) => {
         queue.forEach((opt: ProcessOpts) => {
           const process: string = opt.process;
-          const options: any = opt.process;
+          const options: any = opt.options;
           this._digitImg = effect.process(process, options).getDigitImageData();
         });
         const imageData = effect.getImageData();
@@ -95,14 +95,19 @@ export class Sandbox {
     const compressOpts: CompressImageOpts = {type: imgType,  encoderOptions: ratio }
     return new Promise((resolve, reject) => {
       getImageBySrc(imgSrc).then((img: HTMLImageElement) => {
-        const compressedImgSrc: string = compressImage(img, compressOpts);
-        getImageDataBySrc(compressedImgSrc).then((imgData: ImageData) => {
-          const digitImg: DigitImageData = imageData2DigitImageData(imgData);
-          this._digitImg = digitImg;
-          resolve(true);
-        }).catch((err: Error) => {
-          reject(err);
-        });
+        const compressedImgSrc: string|null = compressImage(img, compressOpts);
+        if (typeof compressedImgSrc === 'string') {
+          getImageDataBySrc(compressedImgSrc).then((imgData: ImageData) => {
+            const digitImg: DigitImageData = imageData2DigitImageData(imgData);
+            this._digitImg = digitImg;
+            resolve(true);
+          }).catch((err: Error) => {
+            reject(err);
+          });
+        } else {
+          reject(new Error('compressImage result is null'));
+        }
+        
       }).catch((err: Error) => {
         reject(err);
       });

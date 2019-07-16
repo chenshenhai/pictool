@@ -709,7 +709,7 @@
               _this._getEffectAsync().then(function (effect) {
                   queue.forEach(function (opt) {
                       var process = opt.process;
-                      var options = opt.process;
+                      var options = opt.options;
                       _this._digitImg = effect.process(process, options).getDigitImageData();
                   });
                   var imageData = effect.getImageData();
@@ -764,13 +764,18 @@
           return new Promise(function (resolve, reject) {
               getImageBySrc(imgSrc).then(function (img) {
                   var compressedImgSrc = compressImage(img, compressOpts);
-                  getImageDataBySrc(compressedImgSrc).then(function (imgData) {
-                      var digitImg = imageData2DigitImageData(imgData);
-                      _this._digitImg = digitImg;
-                      resolve(true);
-                  }).catch(function (err) {
-                      reject(err);
-                  });
+                  if (typeof compressedImgSrc === 'string') {
+                      getImageDataBySrc(compressedImgSrc).then(function (imgData) {
+                          var digitImg = imageData2DigitImageData(imgData);
+                          _this._digitImg = digitImg;
+                          resolve(true);
+                      }).catch(function (err) {
+                          reject(err);
+                      });
+                  }
+                  else {
+                      reject(new Error('compressImage result is null'));
+                  }
               }).catch(function (err) {
                   reject(err);
               });

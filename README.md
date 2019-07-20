@@ -120,8 +120,8 @@ sandbox.queueProcess([
 
 ## Documentation
 
-[中文文档](https://chenshenhai.github.io/pictool-doc/)
-[English Documents](https://chenshenhai.github.io/pictool-doc/page/en-US/)
+- [中文文档](https://chenshenhai.github.io/pictool-doc/)
+- [English Documents](https://chenshenhai.github.io/pictool-doc/page/en-US/) //TODO
 
 ## Testing
 

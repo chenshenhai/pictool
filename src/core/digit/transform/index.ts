@@ -4,7 +4,6 @@ import { HSLCell, } from './../hsl/hsl';
 import { RGBCell, } from './../rgba/rgb';
 import { DigitImageData } from './../digit-image-data';
 
-
 export const transformDigitImageData = function(digitImageData: DigitImageData, opts: HSLTransformOpts): DigitImageData {
   const width: number = digitImageData.getWidth();
   const height: number = digitImageData.getHeight();

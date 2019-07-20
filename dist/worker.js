@@ -50,6 +50,7 @@
       };
       return DigitImageData;
   }());
+  //# sourceMappingURL=digit-image-data.js.map
 
   var grayscale = function (imgData) {
       var width = imgData.getWidth();
@@ -69,6 +70,7 @@
       }
       return digitImg;
   };
+  //# sourceMappingURL=grayscale.js.map
 
   // Thanks to https://github.com/miguelmota/sobel/
   function imgDataAt(digitData, x, y) {
@@ -130,6 +132,7 @@
       grayImg = null;
       return digitImg;
   };
+  //# sourceMappingURL=sobel.js.map
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -137,6 +140,7 @@
   var H_MAX = 360;
   var S_MAX = 100;
   var L_MAX = 100;
+  //# sourceMappingURL=static.js.map
 
   var invert = function (imgData) {
       var width = imgData.getWidth();
@@ -155,6 +159,7 @@
       }
       return digitImg;
   };
+  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -256,6 +261,7 @@
       }
       return { r: r, g: g, b: b };
   };
+  //# sourceMappingURL=hsl2rgb.js.map
 
   var parseRGBNum = function (origin) {
       return origin * 100 / RGBA_MAX; // [1, 100]
@@ -375,6 +381,7 @@
       }
       return { h: h, s: s, l: l };
   };
+  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformDigitImageData = function (digitImageData, opts) {
       var width = digitImageData.getWidth();
@@ -416,6 +423,7 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+  //# sourceMappingURL=hue.js.map
 
   var lightness = function (imgData, opts) {
       var width = imgData.getWidth();
@@ -433,6 +441,7 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+  //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
       var width = imgData.getWidth();
@@ -450,6 +459,7 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+  //# sourceMappingURL=saturation.js.map
 
   var process = {
       grayscale: grayscale,
@@ -459,6 +469,7 @@
       saturation: saturation,
       lightness: lightness,
   };
+  //# sourceMappingURL=index.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.getData();
@@ -475,6 +486,7 @@
       var digitImgData = new DigitImageData({ width: width, height: height, data: data });
       return digitImgData;
   };
+  //# sourceMappingURL=image-data.js.map
 
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
@@ -508,6 +520,7 @@
       };
       return Effect;
   }());
+  //# sourceMappingURL=index.js.map
 
   var origin = function (opts) {
       var imageData = opts.imageData;
@@ -579,6 +592,7 @@
       effect = null;
       return rsImageData;
   };
+  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -600,6 +614,7 @@
           'result': result
       }, '');
   };
+  //# sourceMappingURL=worker.js.map
 
 }());
 //# sourceMappingURL=worker.js.map

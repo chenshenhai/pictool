@@ -115,6 +115,8 @@ sandbox.queueProcess([
 - ✔︎ Brightness
 - ✔︎ Hue
 - ✔︎ Saturation
+- ✔︎ Alpha
+- ✔︎ Invert
 - ✔︎ Grayscale
 - ✔︎ Sobel
 

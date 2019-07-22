@@ -1,9 +1,11 @@
 import { FilterOpts } from './filter';
 import { Effect } from './../effect/index';
+import browser from './../../../browser';
 
 export const origin = function(opts: FilterOpts ) {
   const { imageData } = opts;
-  return imageData;
+  const rsImageData = browser.util.digitImageData2ImageData(imageData);
+  return rsImageData;
 }
 
 // base image process filter

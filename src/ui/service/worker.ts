@@ -1,5 +1,6 @@
 
 import * as filterMap from './../../core/digit/filter/index';
+import { FilterEnum } from './../../core/digit/filter/enum';
 
 export interface WorkerConfig {
   use: boolean;
@@ -35,28 +36,30 @@ export const syncWorker = function (action: WorkerAction, config: WorkerConfig) 
       param,
     });
   } else {
-    setTimeout(function() {
-      let error: Error = null;
+    setTimeout(() => {
+      let error: Error|null = null;
       let result = null;
       try {
-        const filerAction = filterMap[key]
+        const filerAction = filterMap[key];
         result = filerAction(param);
       } catch (err) {
         error = err;
       }
-      feedback(result, error);
+      if (typeof feedback === 'function') {
+        feedback(result, error);
+      }
     }, 1);
   }
 };
 
-export const asyncWorker = function(action: WorkerAction, config: WorkerConfig) {
+export const asyncWorker = function(action: WorkerAction, config: WorkerConfig): Promise<any|Error> {
   
   return new Promise(function (resolve, reject) {
     try {
       const asyncAction: WorkerAction = {
         key: action.key,
         param: action.param,
-        feedback: function(result, err) {
+        feedback: function(result: any, err: Error|null) {
           if (!err) {
             resolve(result);  
           } else {

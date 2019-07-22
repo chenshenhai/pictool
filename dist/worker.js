@@ -537,6 +537,7 @@
       }
       return rsDigitImg;
   };
+  //# sourceMappingURL=alpha.js.map
 
   var process = {
       grayscale: grayscale,
@@ -564,17 +565,38 @@
       var digitImgData = new DigitImageData({ width: width, height: height, data: data });
       return digitImgData;
   };
+  /**
+   *
+   * @param {ImageData} imageData
+   * @param {object} opts
+   *  opts.type 'image/png' 'image/jpg'
+   *  opts.encoderOptions [0, 1]
+   */
+  var imageData2Base64 = function (imageData, opts) {
+      if (opts === void 0) { opts = { type: 'image/png', encoderOptions: 1 }; }
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = imageData.width;
+      canvas.height = imageData.height;
+      var base64 = null;
+      if (ctx) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.putImageData(imageData, 0, 0);
+          base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
+      }
+      return base64;
+  };
   //# sourceMappingURL=image-data.js.map
 
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
           this._digitImageData = null;
-          if (imageData instanceof DigitImageData) {
-              this._digitImageData = imageData;
-          }
-          else {
-              this._digitImageData = imageData2DigitImageData(imageData);
-          }
+          this._digitImageData = imageData;
+          // if (imageData instanceof DigitImageData) {
+          //   this._digitImageData = imageData;
+          // } else {
+          //   this._digitImageData = imageData2DigitImageData(imageData);
+          // }
       }
       Effect.prototype.process = function (method, opts) {
           if (process && typeof process[method] !== 'function') {
@@ -584,8 +606,13 @@
           return this;
       };
       Effect.prototype.getImageData = function () {
-          var imageData = digitImageData2ImageData(this._digitImageData);
-          return imageData;
+          if (this._digitImageData) {
+              var imageData = digitImageData2ImageData(this._digitImageData);
+              return imageData;
+          }
+          else {
+              return null;
+          }
       };
       Effect.prototype.getDigitImageData = function () {
           return this._digitImageData;
@@ -600,9 +627,236 @@
   }());
   //# sourceMappingURL=index.js.map
 
+  /**
+   * @param {string} imageSrc
+   * @return {promise}
+   */
+  var getImageBySrc = function (imageSrc) {
+      var img = document.createElement('img');
+      return new Promise(function (resolve, reject) {
+          img.onload = function () {
+              resolve(img);
+          };
+          img.onerror = function () {
+              reject(new Error('GET_IMAGE_SRC_ERROR'));
+          };
+          img.src = imageSrc;
+      });
+  };
+  /**
+   * @param {string} imageSrc
+   * @return {promise}
+   */
+  var getImageDataBySrc = function (imageSrc) {
+      return new Promise(function (resolve, reject) {
+          getImageBySrc(imageSrc).then(function (img) {
+              var canvas = document.createElement('canvas');
+              var drawWidth = img.width;
+              var drawHeight = img.height;
+              canvas.width = drawWidth;
+              canvas.height = drawHeight;
+              var ctx = canvas.getContext('2d');
+              if (ctx) {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
+                  var imgData = ctx.getImageData(0, 0, drawWidth, drawHeight);
+                  resolve(imgData);
+              }
+              else {
+                  reject(new Error("canvas.getContext('2d') is null"));
+              }
+          }).catch(function (err) {
+              reject(err);
+          });
+      });
+  };
+
+  var IMG_LIMIT_SIZE = 2000 * 2000;
+  var PIECE_SIZE = 1000 * 1000;
+  var CompressImageTypeEnum;
+  (function (CompressImageTypeEnum) {
+      CompressImageTypeEnum["png"] = "image/png";
+      CompressImageTypeEnum["jpg"] = "image/webp";
+      CompressImageTypeEnum["jpeg"] = "image/jpeg";
+  })(CompressImageTypeEnum || (CompressImageTypeEnum = {}));
+  var compressImage = function (img, opts) {
+      if (opts === void 0) { opts = { type: CompressImageTypeEnum.png, encoderOptions: 1 }; }
+      var type = opts.type, encoderOptions = opts.encoderOptions;
+      var w = img.width;
+      var h = img.height;
+      var outputW = w;
+      var outputH = h;
+      var imageSize = w * h;
+      var ratio = Math.ceil(Math.sqrt(Math.ceil(imageSize / IMG_LIMIT_SIZE)));
+      if (ratio > 1) {
+          outputW = w / ratio;
+          outputH = h / ratio;
+      }
+      else {
+          ratio = 1;
+      }
+      var canvas = document.createElement('canvas');
+      var tempCanvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      if (!context) {
+          return null;
+      }
+      canvas.width = outputW;
+      canvas.height = outputH;
+      context.fillStyle = '#FFFFFF';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      var pieceCount = Math.ceil(imageSize / PIECE_SIZE);
+      if (pieceCount > 1) {
+          var pieceW = Math.ceil(canvas.width / pieceCount);
+          var pieceH = Math.ceil(canvas.height / pieceCount);
+          tempCanvas.width = pieceW;
+          tempCanvas.height = pieceH;
+          var tempContext = tempCanvas.getContext('2d');
+          if (!tempContext) {
+              return null;
+          }
+          var sw = pieceW * ratio;
+          var sh = pieceH * ratio;
+          var dw = pieceW;
+          var dh = pieceH;
+          for (var i = 0; i < pieceCount; i++) {
+              for (var j = 0; j < pieceCount; j++) {
+                  var sx = i * pieceW * ratio;
+                  var sy = j * pieceH * ratio;
+                  tempContext.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+                  context.drawImage(tempCanvas, i * pieceW, j * pieceH, dw, dh);
+              }
+          }
+          tempContext.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+          tempCanvas.width = 0;
+          tempCanvas.height = 0;
+          tempCanvas = null;
+      }
+      else {
+          context.drawImage(img, 0, 0, outputW, outputH);
+      }
+      var base64 = canvas.toDataURL(type, encoderOptions);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = 0;
+      canvas.height = 0;
+      canvas = null;
+      return base64;
+  };
+
+  var Sandbox = /** @class */ (function () {
+      function Sandbox(imgSrc, opts) {
+          this._digitImg = null;
+          this._effect = null;
+          this._imgSrc = imgSrc;
+          this._options = opts;
+      }
+      Sandbox.prototype.queueProcess = function (opts) {
+          var _this = this;
+          var queue = [];
+          if (Array.isArray(opts)) {
+              opts.forEach(function (opt) {
+                  queue.push(opt);
+              });
+          }
+          else {
+              queue.push(opts);
+          }
+          return new Promise(function (resolve, reject) {
+              _this._getEffectAsync().then(function (effect) {
+                  queue.forEach(function (opt) {
+                      var process = opt.process;
+                      var options = opt.options;
+                      _this._digitImg = effect.process(process, options).getDigitImageData();
+                  });
+                  var imageData = effect.getImageData();
+                  var base64 = imageData2Base64(imageData);
+                  resolve(base64);
+              }).catch(function (err) {
+                  reject(err);
+              });
+          });
+      };
+      Sandbox.prototype._getEffectAsync = function () {
+          var _this = this;
+          if (this._effect instanceof Effect) {
+              return Promise.resolve(this._effect);
+          }
+          return new Promise(function (resolve, reject) {
+              _this._parseDigitAsync().then(function (result) {
+                  if (result === true) {
+                      var digitData = _this._digitImg;
+                      if (digitData instanceof DigitImageData) {
+                          var effect = new Effect(digitData);
+                          _this._effect = effect;
+                          resolve(_this._effect);
+                      }
+                      else {
+                          reject(new Error('_digitImg is null'));
+                      }
+                  }
+                  else {
+                      reject(new Error('image src parse fail'));
+                  }
+              }).catch(function (err) {
+                  reject(err);
+              });
+          });
+      };
+      Sandbox.prototype._parseDigitAsync = function () {
+          var _this = this;
+          if (this._digitImg) {
+              return Promise.resolve(true);
+          }
+          var options = this._options;
+          var compressRatio = 1;
+          if (options) {
+              compressRatio = options.compressRatio;
+          }
+          var imgSrc = this._imgSrc;
+          var ratio = Math.max(0.1, compressRatio);
+          ratio = Math.min(1, compressRatio);
+          var imgType = CompressImageTypeEnum.jpg;
+          var compressOpts = { type: imgType, encoderOptions: ratio };
+          return new Promise(function (resolve, reject) {
+              getImageBySrc(imgSrc).then(function (img) {
+                  var compressedImgSrc = compressImage(img, compressOpts);
+                  if (typeof compressedImgSrc === 'string') {
+                      getImageDataBySrc(compressedImgSrc).then(function (imgData) {
+                          var digitImg = imageData2DigitImageData(imgData);
+                          _this._digitImg = digitImg;
+                          resolve(true);
+                      }).catch(function (err) {
+                          reject(err);
+                      });
+                  }
+                  else {
+                      reject(new Error('compressImage result is null'));
+                  }
+              }).catch(function (err) {
+                  reject(err);
+              });
+          });
+      };
+      return Sandbox;
+  }());
+
+  var util = {
+      getImageBySrc: getImageBySrc,
+      getImageDataBySrc: getImageDataBySrc,
+      compressImage: compressImage,
+      imageData2Base64: imageData2Base64,
+      digitImageData2ImageData: digitImageData2ImageData,
+      imageData2DigitImageData: imageData2DigitImageData,
+  };
+  var browser = {
+      util: util,
+      Sandbox: Sandbox,
+  };
+
   var origin = function (opts) {
       var imageData = opts.imageData;
-      return imageData;
+      var rsImageData = browser.util.digitImageData2ImageData(imageData);
+      return rsImageData;
   };
   // base image process filter
   var grayscale$1 = function (opts) {
@@ -678,7 +932,6 @@
       effect = null;
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,

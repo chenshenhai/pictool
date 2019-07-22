@@ -544,6 +544,7 @@
         }
         return rsDigitImg;
     };
+    //# sourceMappingURL=alpha.js.map
 
     var process = {
         grayscale: grayscale,
@@ -573,22 +574,17 @@
         });
         return imgData;
     };
-    var imageData2DigitImageData = function (imgData) {
-        var data = imgData.data, width = imgData.width, height = imgData.height;
-        var digitImgData = new DigitImageData({ width: width, height: height, data: data });
-        return digitImgData;
-    };
     //# sourceMappingURL=image-data.js.map
 
     var Effect = /** @class */ (function () {
         function Effect(imageData) {
             this._digitImageData = null;
-            if (imageData instanceof DigitImageData) {
-                this._digitImageData = imageData;
-            }
-            else {
-                this._digitImageData = imageData2DigitImageData(imageData);
-            }
+            this._digitImageData = imageData;
+            // if (imageData instanceof DigitImageData) {
+            //   this._digitImageData = imageData;
+            // } else {
+            //   this._digitImageData = imageData2DigitImageData(imageData);
+            // }
         }
         Effect.prototype.process = function (method, opts) {
             if (process && typeof process[method] !== 'function') {
@@ -598,8 +594,13 @@
             return this;
         };
         Effect.prototype.getImageData = function () {
-            var imageData = digitImageData2ImageData(this._digitImageData);
-            return imageData;
+            if (this._digitImageData) {
+                var imageData = digitImageData2ImageData(this._digitImageData);
+                return imageData;
+            }
+            else {
+                return null;
+            }
         };
         Effect.prototype.getDigitImageData = function () {
             return this._digitImageData;
@@ -612,7 +613,6 @@
         };
         return Effect;
     }());
-    //# sourceMappingURL=index.js.map
 
     var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {

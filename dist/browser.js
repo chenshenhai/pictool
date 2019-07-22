@@ -696,6 +696,7 @@
       }
       return rsDigitImg;
   };
+  //# sourceMappingURL=alpha.js.map
 
   var process = {
       grayscale: grayscale,
@@ -711,12 +712,12 @@
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
           this._digitImageData = null;
-          if (imageData instanceof DigitImageData) {
-              this._digitImageData = imageData;
-          }
-          else {
-              this._digitImageData = imageData2DigitImageData(imageData);
-          }
+          this._digitImageData = imageData;
+          // if (imageData instanceof DigitImageData) {
+          //   this._digitImageData = imageData;
+          // } else {
+          //   this._digitImageData = imageData2DigitImageData(imageData);
+          // }
       }
       Effect.prototype.process = function (method, opts) {
           if (process && typeof process[method] !== 'function') {
@@ -726,8 +727,13 @@
           return this;
       };
       Effect.prototype.getImageData = function () {
-          var imageData = digitImageData2ImageData(this._digitImageData);
-          return imageData;
+          if (this._digitImageData) {
+              var imageData = digitImageData2ImageData(this._digitImageData);
+              return imageData;
+          }
+          else {
+              return null;
+          }
       };
       Effect.prototype.getDigitImageData = function () {
           return this._digitImageData;
@@ -740,7 +746,6 @@
       };
       return Effect;
   }());
-  //# sourceMappingURL=index.js.map
 
   var Sandbox = /** @class */ (function () {
       function Sandbox(imgSrc, opts) {

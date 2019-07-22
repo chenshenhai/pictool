@@ -1,5 +1,5 @@
 import './index.less';
-
+import browser from './../../../browser';
 // import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 import { Progress, ProcessOnChangeData } from './../../component/progress';
 import { Loading } from './../../component/loading/index';
@@ -20,8 +20,8 @@ export interface DashboardOpts {
 }
 
 export class Dashboard {
-  private _mount: HTMLElement|null = null;
-  private _opts: DashboardOpts|null = null;
+  private _mount: HTMLElement|null;
+  private _opts: DashboardOpts;
   private _hasRendered: boolean = false;
 
   constructor(mount: HTMLElement, opts: DashboardOpts) {
@@ -79,18 +79,18 @@ export class Dashboard {
     // };
 
     const processPanel = this._initProcessPanel();
-    btnProcess.addEventListener('click', function() {      
-      processPanel.show();
+    btnProcess && btnProcess.addEventListener('click', function() {      
+      processPanel && processPanel.show();
     });
 
     const filterEffect = this._initEffectPanel();
-    btnEffect.addEventListener('click', function() {      
-      filterEffect.show();
+    btnEffect && btnEffect.addEventListener('click', function() {      
+      filterEffect && filterEffect.show();
     });
 
     const adjustPanel = this._initAdjustPanel();
-    btnAdjust.addEventListener('click', function() {
-      adjustPanel.show();
+    btnAdjust && btnAdjust.addEventListener('click', function() {
+      adjustPanel && adjustPanel.show();
     });
 
     const progress = new Progress({
@@ -148,6 +148,9 @@ export class Dashboard {
 
   private _initProcessPanel() {
     const options: DashboardOpts = this._opts;
+    if (!this._mount) {
+      return null;
+    }
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
       title: processMenuConfig.title,
@@ -158,7 +161,8 @@ export class Dashboard {
           name: conf.name,
           feedback() {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-            const imageData = schemaParser.parseImageData(sketchSchema);
+            const originImgData = schemaParser.parseImageData(sketchSchema);
+            const imageData = browser.util.imageData2DigitImageData(originImgData);
             return new Promise(function(resolve, reject) {
               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
@@ -168,7 +172,7 @@ export class Dashboard {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 resolve(newSchema);
-              }).then(function(err: Error) {
+              }).catch(function(err: Error) {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 reject(err);
               })
@@ -182,6 +186,9 @@ export class Dashboard {
 
   private _initEffectPanel() {
     const options: DashboardOpts = this._opts;
+    if (!this._mount) {
+      return null;
+    }
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
       title: effectMenuConfig.title,
@@ -192,7 +199,9 @@ export class Dashboard {
           name: conf.name,
           feedback() {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-            const imageData = schemaParser.parseImageData(sketchSchema);
+            const originImgData = schemaParser.parseImageData(sketchSchema);
+            const imageData = browser.util.imageData2DigitImageData(originImgData);
+      
             return new Promise(function(resolve, reject) {
               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
@@ -202,7 +211,7 @@ export class Dashboard {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 resolve(newSchema);
-              }).then(function(err: Error) {
+              }).catch(function(err: Error) {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 reject(err);
               })
@@ -232,8 +241,9 @@ export class Dashboard {
           name: conf.name,
           feedback() {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-            const imageData = schemaParser.parseImageData(sketchSchema);
-            
+            const originImgData = schemaParser.parseImageData(sketchSchema);
+            const imageData = browser.util.imageData2DigitImageData(originImgData);
+      
             eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
               percent: conf.percent,
               range: {max: conf.range.max, min: conf.range.min },

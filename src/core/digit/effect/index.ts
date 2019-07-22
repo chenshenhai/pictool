@@ -5,12 +5,13 @@ import { digitImageData2ImageData, imageData2DigitImageData } from '../../../uti
 export class Effect {
   private _digitImageData: DigitImageData|null = null;
 
-  constructor(imageData: ImageData|DigitImageData) {
-    if (imageData instanceof DigitImageData) {
-      this._digitImageData = imageData;
-    } else {
-      this._digitImageData = imageData2DigitImageData(imageData);
-    }
+  constructor(imageData: DigitImageData) {
+    this._digitImageData = imageData;
+    // if (imageData instanceof DigitImageData) {
+    //   this._digitImageData = imageData;
+    // } else {
+    //   this._digitImageData = imageData2DigitImageData(imageData);
+    // }
   }
   
   public process(method: string, opts?: any): Effect {
@@ -21,9 +22,13 @@ export class Effect {
     return this;
   }
 
-  public getImageData(): ImageData {
-    const imageData = digitImageData2ImageData(this._digitImageData);
-    return imageData;
+  public getImageData(): ImageData|null {
+    if (this._digitImageData) {
+      const imageData = digitImageData2ImageData(this._digitImageData);
+      return imageData;
+    } else {
+      return null;
+    }
   }
 
   public getDigitImageData(): DigitImageData|null {

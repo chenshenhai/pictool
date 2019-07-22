@@ -571,368 +571,123 @@
   var css$2 = ".pictool-module-dashboard {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-dashboard .pictool-dashboard-navlist {\n  position: absolute;\n  height: 80px;\n  display: flex;\n  background: #ffffff;\n  width: 100%;\n  bottom: 0;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  padding-top: 40px;\n  position: relative;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-process::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1562767097651\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8873\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M552 472m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z\" p-id=\"8874\" fill=\"%23666666\"></path><path d=\"M879 824.9L696.3 352V178H768v-68H256v68h71.7v174L145 824.9c-2.8 7.4-4.3 15.2-4.3 23.1 0 35.3 28.7 64 64 64h614.6c7.9 0 15.7-1.5 23.1-4.3 33-12.7 49.4-49.8 36.6-82.8zM395.7 364.7V180h232.6v184.7L719.2 600c-20.7-5.3-42.1-8-63.9-8-61.2 0-119.2 21.5-165.3 60-33.9 28.2-76.3 43.9-121.3 43.9-32.7 0-64.1-8.3-91.8-23.7l118.8-307.5zM210.5 844l41.7-107.8c35.7 18.1 75.4 27.8 116.6 27.8 61.2 0 119.2-21.5 165.3-60 33.9-28.2 76.3-43.9 121.3-43.9 35 0 68.4 9.5 97.6 27.1L813.5 844h-603z\" p-id=\"8875\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-effect::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1562768736747\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9103\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M840 192h-56v-72c0-13.3-10.7-24-24-24H168c-13.3 0-24 10.7-24 24v272c0 13.3 10.7 24 24 24h592c13.3 0 24-10.7 24-24V256h32v200H465c-22.1 0-40 17.9-40 40v136h-44c-4.4 0-8 3.6-8 8v228c0 0.6 0.1 1.3 0.2 1.9-0.1 2-0.2 4.1-0.2 6.1 0 46.4 37.6 84 84 84s84-37.6 84-84c0-2.1-0.1-4.1-0.2-6.1 0.1-0.6 0.2-1.2 0.2-1.9V640c0-4.4-3.6-8-8-8h-44V520h351c22.1 0 40-17.9 40-40V232c0-22.1-17.9-40-40-40zM720 352H208V160h512v192zM477 876c0 11-9 20-20 20s-20-9-20-20V696h40v180z\" p-id=\"9104\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-adjust::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561283541458\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8719\" width=\"200\" height=\"200\"><path d=\"M924.8 385.6c-22.6-53.4-54.9-101.3-96-142.4-41.1-41.1-89-73.4-142.4-96C631.1 123.8 572.5 112 512 112s-119.1 11.8-174.4 35.2c-53.4 22.6-101.3 54.9-142.4 96-41.1 41.1-73.4 89-96 142.4C75.8 440.9 64 499.5 64 560c0 132.7 58.3 257.7 159.9 343.1l1.7 1.4c5.8 4.8 13.1 7.5 20.6 7.5h531.7c7.5 0 14.8-2.7 20.6-7.5l1.7-1.4C901.7 817.7 960 692.7 960 560c0-60.5-11.9-119.1-35.2-174.4zM761.4 836H262.6C184.5 765.5 140 665.6 140 560c0-99.4 38.7-192.8 109-263 70.3-70.3 163.7-109 263-109 99.4 0 192.8 38.7 263 109 70.3 70.3 109 163.7 109 263 0 105.6-44.5 205.5-122.6 276z\" p-id=\"8720\" fill=\"%23666666\"></path><path d=\"M623.5 421.5c-3.1-3.1-8.2-3.1-11.3 0L527.7 506c-18.7-5-39.4-0.2-54.1 14.5-21.9 21.9-21.9 57.3 0 79.2 21.9 21.9 57.3 21.9 79.2 0 14.7-14.7 19.5-35.4 14.5-54.1l84.5-84.5c3.1-3.1 3.1-8.2 0-11.3l-28.3-28.3zM490 320h44c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8zM750 538v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8zM762.7 340.8l-31.1-31.1c-3.1-3.1-8.2-3.1-11.3 0l-56.6 56.6c-3.1 3.1-3.1 8.2 0 11.3l31.1 31.1c3.1 3.1 8.2 3.1 11.3 0l56.6-56.6c3.1-3.1 3.1-8.2 0-11.3zM304.1 309.7c-3.1-3.1-8.2-3.1-11.3 0l-31.1 31.1c-3.1 3.1-3.1 8.2 0 11.3l56.6 56.6c3.1 3.1 8.2 3.1 11.3 0l31.1-31.1c3.1-3.1 3.1-8.2 0-11.3l-56.6-56.6zM262 530h-80c-4.4 0-8 3.6-8 8v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8z\" p-id=\"8721\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-edit::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204025732\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9039\" width=\"200\" height=\"200\"><path d=\"M904 512h-56c-4.4 0-8 3.6-8 8v320H184V184h320c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V520c0-4.4-3.6-8-8-8z\" p-id=\"9040\" fill=\"%23666666\"></path><path d=\"M355.9 534.9L354 653.8c-0.1 8.9 7.1 16.2 16 16.2h0.4l118-2.9c2-0.1 4-0.9 5.4-2.3l415.9-415c3.1-3.1 3.1-8.2 0-11.3L785.4 114.3c-1.6-1.6-3.6-2.3-5.7-2.3s-4.1 0.8-5.7 2.3l-415.8 415c-1.4 1.5-2.3 3.5-2.3 5.6z m63.5 23.6L779.7 199l45.2 45.1-360.5 359.7-45.7 1.1 0.7-46.4z\" p-id=\"9041\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-dashboard .pictool-dashboard-nav-btn.dashboard-text::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561204122356\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9245\" width=\"200\" height=\"200\"><path d=\"M904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zM253.7 736h85c4.2 0 8-2.7 9.3-6.8l53.7-166h219.2l53.2 166c1.3 4 5 6.8 9.3 6.8h89.1c1.1 0 2.2-0.2 3.2-0.5 5.1-1.8 7.8-7.3 6-12.4L573.6 118.6c-1.4-3.9-5.1-6.6-9.2-6.6H462.1c-4.2 0-7.9 2.6-9.2 6.6L244.5 723.1c-0.4 1-0.5 2.1-0.5 3.2-0.1 5.3 4.3 9.7 9.7 9.7z m255.9-516.1h4.1l83.8 263.8H424.9l84.7-263.8z\" p-id=\"9246\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
   styleInject(css$2);
 
-  var css$3 = ".pictool-component-progress {\n  width: 100%;\n  height: 28px;\n  display: block;\n}\n.pictool-component-progress.progress-hidden {\n  display: none;\n}\n.pictool-component-progress .pictool-progress-outer {\n  position: relative;\n  height: 28px;\n  width: 100%;\n  background: #ffffff;\n  border-radius: 14px;\n  overflow: hidden;\n}\n.pictool-component-progress .pictool-progress-inner {\n  position: absolute;\n  height: 28px;\n  width: 100%;\n  background: #00d4ff;\n  border-radius: 14px;\n}\n";
-  styleInject(css$3);
-
-  var mergeCSS2StyleAttr = function (cssMap) {
-      if (cssMap === void 0) { cssMap = {}; }
-      var cssList = [];
-      if (istype.json(cssMap) === true) {
-          for (var key in cssMap) {
-              var cssKey = "" + key;
-              var cssVal = "" + cssMap[key];
-              cssKey = cssKey.trim();
-              cssVal = cssVal.trim();
-              cssList.push(cssKey + ":" + cssVal);
-          }
-      }
-      var styleAttr = cssList.join('; ');
-      return styleAttr;
-  };
-  //# sourceMappingURL=style.js.map
-
-  var Progress = /** @class */ (function () {
-      function Progress(opts) {
-          this._options = null;
-          this._hasRendered = false;
-          this._component = null;
-          this._options = opts;
-          this._render();
-          this._rangeList = [];
-          var options = this._options;
-          var _a = options.max, max = _a === void 0 ? 100 : _a, _b = options.min, min = _b === void 0 ? 0 : _b;
-          this.resetRange(max, min);
-      }
-      Progress.prototype._render = function () {
-          if (this._hasRendered === true) {
-              return;
-          }
-          var options = this._options;
-          var mount = options.mount, customStyle = options.customStyle, percent = options.percent;
-          var styleAttr = mergeCSS2StyleAttr(customStyle);
-          var html = "\n      <div class=\"pictool-component-progress\" style=\"" + styleAttr + "\">\n        <div class=\"pictool-progress-outer\">\n          <div class=\"pictool-progress-inner\"></div>\n        </div>\n      </div>\n    ";
-          var tempDom = document.createElement('div');
-          tempDom.innerHTML = html;
-          var component = tempDom.querySelector('div.pictool-component-progress');
-          mount.appendChild(component);
-          this._component = component;
-          this._setInnerMovePercent(percent);
-          this._triggerEvent();
-      };
-      Progress.prototype.show = function () {
-          this._component.classList.remove('progress-hidden');
-      };
-      Progress.prototype.hide = function () {
-          this._component.classList.add('progress-hidden');
-      };
-      Progress.prototype.resetPercent = function (percent) {
-          this._setInnerMovePercent(percent);
-      };
-      Progress.prototype.resetOnChange = function (onChange) {
-          this._options.onChange = onChange;
-      };
-      Progress.prototype.resetRange = function (min, max) {
-          this._rangeList = [];
-          var item = (max - min) / 100;
-          for (var i = min; i < max; i += item) {
-              this._rangeList.push(i);
-          }
-          this._rangeList.push(max);
-      };
-      Progress.prototype._triggerEvent = function () {
-          var that = this;
-          var options = this._options;
-          var component = this._component;
-          var outer = component.querySelector('.pictool-progress-outer');
-          var inner = component.querySelector('.pictool-progress-inner');
-          outer.addEventListener('touchstart', function (event) {
-              var touchClientX = event.touches[0].clientX;
-              var movePercent = that._calculateMovePercent(touchClientX);
-              that._setInnerMovePercent(movePercent);
-          });
-          outer.addEventListener('touchmove', function (event) {
-              var touchClientX = event.touches[0].clientX;
-              var movePercent = that._calculateMovePercent(touchClientX);
-              that._setInnerMovePercent(movePercent);
-          });
-          outer.addEventListener('touchend', function () {
-              var value = that._getInnerValue();
-              var data = {
-                  value: value,
-              };
-              var options = that._options;
-              var onChange = options.onChange;
-              if (istype.function(onChange)) {
-                  onChange(data);
-              }
-          });
-          outer.addEventListener('mousedown', function (event) {
-              var touchClientX = event.clientX;
-              var movePercent = that._calculateMovePercent(touchClientX);
-              that._setInnerMovePercent(movePercent);
-          });
-          // outer.addEventListener('mousemove', function(event: MouseEvent) {
-          //   const touchClientX = event.clientX;
-          //   let movePercent = that._calculateMovePercent(touchClientX);
-          //   that._setInnerMovePercent(movePercent);
-          // });
-          outer.addEventListener('mouseup', function () {
-              var value = that._getInnerValue();
-              var data = {
-                  value: value,
-              };
-              var options = that._options;
-              var onChange = options.onChange;
-              if (istype.function(onChange)) {
-                  onChange(data);
-              }
-          });
-      };
-      Progress.prototype._calculateMovePercent = function (touchClientX) {
-          var component = this._component;
-          var outer = component.querySelector('.pictool-progress-outer');
-          var outerLeft = this._getViewAbsoluteLeft(outer);
-          var outerWidth = outer.clientWidth;
-          var moveLelf = touchClientX - outerLeft;
-          var movePercent = Math.ceil(moveLelf * 100 / outerWidth);
-          return movePercent;
-      };
-      Progress.prototype._setInnerMovePercent = function (percent) {
-          var component = this._component;
-          var inner = component.querySelector('.pictool-progress-inner');
-          var displayPercent = percent > 0 ? percent : 0;
-          displayPercent = Math.min(displayPercent, 100);
-          displayPercent = Math.max(displayPercent, 0);
-          var innerStyleAttr = mergeCSS2StyleAttr({
-              left: "-" + (100 - displayPercent) + "%"
-          });
-          inner.setAttribute('style', innerStyleAttr);
-          inner.setAttribute('data-component-inner-percent', "" + displayPercent);
-      };
-      Progress.prototype._getInnerValue = function () {
-          var component = this._component;
-          var inner = component.querySelector('.pictool-progress-inner');
-          var percentAttr = inner.getAttribute('data-component-inner-percent');
-          var percent = parseInt(percentAttr, 10);
-          percent = Math.min(100, percent);
-          percent = Math.max(0, percent);
-          var value = this._rangeList[percent];
-          return value;
-      };
-      Progress.prototype._getViewAbsoluteLeft = function (elem) {
-          var actualLeft = elem.offsetLeft;
-          var current = elem.offsetParent;
-          while (current !== null) {
-              actualLeft += current.offsetLeft;
-              current = current.offsetParent;
-          }
-          return actualLeft;
-      };
-      return Progress;
-  }());
-  //# sourceMappingURL=index.js.map
-
-  var css$4 = "@keyframes loading-animate {\n  0% {\n    width: 0%;\n  }\n  100% {\n    width: 90%;\n  }\n}\n.pictool-component-loading {\n  position: fixed;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 1000;\n  background: #000000aa;\n  display: none;\n}\n.pictool-component-loading.loading-show {\n  display: block;\n}\n.pictool-component-loading.loading-show .pictool-loading-inner {\n  height: 100%;\n  width: 90%;\n  background: -webkit-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -moz-linear-gradient(left, #4bf0f882, hsl(216, 67%, 55%));\n  background: -o-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -ms-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: linear-gradient(left, #4bf0f882, #3d7bd9);\n  border-radius: 10px;\n  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.2);\n  animation: loading-animate 10s linear;\n}\n.pictool-component-loading.loading-show .pictool-loading-outer {\n  position: absolute;\n  top: 50%;\n  left: 10%;\n  right: 10%;\n  height: 10px;\n  border-radius: 10px;\n  background: -webkit-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -moz-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -o-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -ms-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: linear-gradient(left, #e4e3e4, #e4e5e4);\n}\n";
-  styleInject(css$4);
-
-  var Loading = /** @class */ (function () {
-      function Loading(opts) {
-          this._options = null;
-          this._hasRendered = false;
-          this._component = null;
-          this._options = opts;
-          this._render();
-      }
-      Loading.prototype._render = function () {
-          if (this._hasRendered === true) {
-              return;
-          }
-          var options = this._options;
-          var mount = options.mount, zIndex = options.zIndex;
-          var html = "\n      <div class=\"pictool-component-loading\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-loading-outer\">\n          <div class=\"pictool-loading-inner\"></div>\n        </div>\n      </div>\n    ";
-          var tempDom = document.createElement('div');
-          tempDom.innerHTML = html;
-          var component = tempDom.querySelector('div.pictool-component-loading');
-          if (mount instanceof HTMLElement) {
-              mount.appendChild(component);
-          }
-          else {
-              var body = document.querySelector('body');
-              body.appendChild(component);
-          }
-          this._component = component;
-      };
-      Loading.prototype.show = function (timeout) {
-          var that = this;
-          this._component.classList.add('loading-show');
-          if (timeout > 0) {
-              setTimeout(function () {
-                  that.hide();
-              }, timeout);
-          }
-      };
-      Loading.prototype.hide = function () {
-          this._component.classList.remove('loading-show');
-      };
-      return Loading;
-  }());
-  //# sourceMappingURL=index.js.map
-
-  var css$5 = ".pictool-component-actionsheet {\n  display: none;\n  background: #ffffff00;\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-component-actionsheet .pictool-actionsheet-container {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 100%;\n  width: 100%;\n  background: #ffffff;\n  transition: 0.6s;\n}\n.pictool-component-actionsheet.actionsheet-open {\n  display: block;\n}\n.pictool-component-actionsheet .pictool-actionsheet-content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  background: #ffffff;\n}\n";
-  styleInject(css$5);
-
-  var ActionSheet = /** @class */ (function () {
-      function ActionSheet(opts) {
-          this._hasRendered = false;
-          this._component = null;
-          this._contentMount = null;
-          this._options = opts;
-          this._render();
-      }
-      ActionSheet.prototype.show = function () {
-          var _a = this._options, beforeShow = _a.beforeShow, afterShow = _a.afterShow;
-          var contentMount = this._contentMount;
-          if (typeof beforeShow === 'function') {
-              beforeShow({ contentMount: contentMount });
-          }
-          this._component.classList.add('actionsheet-open');
-          if (typeof afterShow === 'function') {
-              afterShow({ contentMount: contentMount });
-          }
-      };
-      ActionSheet.prototype.hide = function () {
-          var _a = this._options, beforeHide = _a.beforeHide, afterHide = _a.afterHide;
-          var contentMount = this._contentMount;
-          if (typeof beforeHide === 'function') {
-              beforeHide({ contentMount: contentMount });
-          }
-          this._component.classList.remove('actionsheet-open');
-          if (typeof afterHide === 'function') {
-              afterHide({ contentMount: contentMount });
-          }
-      };
-      ActionSheet.prototype._render = function () {
-          if (this._hasRendered === true) {
-              return;
-          }
-          var _a = this._options, afterRender = _a.afterRender, beforeRender = _a.beforeRender, mount = _a.mount;
-          if (typeof beforeRender === 'function') {
-              beforeRender();
-          }
-          var opts = this._options;
-          var height = opts.height, zIndex = opts.zIndex;
-          var html = "\n    <div class=\"pictool-component-actionsheet\" style=\"height:" + height + "px; z-index: " + zIndex + ";\">\n      <div class=\"pictool-actionsheet-container\">\n        <div class=\"pictool-actionsheet-header\"></div>\n        <div class=\"pictool-actionsheet-content\"></div>\n        <div class=\"pictool-actionsheet-footer\"></div>\n      </div>\n    </div>\n    ";
-          var body = document.querySelector('body');
-          var mountDom = document.createElement('div');
-          mountDom.innerHTML = html;
-          var component = mountDom.querySelector('div.pictool-component-actionsheet');
-          if (mount) {
-              mount.appendChild(component);
-          }
-          else {
-              body.appendChild(component);
-          }
-          var contentMount = component.querySelector('div.pictool-actionsheet-content');
-          if (typeof afterRender === 'function') {
-              var args = { contentMount: contentMount, };
-              afterRender(args);
-          }
-          this._hasRendered = true;
-          this._component = component;
-          this._contentMount = contentMount;
-      };
-      return ActionSheet;
-  }());
-  //# sourceMappingURL=index.js.map
-
-  var css$6 = ".pictool-module-panel {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-panel .pictool-panel-header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.08);\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-title {\n  line-height: 40px;\n  text-align: center;\n  font-size: 16px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299766263\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9368\" width=\"200\" height=\"200\"><path d=\"M685.4 354.8c0-4.4-3.6-8-8-8l-66 0.3L512 465.6l-99.3-118.4-66.1-0.3c-4.4 0-8 3.5-8 8 0 1.9 0.7 3.7 1.9 5.2l130.1 155L340.5 670c-1.2 1.5-1.9 3.3-1.9 5.2 0 4.4 3.6 8 8 8l66.1-0.3L512 564.4l99.3 118.4 66 0.3c4.4 0 8-3.5 8-8 0-1.9-0.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z\" p-id=\"9369\" fill=\"%23666666\"></path><path d=\"M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z\" p-id=\"9370\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-navigation {\n  position: absolute;\n  height: 80px;\n  width: 100%;\n  bottom: 0;\n  background: #2196f30d;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width {\n  display: block;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width .pictool-panel-nav-btn {\n  width: 80px;\n  display: block;\n  float: left;\n}\n.pictool-module-panel .pictool-panel-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  position: relative;\n  padding-top: 40px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561214557317\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8147\" width=\"200\" height=\"200\"><path d=\"M336 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8148\" fill=\"%23666666\"></path><path d=\"M688 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8149\" fill=\"%23666666\"></path><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2-44.3-18.7-84.1-45.6-118.3-79.8-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8c18.7-44.3 45.6-84.1 79.8-118.3 34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2 44.3 18.7 84.1 45.6 118.3 79.8 34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8c-18.7 44.3-45.6 84.1-79.8 118.2z\" p-id=\"8150\" fill=\"%23666666\"></path><path d=\"M664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360c-4.6 0-8.2 3.8-8 8.4 4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6c0.2-4.6-3.4-8.4-8-8.4z\" p-id=\"8151\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active {\n  color: #17abe3;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299983080\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9592\" width=\"200\" height=\"200\"><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48z m224 272c-85.5 0-155.6-67.3-160-151.6-0.2-4.6 3.4-8.4 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664c4.6 0 8.2 3.8 8 8.4-4.4 84.3-74.5 151.6-160 151.6z m176-224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z\" p-id=\"9593\" fill=\"%2317abe3\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
-  styleInject(css$6);
-
-  var Panel = /** @class */ (function () {
-      function Panel(opts) {
-          this._actionSheet = null;
-          this._opts = null;
-          this._hasRendered = false;
-          this._opts = opts;
-          var that = this;
-          var zIndex = opts.zIndex, mount = opts.mount;
-          var actionSheetOpts = {
-              height: 120,
-              mount: mount,
-              zIndex: zIndex,
-              afterRender: function (args) {
-                  var contentMount = args.contentMount;
-                  that._render(contentMount);
-              },
-              beforeHide: function () {
-                  eventHub.trigger('GlobalEvent.moduleDashboard.progress.hide');
-              }
+  /**
+   * @param {string} imageSrc
+   * @return {promise}
+   */
+  var getImageBySrc = function (imageSrc) {
+      var img = document.createElement('img');
+      return new Promise(function (resolve, reject) {
+          img.onload = function () {
+              resolve(img);
           };
-          var actionSheet = new ActionSheet(actionSheetOpts);
-          this._actionSheet = actionSheet;
-      }
-      Panel.prototype.show = function () {
-          this._actionSheet.show();
-      };
-      Panel.prototype.hide = function () {
-          this._actionSheet.hide();
-      };
-      Panel.prototype._render = function (mount) {
-          if (this._hasRendered === true) {
-              return;
-          }
-          var opts = this._opts;
-          var navList = opts.navList, title = opts.title;
-          var isBeyond = navList.length > 4;
-          var html = "\n      <div class=\"pictool-module-panel\">\n        <div class=\"pictool-panel-header\">\n          <div class=\"pictool-panel-btn-close\"></div>\n          <div class=\"pictool-panel-title\">" + (title || '') + "</div>\n        </div>\n        <div class=\"pictool-panel-navigation\">\n          <div class=\"pictool-panel-navlist " + (isBeyond === true ? 'panel-beyond-width' : '') + "\" \n            style=\"" + (isBeyond === true ? "width: " + (navList.length + 1) * 120 + "px" : '') + "\"\n          >\n          " + (istype.array(navList) && navList.map(function (nav, idx) {
-              return " \n            <div class=\"pictool-panel-nav-btn panelnav-icon\"\n              data-panel-nav-idx=\"" + idx + "\"\n            >\n              <span>" + nav.name + "</span>\n            </div>\n            ";
-          }).join('')) + "\n          </div>\n        </div>\n      </div>\n    ";
-          mount.innerHTML = html;
-          this._registerEvent(mount);
-          this._hasRendered = true;
-      };
-      Panel.prototype._registerEvent = function (mount) {
-          if (this._hasRendered === true) {
-              return;
-          }
-          var that = this;
-          var opts = this._opts;
-          var navList = opts.navList;
-          var navElemList = mount.querySelectorAll('[data-panel-nav-idx]');
-          var btnClose = mount.querySelector('div.pictool-panel-btn-close');
-          btnClose.addEventListener('click', function () {
-              that.hide();
+          img.onerror = function () {
+              reject(new Error('GET_IMAGE_SRC_ERROR'));
+          };
+          img.src = imageSrc;
+      });
+  };
+  /**
+   * @param {string} imageSrc
+   * @return {promise}
+   */
+  var getImageDataBySrc = function (imageSrc) {
+      return new Promise(function (resolve, reject) {
+          getImageBySrc(imageSrc).then(function (img) {
+              var canvas = document.createElement('canvas');
+              var drawWidth = img.width;
+              var drawHeight = img.height;
+              canvas.width = drawWidth;
+              canvas.height = drawHeight;
+              var ctx = canvas.getContext('2d');
+              if (ctx) {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
+                  var imgData = ctx.getImageData(0, 0, drawWidth, drawHeight);
+                  resolve(imgData);
+              }
+              else {
+                  reject(new Error("canvas.getContext('2d') is null"));
+              }
+          }).catch(function (err) {
+              reject(err);
           });
-          if (istype.nodeList(navElemList) === true) {
-              navElemList.forEach(function (navElem) {
-                  navElem.addEventListener('click', function (event) {
-                      var elem = this;
-                      var idx = elem.getAttribute('data-panel-nav-idx') * 1;
-                      var navConf = navList[idx];
-                      var primise = navConf.feedback();
-                      if (istype.promise(primise)) {
-                          primise.then(function (rs) {
-                              if (rs) {
-                                  eventHub.trigger('GlobalEvent.moduleSketch.renderImage', rs);
-                              }
-                          }).catch(function (err) {
-                              console.log(err);
-                          });
-                      }
-                      else if (istype.null(primise) !== true) {
-                          console.warn('feedback is not a promise or null');
-                      }
-                      navElemList.forEach(function (nav) {
-                          nav.classList.remove('panelnav-active');
-                      });
-                      elem.classList.add('panelnav-active');
-                  });
-              });
+      });
+  };
+  //# sourceMappingURL=image-file.js.map
+
+  var IMG_LIMIT_SIZE = 2000 * 2000;
+  var PIECE_SIZE = 1000 * 1000;
+  var CompressImageTypeEnum;
+  (function (CompressImageTypeEnum) {
+      CompressImageTypeEnum["png"] = "image/png";
+      CompressImageTypeEnum["jpg"] = "image/webp";
+      CompressImageTypeEnum["jpeg"] = "image/jpeg";
+  })(CompressImageTypeEnum || (CompressImageTypeEnum = {}));
+  var compressImage = function (img, opts) {
+      if (opts === void 0) { opts = { type: CompressImageTypeEnum.png, encoderOptions: 1 }; }
+      var type = opts.type, encoderOptions = opts.encoderOptions;
+      var w = img.width;
+      var h = img.height;
+      var outputW = w;
+      var outputH = h;
+      var imageSize = w * h;
+      var ratio = Math.ceil(Math.sqrt(Math.ceil(imageSize / IMG_LIMIT_SIZE)));
+      if (ratio > 1) {
+          outputW = w / ratio;
+          outputH = h / ratio;
+      }
+      else {
+          ratio = 1;
+      }
+      var canvas = document.createElement('canvas');
+      var tempCanvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      if (!context) {
+          return null;
+      }
+      canvas.width = outputW;
+      canvas.height = outputH;
+      context.fillStyle = '#FFFFFF';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      var pieceCount = Math.ceil(imageSize / PIECE_SIZE);
+      if (pieceCount > 1) {
+          var pieceW = Math.ceil(canvas.width / pieceCount);
+          var pieceH = Math.ceil(canvas.height / pieceCount);
+          tempCanvas.width = pieceW;
+          tempCanvas.height = pieceH;
+          var tempContext = tempCanvas.getContext('2d');
+          if (!tempContext) {
+              return null;
           }
-      };
-      return Panel;
-  }());
-  //# sourceMappingURL=index.js.map
+          var sw = pieceW * ratio;
+          var sh = pieceH * ratio;
+          var dw = pieceW;
+          var dh = pieceH;
+          for (var i = 0; i < pieceCount; i++) {
+              for (var j = 0; j < pieceCount; j++) {
+                  var sx = i * pieceW * ratio;
+                  var sy = j * pieceH * ratio;
+                  tempContext.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+                  context.drawImage(tempCanvas, i * pieceW, j * pieceH, dw, dh);
+              }
+          }
+          tempContext.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+          tempCanvas.width = 0;
+          tempCanvas.height = 0;
+          tempCanvas = null;
+      }
+      else {
+          context.drawImage(img, 0, 0, outputW, outputH);
+      }
+      var base64 = canvas.toDataURL(type, encoderOptions);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = 0;
+      canvas.height = 0;
+      canvas = null;
+      return base64;
+  };
+  //# sourceMappingURL=compress.js.map
 
   var DigitImageData = /** @class */ (function () {
       function DigitImageData(opts) {
@@ -984,6 +739,44 @@
       return DigitImageData;
   }());
   //# sourceMappingURL=digit-image-data.js.map
+
+  var digitImageData2ImageData = function (digitImgData) {
+      var data = digitImgData.getData();
+      var width = digitImgData.getWidth();
+      var height = digitImgData.getHeight();
+      var imgData = new ImageData(width, height);
+      data.forEach(function (num, i) {
+          imgData.data[i] = num;
+      });
+      return imgData;
+  };
+  var imageData2DigitImageData = function (imgData) {
+      var data = imgData.data, width = imgData.width, height = imgData.height;
+      var digitImgData = new DigitImageData({ width: width, height: height, data: data });
+      return digitImgData;
+  };
+  /**
+   *
+   * @param {ImageData} imageData
+   * @param {object} opts
+   *  opts.type 'image/png' 'image/jpg'
+   *  opts.encoderOptions [0, 1]
+   */
+  var imageData2Base64 = function (imageData, opts) {
+      if (opts === void 0) { opts = { type: 'image/png', encoderOptions: 1 }; }
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = imageData.width;
+      canvas.height = imageData.height;
+      var base64 = null;
+      if (ctx) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.putImageData(imageData, 0, 0);
+          base64 = canvas.toDataURL(opts.type, opts.encoderOptions);
+      }
+      return base64;
+  };
+  //# sourceMappingURL=image-data.js.map
 
   var grayscale = function (imgData) {
       var width = imgData.getWidth();
@@ -1457,32 +1250,15 @@
   };
   //# sourceMappingURL=index.js.map
 
-  var digitImageData2ImageData = function (digitImgData) {
-      var data = digitImgData.getData();
-      var width = digitImgData.getWidth();
-      var height = digitImgData.getHeight();
-      var imgData = new ImageData(width, height);
-      data.forEach(function (num, i) {
-          imgData.data[i] = num;
-      });
-      return imgData;
-  };
-  var imageData2DigitImageData = function (imgData) {
-      var data = imgData.data, width = imgData.width, height = imgData.height;
-      var digitImgData = new DigitImageData({ width: width, height: height, data: data });
-      return digitImgData;
-  };
-  //# sourceMappingURL=image-data.js.map
-
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
           this._digitImageData = null;
-          if (imageData instanceof DigitImageData) {
-              this._digitImageData = imageData;
-          }
-          else {
-              this._digitImageData = imageData2DigitImageData(imageData);
-          }
+          this._digitImageData = imageData;
+          // if (imageData instanceof DigitImageData) {
+          //   this._digitImageData = imageData;
+          // } else {
+          //   this._digitImageData = imageData2DigitImageData(imageData);
+          // }
       }
       Effect.prototype.process = function (method, opts) {
           if (process && typeof process[method] !== 'function') {
@@ -1492,8 +1268,13 @@
           return this;
       };
       Effect.prototype.getImageData = function () {
-          var imageData = digitImageData2ImageData(this._digitImageData);
-          return imageData;
+          if (this._digitImageData) {
+              var imageData = digitImageData2ImageData(this._digitImageData);
+              return imageData;
+          }
+          else {
+              return null;
+          }
       };
       Effect.prototype.getDigitImageData = function () {
           return this._digitImageData;
@@ -1508,9 +1289,485 @@
   }());
   //# sourceMappingURL=index.js.map
 
+  var Sandbox = /** @class */ (function () {
+      function Sandbox(imgSrc, opts) {
+          this._digitImg = null;
+          this._effect = null;
+          this._imgSrc = imgSrc;
+          this._options = opts;
+      }
+      Sandbox.prototype.queueProcess = function (opts) {
+          var _this = this;
+          var queue = [];
+          if (Array.isArray(opts)) {
+              opts.forEach(function (opt) {
+                  queue.push(opt);
+              });
+          }
+          else {
+              queue.push(opts);
+          }
+          return new Promise(function (resolve, reject) {
+              _this._getEffectAsync().then(function (effect) {
+                  queue.forEach(function (opt) {
+                      var process = opt.process;
+                      var options = opt.options;
+                      _this._digitImg = effect.process(process, options).getDigitImageData();
+                  });
+                  var imageData = effect.getImageData();
+                  var base64 = imageData2Base64(imageData);
+                  resolve(base64);
+              }).catch(function (err) {
+                  reject(err);
+              });
+          });
+      };
+      Sandbox.prototype._getEffectAsync = function () {
+          var _this = this;
+          if (this._effect instanceof Effect) {
+              return Promise.resolve(this._effect);
+          }
+          return new Promise(function (resolve, reject) {
+              _this._parseDigitAsync().then(function (result) {
+                  if (result === true) {
+                      var digitData = _this._digitImg;
+                      if (digitData instanceof DigitImageData) {
+                          var effect = new Effect(digitData);
+                          _this._effect = effect;
+                          resolve(_this._effect);
+                      }
+                      else {
+                          reject(new Error('_digitImg is null'));
+                      }
+                  }
+                  else {
+                      reject(new Error('image src parse fail'));
+                  }
+              }).catch(function (err) {
+                  reject(err);
+              });
+          });
+      };
+      Sandbox.prototype._parseDigitAsync = function () {
+          var _this = this;
+          if (this._digitImg) {
+              return Promise.resolve(true);
+          }
+          var options = this._options;
+          var compressRatio = 1;
+          if (options) {
+              compressRatio = options.compressRatio;
+          }
+          var imgSrc = this._imgSrc;
+          var ratio = Math.max(0.1, compressRatio);
+          ratio = Math.min(1, compressRatio);
+          var imgType = CompressImageTypeEnum.jpg;
+          var compressOpts = { type: imgType, encoderOptions: ratio };
+          return new Promise(function (resolve, reject) {
+              getImageBySrc(imgSrc).then(function (img) {
+                  var compressedImgSrc = compressImage(img, compressOpts);
+                  if (typeof compressedImgSrc === 'string') {
+                      getImageDataBySrc(compressedImgSrc).then(function (imgData) {
+                          var digitImg = imageData2DigitImageData(imgData);
+                          _this._digitImg = digitImg;
+                          resolve(true);
+                      }).catch(function (err) {
+                          reject(err);
+                      });
+                  }
+                  else {
+                      reject(new Error('compressImage result is null'));
+                  }
+              }).catch(function (err) {
+                  reject(err);
+              });
+          });
+      };
+      return Sandbox;
+  }());
+  //# sourceMappingURL=sanbox.js.map
+
+  var util = {
+      getImageBySrc: getImageBySrc,
+      getImageDataBySrc: getImageDataBySrc,
+      compressImage: compressImage,
+      imageData2Base64: imageData2Base64,
+      digitImageData2ImageData: digitImageData2ImageData,
+      imageData2DigitImageData: imageData2DigitImageData,
+  };
+  var browser = {
+      util: util,
+      Sandbox: Sandbox,
+  };
+  //# sourceMappingURL=browser.js.map
+
+  var css$3 = ".pictool-component-progress {\n  width: 100%;\n  height: 28px;\n  display: block;\n}\n.pictool-component-progress.progress-hidden {\n  display: none;\n}\n.pictool-component-progress .pictool-progress-outer {\n  position: relative;\n  height: 28px;\n  width: 100%;\n  background: #ffffff;\n  border-radius: 14px;\n  overflow: hidden;\n}\n.pictool-component-progress .pictool-progress-inner {\n  position: absolute;\n  height: 28px;\n  width: 100%;\n  background: #00d4ff;\n  border-radius: 14px;\n}\n";
+  styleInject(css$3);
+
+  var mergeCSS2StyleAttr = function (cssMap) {
+      if (cssMap === void 0) { cssMap = {}; }
+      var cssList = [];
+      if (istype.json(cssMap) === true) {
+          for (var key in cssMap) {
+              var cssKey = "" + key;
+              var cssVal = "" + cssMap[key];
+              cssKey = cssKey.trim();
+              cssVal = cssVal.trim();
+              cssList.push(cssKey + ":" + cssVal);
+          }
+      }
+      var styleAttr = cssList.join('; ');
+      return styleAttr;
+  };
+  //# sourceMappingURL=style.js.map
+
+  var Progress = /** @class */ (function () {
+      function Progress(opts) {
+          this._options = null;
+          this._hasRendered = false;
+          this._component = null;
+          this._options = opts;
+          this._render();
+          this._rangeList = [];
+          var options = this._options;
+          var _a = options.max, max = _a === void 0 ? 100 : _a, _b = options.min, min = _b === void 0 ? 0 : _b;
+          this.resetRange(max, min);
+      }
+      Progress.prototype._render = function () {
+          if (this._hasRendered === true) {
+              return;
+          }
+          var options = this._options;
+          var mount = options.mount, customStyle = options.customStyle, percent = options.percent;
+          var styleAttr = mergeCSS2StyleAttr(customStyle);
+          var html = "\n      <div class=\"pictool-component-progress\" style=\"" + styleAttr + "\">\n        <div class=\"pictool-progress-outer\">\n          <div class=\"pictool-progress-inner\"></div>\n        </div>\n      </div>\n    ";
+          var tempDom = document.createElement('div');
+          tempDom.innerHTML = html;
+          var component = tempDom.querySelector('div.pictool-component-progress');
+          mount.appendChild(component);
+          this._component = component;
+          this._setInnerMovePercent(percent);
+          this._triggerEvent();
+      };
+      Progress.prototype.show = function () {
+          this._component.classList.remove('progress-hidden');
+      };
+      Progress.prototype.hide = function () {
+          this._component.classList.add('progress-hidden');
+      };
+      Progress.prototype.resetPercent = function (percent) {
+          this._setInnerMovePercent(percent);
+      };
+      Progress.prototype.resetOnChange = function (onChange) {
+          this._options.onChange = onChange;
+      };
+      Progress.prototype.resetRange = function (min, max) {
+          this._rangeList = [];
+          var item = (max - min) / 100;
+          for (var i = min; i < max; i += item) {
+              this._rangeList.push(i);
+          }
+          this._rangeList.push(max);
+      };
+      Progress.prototype._triggerEvent = function () {
+          var that = this;
+          var options = this._options;
+          var component = this._component;
+          var outer = component.querySelector('.pictool-progress-outer');
+          var inner = component.querySelector('.pictool-progress-inner');
+          outer.addEventListener('touchstart', function (event) {
+              var touchClientX = event.touches[0].clientX;
+              var movePercent = that._calculateMovePercent(touchClientX);
+              that._setInnerMovePercent(movePercent);
+          });
+          outer.addEventListener('touchmove', function (event) {
+              var touchClientX = event.touches[0].clientX;
+              var movePercent = that._calculateMovePercent(touchClientX);
+              that._setInnerMovePercent(movePercent);
+          });
+          outer.addEventListener('touchend', function () {
+              var value = that._getInnerValue();
+              var data = {
+                  value: value,
+              };
+              var options = that._options;
+              var onChange = options.onChange;
+              if (istype.function(onChange)) {
+                  onChange(data);
+              }
+          });
+          outer.addEventListener('mousedown', function (event) {
+              var touchClientX = event.clientX;
+              var movePercent = that._calculateMovePercent(touchClientX);
+              that._setInnerMovePercent(movePercent);
+          });
+          // outer.addEventListener('mousemove', function(event: MouseEvent) {
+          //   const touchClientX = event.clientX;
+          //   let movePercent = that._calculateMovePercent(touchClientX);
+          //   that._setInnerMovePercent(movePercent);
+          // });
+          outer.addEventListener('mouseup', function () {
+              var value = that._getInnerValue();
+              var data = {
+                  value: value,
+              };
+              var options = that._options;
+              var onChange = options.onChange;
+              if (istype.function(onChange)) {
+                  onChange(data);
+              }
+          });
+      };
+      Progress.prototype._calculateMovePercent = function (touchClientX) {
+          var component = this._component;
+          var outer = component.querySelector('.pictool-progress-outer');
+          var outerLeft = this._getViewAbsoluteLeft(outer);
+          var outerWidth = outer.clientWidth;
+          var moveLelf = touchClientX - outerLeft;
+          var movePercent = Math.ceil(moveLelf * 100 / outerWidth);
+          return movePercent;
+      };
+      Progress.prototype._setInnerMovePercent = function (percent) {
+          var component = this._component;
+          var inner = component.querySelector('.pictool-progress-inner');
+          var displayPercent = percent > 0 ? percent : 0;
+          displayPercent = Math.min(displayPercent, 100);
+          displayPercent = Math.max(displayPercent, 0);
+          var innerStyleAttr = mergeCSS2StyleAttr({
+              left: "-" + (100 - displayPercent) + "%"
+          });
+          inner.setAttribute('style', innerStyleAttr);
+          inner.setAttribute('data-component-inner-percent', "" + displayPercent);
+      };
+      Progress.prototype._getInnerValue = function () {
+          var component = this._component;
+          var inner = component.querySelector('.pictool-progress-inner');
+          var percentAttr = inner.getAttribute('data-component-inner-percent');
+          var percent = parseInt(percentAttr, 10);
+          percent = Math.min(100, percent);
+          percent = Math.max(0, percent);
+          var value = this._rangeList[percent];
+          return value;
+      };
+      Progress.prototype._getViewAbsoluteLeft = function (elem) {
+          var actualLeft = elem.offsetLeft;
+          var current = elem.offsetParent;
+          while (current !== null) {
+              actualLeft += current.offsetLeft;
+              current = current.offsetParent;
+          }
+          return actualLeft;
+      };
+      return Progress;
+  }());
+  //# sourceMappingURL=index.js.map
+
+  var css$4 = "@keyframes loading-animate {\n  0% {\n    width: 0%;\n  }\n  100% {\n    width: 90%;\n  }\n}\n.pictool-component-loading {\n  position: fixed;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 1000;\n  background: #000000aa;\n  display: none;\n}\n.pictool-component-loading.loading-show {\n  display: block;\n}\n.pictool-component-loading.loading-show .pictool-loading-inner {\n  height: 100%;\n  width: 90%;\n  background: -webkit-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -moz-linear-gradient(left, #4bf0f882, hsl(216, 67%, 55%));\n  background: -o-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: -ms-linear-gradient(left, #4bf0f882, #3d7bd9);\n  background: linear-gradient(left, #4bf0f882, #3d7bd9);\n  border-radius: 10px;\n  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.2);\n  animation: loading-animate 10s linear;\n}\n.pictool-component-loading.loading-show .pictool-loading-outer {\n  position: absolute;\n  top: 50%;\n  left: 10%;\n  right: 10%;\n  height: 10px;\n  border-radius: 10px;\n  background: -webkit-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -moz-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -o-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: -ms-linear-gradient(left, #e4e3e4, #e4e5e4);\n  background: linear-gradient(left, #e4e3e4, #e4e5e4);\n}\n";
+  styleInject(css$4);
+
+  var Loading = /** @class */ (function () {
+      function Loading(opts) {
+          this._options = null;
+          this._hasRendered = false;
+          this._component = null;
+          this._options = opts;
+          this._render();
+      }
+      Loading.prototype._render = function () {
+          if (this._hasRendered === true) {
+              return;
+          }
+          var options = this._options;
+          var mount = options.mount, zIndex = options.zIndex;
+          var html = "\n      <div class=\"pictool-component-loading\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-loading-outer\">\n          <div class=\"pictool-loading-inner\"></div>\n        </div>\n      </div>\n    ";
+          var tempDom = document.createElement('div');
+          tempDom.innerHTML = html;
+          var component = tempDom.querySelector('div.pictool-component-loading');
+          if (mount instanceof HTMLElement) {
+              mount.appendChild(component);
+          }
+          else {
+              var body = document.querySelector('body');
+              body.appendChild(component);
+          }
+          this._component = component;
+      };
+      Loading.prototype.show = function (timeout) {
+          var that = this;
+          this._component.classList.add('loading-show');
+          if (timeout > 0) {
+              setTimeout(function () {
+                  that.hide();
+              }, timeout);
+          }
+      };
+      Loading.prototype.hide = function () {
+          this._component.classList.remove('loading-show');
+      };
+      return Loading;
+  }());
+  //# sourceMappingURL=index.js.map
+
+  var css$5 = ".pictool-component-actionsheet {\n  display: none;\n  background: #ffffff00;\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-component-actionsheet .pictool-actionsheet-container {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 100%;\n  width: 100%;\n  background: #ffffff;\n  transition: 0.6s;\n}\n.pictool-component-actionsheet.actionsheet-open {\n  display: block;\n}\n.pictool-component-actionsheet .pictool-actionsheet-content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 100%;\n  background: #ffffff;\n}\n";
+  styleInject(css$5);
+
+  var ActionSheet = /** @class */ (function () {
+      function ActionSheet(opts) {
+          this._hasRendered = false;
+          this._component = null;
+          this._contentMount = null;
+          this._options = opts;
+          this._render();
+      }
+      ActionSheet.prototype.show = function () {
+          var _a = this._options, beforeShow = _a.beforeShow, afterShow = _a.afterShow;
+          var contentMount = this._contentMount;
+          if (typeof beforeShow === 'function') {
+              beforeShow({ contentMount: contentMount });
+          }
+          this._component.classList.add('actionsheet-open');
+          if (typeof afterShow === 'function') {
+              afterShow({ contentMount: contentMount });
+          }
+      };
+      ActionSheet.prototype.hide = function () {
+          var _a = this._options, beforeHide = _a.beforeHide, afterHide = _a.afterHide;
+          var contentMount = this._contentMount;
+          if (typeof beforeHide === 'function') {
+              beforeHide({ contentMount: contentMount });
+          }
+          this._component.classList.remove('actionsheet-open');
+          if (typeof afterHide === 'function') {
+              afterHide({ contentMount: contentMount });
+          }
+      };
+      ActionSheet.prototype._render = function () {
+          if (this._hasRendered === true) {
+              return;
+          }
+          var _a = this._options, afterRender = _a.afterRender, beforeRender = _a.beforeRender, mount = _a.mount;
+          if (typeof beforeRender === 'function') {
+              beforeRender();
+          }
+          var opts = this._options;
+          var height = opts.height, zIndex = opts.zIndex;
+          var html = "\n    <div class=\"pictool-component-actionsheet\" style=\"height:" + height + "px; z-index: " + zIndex + ";\">\n      <div class=\"pictool-actionsheet-container\">\n        <div class=\"pictool-actionsheet-header\"></div>\n        <div class=\"pictool-actionsheet-content\"></div>\n        <div class=\"pictool-actionsheet-footer\"></div>\n      </div>\n    </div>\n    ";
+          var body = document.querySelector('body');
+          var mountDom = document.createElement('div');
+          mountDom.innerHTML = html;
+          var component = mountDom.querySelector('div.pictool-component-actionsheet');
+          if (mount) {
+              mount.appendChild(component);
+          }
+          else {
+              body.appendChild(component);
+          }
+          var contentMount = component.querySelector('div.pictool-actionsheet-content');
+          if (typeof afterRender === 'function') {
+              var args = { contentMount: contentMount, };
+              afterRender(args);
+          }
+          this._hasRendered = true;
+          this._component = component;
+          this._contentMount = contentMount;
+      };
+      return ActionSheet;
+  }());
+  //# sourceMappingURL=index.js.map
+
+  var css$6 = ".pictool-module-panel {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-panel .pictool-panel-header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.08);\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-title {\n  line-height: 40px;\n  text-align: center;\n  font-size: 16px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299766263\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9368\" width=\"200\" height=\"200\"><path d=\"M685.4 354.8c0-4.4-3.6-8-8-8l-66 0.3L512 465.6l-99.3-118.4-66.1-0.3c-4.4 0-8 3.5-8 8 0 1.9 0.7 3.7 1.9 5.2l130.1 155L340.5 670c-1.2 1.5-1.9 3.3-1.9 5.2 0 4.4 3.6 8 8 8l66.1-0.3L512 564.4l99.3 118.4 66 0.3c4.4 0 8-3.5 8-8 0-1.9-0.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z\" p-id=\"9369\" fill=\"%23666666\"></path><path d=\"M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z\" p-id=\"9370\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-navigation {\n  position: absolute;\n  height: 80px;\n  width: 100%;\n  bottom: 0;\n  background: #2196f30d;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width {\n  display: block;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width .pictool-panel-nav-btn {\n  width: 80px;\n  display: block;\n  float: left;\n}\n.pictool-module-panel .pictool-panel-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  position: relative;\n  padding-top: 40px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561214557317\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8147\" width=\"200\" height=\"200\"><path d=\"M336 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8148\" fill=\"%23666666\"></path><path d=\"M688 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8149\" fill=\"%23666666\"></path><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2-44.3-18.7-84.1-45.6-118.3-79.8-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8c18.7-44.3 45.6-84.1 79.8-118.3 34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2 44.3 18.7 84.1 45.6 118.3 79.8 34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8c-18.7 44.3-45.6 84.1-79.8 118.2z\" p-id=\"8150\" fill=\"%23666666\"></path><path d=\"M664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360c-4.6 0-8.2 3.8-8 8.4 4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6c0.2-4.6-3.4-8.4-8-8.4z\" p-id=\"8151\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active {\n  color: #17abe3;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299983080\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9592\" width=\"200\" height=\"200\"><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48z m224 272c-85.5 0-155.6-67.3-160-151.6-0.2-4.6 3.4-8.4 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664c4.6 0 8.2 3.8 8 8.4-4.4 84.3-74.5 151.6-160 151.6z m176-224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z\" p-id=\"9593\" fill=\"%2317abe3\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
+  styleInject(css$6);
+
+  var Panel = /** @class */ (function () {
+      function Panel(opts) {
+          this._actionSheet = null;
+          this._opts = null;
+          this._hasRendered = false;
+          this._opts = opts;
+          var that = this;
+          var zIndex = opts.zIndex, mount = opts.mount;
+          var actionSheetOpts = {
+              height: 120,
+              mount: mount,
+              zIndex: zIndex,
+              afterRender: function (args) {
+                  var contentMount = args.contentMount;
+                  that._render(contentMount);
+              },
+              beforeHide: function () {
+                  eventHub.trigger('GlobalEvent.moduleDashboard.progress.hide');
+              }
+          };
+          var actionSheet = new ActionSheet(actionSheetOpts);
+          this._actionSheet = actionSheet;
+      }
+      Panel.prototype.show = function () {
+          this._actionSheet.show();
+      };
+      Panel.prototype.hide = function () {
+          this._actionSheet.hide();
+      };
+      Panel.prototype._render = function (mount) {
+          if (this._hasRendered === true) {
+              return;
+          }
+          var opts = this._opts;
+          var navList = opts.navList, title = opts.title;
+          var isBeyond = navList.length > 4;
+          var html = "\n      <div class=\"pictool-module-panel\">\n        <div class=\"pictool-panel-header\">\n          <div class=\"pictool-panel-btn-close\"></div>\n          <div class=\"pictool-panel-title\">" + (title || '') + "</div>\n        </div>\n        <div class=\"pictool-panel-navigation\">\n          <div class=\"pictool-panel-navlist " + (isBeyond === true ? 'panel-beyond-width' : '') + "\" \n            style=\"" + (isBeyond === true ? "width: " + (navList.length + 1) * 120 + "px" : '') + "\"\n          >\n          " + (istype.array(navList) && navList.map(function (nav, idx) {
+              return " \n            <div class=\"pictool-panel-nav-btn panelnav-icon\"\n              data-panel-nav-idx=\"" + idx + "\"\n            >\n              <span>" + nav.name + "</span>\n            </div>\n            ";
+          }).join('')) + "\n          </div>\n        </div>\n      </div>\n    ";
+          mount.innerHTML = html;
+          this._registerEvent(mount);
+          this._hasRendered = true;
+      };
+      Panel.prototype._registerEvent = function (mount) {
+          if (this._hasRendered === true) {
+              return;
+          }
+          var that = this;
+          var opts = this._opts;
+          var navList = opts.navList;
+          var navElemList = mount.querySelectorAll('[data-panel-nav-idx]');
+          var btnClose = mount.querySelector('div.pictool-panel-btn-close');
+          btnClose.addEventListener('click', function () {
+              that.hide();
+          });
+          if (istype.nodeList(navElemList) === true) {
+              navElemList.forEach(function (navElem) {
+                  navElem.addEventListener('click', function (event) {
+                      var elem = this;
+                      var idx = elem.getAttribute('data-panel-nav-idx') * 1;
+                      var navConf = navList[idx];
+                      var primise = navConf.feedback();
+                      if (istype.promise(primise)) {
+                          primise.then(function (rs) {
+                              if (rs) {
+                                  eventHub.trigger('GlobalEvent.moduleSketch.renderImage', rs);
+                              }
+                          }).catch(function (err) {
+                              console.log(err);
+                          });
+                      }
+                      else if (istype.null(primise) !== true) {
+                          console.warn('feedback is not a promise or null');
+                      }
+                      navElemList.forEach(function (nav) {
+                          nav.classList.remove('panelnav-active');
+                      });
+                      elem.classList.add('panelnav-active');
+                  });
+              });
+          }
+      };
+      return Panel;
+  }());
+  //# sourceMappingURL=index.js.map
+
   var origin = function (opts) {
       var imageData = opts.imageData;
-      return imageData;
+      var rsImageData = browser.util.digitImageData2ImageData(imageData);
+      return rsImageData;
   };
   // base image process filter
   var grayscale$1 = function (opts) {
@@ -1634,7 +1891,9 @@
               catch (err) {
                   error = err;
               }
-              feedback(result, error);
+              if (typeof feedback === 'function') {
+                  feedback(result, error);
+              }
           }, 1);
       }
   };
@@ -1777,8 +2036,6 @@
 
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {
-          this._mount = null;
-          this._opts = null;
           this._hasRendered = false;
           this._mount = mount;
           this._opts = opts;
@@ -1816,16 +2073,16 @@
           //   zIndex: zIndex + 1,
           // };
           var processPanel = this._initProcessPanel();
-          btnProcess.addEventListener('click', function () {
-              processPanel.show();
+          btnProcess && btnProcess.addEventListener('click', function () {
+              processPanel && processPanel.show();
           });
           var filterEffect = this._initEffectPanel();
-          btnEffect.addEventListener('click', function () {
-              filterEffect.show();
+          btnEffect && btnEffect.addEventListener('click', function () {
+              filterEffect && filterEffect.show();
           });
           var adjustPanel = this._initAdjustPanel();
-          btnAdjust.addEventListener('click', function () {
-              adjustPanel.show();
+          btnAdjust && btnAdjust.addEventListener('click', function () {
+              adjustPanel && adjustPanel.show();
           });
           var progress = new Progress({
               mount: this._mount,
@@ -1875,6 +2132,9 @@
       };
       Dashboard.prototype._initProcessPanel = function () {
           var options = this._opts;
+          if (!this._mount) {
+              return null;
+          }
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var panel = new Panel({
               title: processMenuConfig.title,
@@ -1885,7 +2145,8 @@
                       name: conf.name,
                       feedback: function () {
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
+                          var originImgData = schemaParser.parseImageData(sketchSchema);
+                          var imageData = browser.util.imageData2DigitImageData(originImgData);
                           return new Promise(function (resolve, reject) {
                               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
                               asyncWorker({
@@ -1895,7 +2156,7 @@
                                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   var newSchema = schemaParser.parseImageDataToSchema(rs);
                                   resolve(newSchema);
-                              }).then(function (err) {
+                              }).catch(function (err) {
                                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   reject(err);
                               });
@@ -1908,6 +2169,9 @@
       };
       Dashboard.prototype._initEffectPanel = function () {
           var options = this._opts;
+          if (!this._mount) {
+              return null;
+          }
           var zIndex = options.zIndex, workerConfig = options.workerConfig;
           var panel = new Panel({
               title: effectMenuConfig.title,
@@ -1918,7 +2182,8 @@
                       name: conf.name,
                       feedback: function () {
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
+                          var originImgData = schemaParser.parseImageData(sketchSchema);
+                          var imageData = browser.util.imageData2DigitImageData(originImgData);
                           return new Promise(function (resolve, reject) {
                               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
                               asyncWorker({
@@ -1928,7 +2193,7 @@
                                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   var newSchema = schemaParser.parseImageDataToSchema(rs);
                                   resolve(newSchema);
-                              }).then(function (err) {
+                              }).catch(function (err) {
                                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                                   reject(err);
                               });
@@ -1957,7 +2222,8 @@
                       name: conf.name,
                       feedback: function () {
                           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-                          var imageData = schemaParser.parseImageData(sketchSchema);
+                          var originImgData = schemaParser.parseImageData(sketchSchema);
+                          var imageData = browser.util.imageData2DigitImageData(originImgData);
                           eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
                               percent: conf.percent,
                               range: { max: conf.range.max, min: conf.range.min },
@@ -1985,7 +2251,6 @@
       };
       return Dashboard;
   }());
-  //# sourceMappingURL=index.js.map
 
   var css$7 = ".pictool-module-header {\n  position: relative;\n  font-size: 14px;\n  color: #ffffff;\n}\n.pictool-module-header .pictool-header-btn-close {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-header .pictool-header-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561213055281\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9866\" width=\"200\" height=\"200\"><path d=\"M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9c-4.4 5.2-0.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z\" p-id=\"9867\" fill=\"%23ffffff\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-header .pictool-header-btn-save {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-header .pictool-header-btn-save::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561213166782\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"10077\" width=\"200\" height=\"200\"><path d=\"M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184z m456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840z\" p-id=\"10078\" fill=\"%23ffffff\"></path><path d=\"M512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144z m0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z\" p-id=\"10079\" fill=\"%23ffffff\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n";
   styleInject(css$7);

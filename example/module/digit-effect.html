@@ -33,8 +33,9 @@
       browserUtil.getImageBySrc(src).then(function(originImg) {
         var targetImgSrc = browserUtil.compressImage(originImg);
         
-        browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+        browserUtil.getImageDataBySrc(targetImgSrc).then(function(imgData) {
         
+          var targetImgData = browserUtil.imageData2DigitImageData(imgData);
           var Effect = digit.Effect;
           var effect = new Effect(targetImgData);
           var imgData = effect.process('sobel', {}).process('invert', {}).getImageData();;

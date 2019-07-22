@@ -9,7 +9,7 @@ export const adjustMenuConfig = {
         max: 100, 
       },
       filter: 'lightness',
-      parseOptions(data) {
+      parseOptions(data: any) {
         const percent = Math.round(data.value);
         console.log('lightness.percent = ', percent);
         return {
@@ -25,7 +25,7 @@ export const adjustMenuConfig = {
         max: 360, 
       },
       filter: 'hue',
-      parseOptions(data) {
+      parseOptions(data: any) {
         const value = Math.round(data.value);
         console.log('hue.value = ', value);
         return {
@@ -41,11 +41,27 @@ export const adjustMenuConfig = {
         max: 100, 
       },
       filter: 'saturation',
-      parseOptions(data) {
+      parseOptions(data: any) {
         const percent = Math.round(data.value);
         console.log('saturation.percent = ', percent);
         return {
           percent,
+        }
+      }
+    },
+    {
+      name: 'Alpha',
+      percent: 50,
+      range: {
+        min: 0,
+        max: 100, 
+      },
+      filter: 'alpha',
+      parseOptions(data: any) {
+        const value = Math.round(data.value);
+        console.log('alpha.value = ', value);
+        return {
+          value,
         }
       }
     },

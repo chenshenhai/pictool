@@ -36,6 +36,7 @@
     var H_MAX = 360;
     var S_MAX = 100;
     var L_MAX = 100;
+    //# sourceMappingURL=static.js.map
 
     // const H2RGBNum = function(l: number): number {
     //   let num = l / H_MAX * RGBA_MAX;
@@ -111,6 +112,7 @@
         }
         return { r: r, g: g, b: b };
     };
+    //# sourceMappingURL=hsl2rgb.js.map
 
     var parseRGBNum = function (origin) {
         return origin * 100 / RGBA_MAX; // [1, 100]
@@ -230,6 +232,7 @@
         }
         return { h: h, s: s, l: l };
     };
+    //# sourceMappingURL=rgb2hsl.js.map
 
     var DigitImageData = /** @class */ (function () {
         function DigitImageData(opts) {
@@ -280,6 +283,7 @@
         };
         return DigitImageData;
     }());
+    //# sourceMappingURL=digit-image-data.js.map
 
     var transformDigitImageData = function (digitImageData, opts) {
         var width = digitImageData.getWidth();
@@ -308,6 +312,7 @@
         HSL2RGB: HSL2RGB,
         RGB2HSL: RGB2HSL,
     };
+    //# sourceMappingURL=index.js.map
 
     var grayscale = function (imgData) {
         var width = imgData.getWidth();
@@ -327,6 +332,7 @@
         }
         return digitImg;
     };
+    //# sourceMappingURL=grayscale.js.map
 
     // Thanks to https://github.com/miguelmota/sobel/
     function imgDataAt(digitData, x, y) {
@@ -388,6 +394,7 @@
         grayImg = null;
         return digitImg;
     };
+    //# sourceMappingURL=sobel.js.map
 
     var invert = function (imgData) {
         var width = imgData.getWidth();
@@ -406,6 +413,7 @@
         }
         return digitImg;
     };
+    //# sourceMappingURL=invert.js.map
 
     var hue = function (imgData, opts) {
         var width = imgData.getWidth();
@@ -423,6 +431,7 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
+    //# sourceMappingURL=hue.js.map
 
     var lightness = function (imgData, opts) {
         var width = imgData.getWidth();
@@ -440,6 +449,7 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
+    //# sourceMappingURL=lightness.js.map
 
     var saturation = function (imgData, opts) {
         var width = imgData.getWidth();
@@ -457,6 +467,83 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
+    //# sourceMappingURL=saturation.js.map
+
+    function isPercent$1(num) {
+        if (num >= -100 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function isAlphaValue(num) {
+        if (num >= 0 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    var alpha = function (digitImg, opts) {
+        var width = digitImg.getWidth();
+        var height = digitImg.getHeight();
+        var data = digitImg.getData();
+        var rsDigitImg = new DigitImageData({ width: width, height: height, data: data });
+        var percent = opts.percent;
+        var value = opts.value;
+        if (percent && isPercent$1(percent)) {
+            percent = Math.min(100, percent);
+            percent = Math.max(-100, percent);
+        }
+        else if (value && isAlphaValue(value)) {
+            value = Math.min(100, value);
+            value = Math.max(0, value);
+        }
+        if (value || value === 0) {
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                a = Math.floor(value * RGBA_MAX / 100);
+                a = Math.min(RGBA_MAX, a);
+                a = Math.max(RGBA_MIN, a);
+                rsDigitImg.setDataUnit(i, r);
+                rsDigitImg.setDataUnit(i + 1, g);
+                rsDigitImg.setDataUnit(i + 2, b);
+                rsDigitImg.setDataUnit(i + 3, a);
+            }
+        }
+        else if (percent || percent === 0) {
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                a = Math.floor(a * (100 + percent) / 100);
+                a = Math.min(RGBA_MAX, a);
+                a = Math.max(RGBA_MIN, a);
+                rsDigitImg.setDataUnit(i, r);
+                rsDigitImg.setDataUnit(i + 1, g);
+                rsDigitImg.setDataUnit(i + 2, b);
+                rsDigitImg.setDataUnit(i + 3, a);
+            }
+        }
+        else {
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                rsDigitImg.setDataUnit(i, r);
+                rsDigitImg.setDataUnit(i + 1, g);
+                rsDigitImg.setDataUnit(i + 2, b);
+                rsDigitImg.setDataUnit(i + 3, a);
+            }
+        }
+        return rsDigitImg;
+    };
 
     var process = {
         grayscale: grayscale,
@@ -465,13 +552,16 @@
         hue: hue,
         saturation: saturation,
         lightness: lightness,
+        alpha: alpha,
     };
+    //# sourceMappingURL=index.js.map
 
     var digit = {
         transform: transform,
         process: process,
         DigitImageData: DigitImageData,
     };
+    //# sourceMappingURL=index.js.map
 
     var digitImageData2ImageData = function (digitImgData) {
         var data = digitImgData.getData();
@@ -488,6 +578,7 @@
         var digitImgData = new DigitImageData({ width: width, height: height, data: data });
         return digitImgData;
     };
+    //# sourceMappingURL=image-data.js.map
 
     var Effect = /** @class */ (function () {
         function Effect(imageData) {
@@ -521,6 +612,7 @@
         };
         return Effect;
     }());
+    //# sourceMappingURL=index.js.map
 
     var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
@@ -529,6 +621,7 @@
         DigitImageData: DigitImageData$1,
         Effect: Effect,
     };
+    //# sourceMappingURL=digit.js.map
 
     return digit$1;
 

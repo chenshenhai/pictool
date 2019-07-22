@@ -81,3 +81,12 @@ export const natural = function(opts: FilterOpts ) {
   effect = null;
   return rsImageData;
 }
+
+export const alpha = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  let effect:Effect|null = new Effect(imageData);
+  const rsImageData = effect.process('alpha', options).getImageData();
+  effect.destory();
+  effect = null;
+  return rsImageData;
+}

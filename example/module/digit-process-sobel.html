@@ -33,8 +33,9 @@
       browserUtil.getImageBySrc(src).then(function(originImg) {
         var targetImgSrc = browserUtil.compressImage(originImg);
         
-        browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+        browserUtil.getImageDataBySrc(targetImgSrc).then(function(imgData) {
         
+          var targetImgData = browserUtil.imageData2DigitImageData(imgData);
 
           var rsData = digit.process.sobel(targetImgData);
           var imgData = browserUtil.digitImageData2ImageData(rsData);

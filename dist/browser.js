@@ -47,6 +47,7 @@
           });
       });
   };
+  //# sourceMappingURL=image-file.js.map
 
   var IMG_LIMIT_SIZE = 2000 * 2000;
   var PIECE_SIZE = 1000 * 1000;
@@ -119,6 +120,7 @@
       canvas = null;
       return base64;
   };
+  //# sourceMappingURL=compress.js.map
 
   var DigitImageData = /** @class */ (function () {
       function DigitImageData(opts) {
@@ -169,6 +171,7 @@
       };
       return DigitImageData;
   }());
+  //# sourceMappingURL=digit-image-data.js.map
 
   var digitImageData2ImageData = function (digitImgData) {
       var data = digitImgData.getData();
@@ -206,6 +209,7 @@
       }
       return base64;
   };
+  //# sourceMappingURL=image-data.js.map
 
   var grayscale = function (imgData) {
       var width = imgData.getWidth();
@@ -225,6 +229,7 @@
       }
       return digitImg;
   };
+  //# sourceMappingURL=grayscale.js.map
 
   // Thanks to https://github.com/miguelmota/sobel/
   function imgDataAt(digitData, x, y) {
@@ -286,6 +291,7 @@
       grayImg = null;
       return digitImg;
   };
+  //# sourceMappingURL=sobel.js.map
 
   var RGBA_MID = 255 / 2;
   var RGBA_MAX = 255;
@@ -293,6 +299,7 @@
   var H_MAX = 360;
   var S_MAX = 100;
   var L_MAX = 100;
+  //# sourceMappingURL=static.js.map
 
   var invert = function (imgData) {
       var width = imgData.getWidth();
@@ -311,6 +318,7 @@
       }
       return digitImg;
   };
+  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -412,6 +420,7 @@
       }
       return { r: r, g: g, b: b };
   };
+  //# sourceMappingURL=hsl2rgb.js.map
 
   var parseRGBNum = function (origin) {
       return origin * 100 / RGBA_MAX; // [1, 100]
@@ -531,6 +540,7 @@
       }
       return { h: h, s: s, l: l };
   };
+  //# sourceMappingURL=rgb2hsl.js.map
 
   var transformDigitImageData = function (digitImageData, opts) {
       var width = digitImageData.getWidth();
@@ -555,6 +565,7 @@
       // digitImageData = null;
       return rsImageData;
   };
+  //# sourceMappingURL=index.js.map
 
   var hue = function (imgData, opts) {
       var width = imgData.getWidth();
@@ -572,6 +583,7 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+  //# sourceMappingURL=hue.js.map
 
   var lightness = function (imgData, opts) {
       var width = imgData.getWidth();
@@ -589,6 +601,7 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+  //# sourceMappingURL=lightness.js.map
 
   var saturation = function (imgData, opts) {
       var width = imgData.getWidth();
@@ -606,6 +619,83 @@
       digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
       return digitImg;
   };
+  //# sourceMappingURL=saturation.js.map
+
+  function isPercent$1(num) {
+      if (num >= -100 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  function isAlphaValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var alpha = function (digitImg, opts) {
+      var width = digitImg.getWidth();
+      var height = digitImg.getHeight();
+      var data = digitImg.getData();
+      var rsDigitImg = new DigitImageData({ width: width, height: height, data: data });
+      var percent = opts.percent;
+      var value = opts.value;
+      if (percent && isPercent$1(percent)) {
+          percent = Math.min(100, percent);
+          percent = Math.max(-100, percent);
+      }
+      else if (value && isAlphaValue(value)) {
+          value = Math.min(100, value);
+          value = Math.max(0, value);
+      }
+      if (value || value === 0) {
+          for (var i = 0; i < data.length; i += 4) {
+              var r = data[i];
+              var g = data[i + 1];
+              var b = data[i + 2];
+              var a = data[i + 3];
+              a = Math.floor(value * RGBA_MAX / 100);
+              a = Math.min(RGBA_MAX, a);
+              a = Math.max(RGBA_MIN, a);
+              rsDigitImg.setDataUnit(i, r);
+              rsDigitImg.setDataUnit(i + 1, g);
+              rsDigitImg.setDataUnit(i + 2, b);
+              rsDigitImg.setDataUnit(i + 3, a);
+          }
+      }
+      else if (percent || percent === 0) {
+          for (var i = 0; i < data.length; i += 4) {
+              var r = data[i];
+              var g = data[i + 1];
+              var b = data[i + 2];
+              var a = data[i + 3];
+              a = Math.floor(a * (100 + percent) / 100);
+              a = Math.min(RGBA_MAX, a);
+              a = Math.max(RGBA_MIN, a);
+              rsDigitImg.setDataUnit(i, r);
+              rsDigitImg.setDataUnit(i + 1, g);
+              rsDigitImg.setDataUnit(i + 2, b);
+              rsDigitImg.setDataUnit(i + 3, a);
+          }
+      }
+      else {
+          for (var i = 0; i < data.length; i += 4) {
+              var r = data[i];
+              var g = data[i + 1];
+              var b = data[i + 2];
+              var a = data[i + 3];
+              rsDigitImg.setDataUnit(i, r);
+              rsDigitImg.setDataUnit(i + 1, g);
+              rsDigitImg.setDataUnit(i + 2, b);
+              rsDigitImg.setDataUnit(i + 3, a);
+          }
+      }
+      return rsDigitImg;
+  };
 
   var process = {
       grayscale: grayscale,
@@ -614,7 +704,9 @@
       hue: hue,
       saturation: saturation,
       lightness: lightness,
+      alpha: alpha,
   };
+  //# sourceMappingURL=index.js.map
 
   var Effect = /** @class */ (function () {
       function Effect(imageData) {
@@ -648,6 +740,7 @@
       };
       return Effect;
   }());
+  //# sourceMappingURL=index.js.map
 
   var Sandbox = /** @class */ (function () {
       function Sandbox(imgSrc, opts) {
@@ -745,6 +838,7 @@
       };
       return Sandbox;
   }());
+  //# sourceMappingURL=sanbox.js.map
 
   var util = {
       getImageBySrc: getImageBySrc,
@@ -758,6 +852,7 @@
       util: util,
       Sandbox: Sandbox,
   };
+  //# sourceMappingURL=browser.js.map
 
   return browser;
 

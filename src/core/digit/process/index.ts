@@ -4,6 +4,7 @@ import { invert } from './invert';
 import { hue } from './hue';
 import { lightness } from './lightness';
 import { saturation } from './saturation';
+import { alpha } from './alpha';
 
 
 export default {
@@ -13,4 +14,5 @@ export default {
   hue,
   saturation,
   lightness,
+  alpha,
 }

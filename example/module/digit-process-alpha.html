@@ -2,6 +2,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <style>
+    img {
+      max-height: 200px;
+      min-width: 100px;
+    }
+    </style>
   </head>
   <body>
 
@@ -30,8 +36,9 @@
         browserUtil.getImageDataBySrc(targetImgSrc).then(function(imgData) {
         
           var targetImgData = browserUtil.imageData2DigitImageData(imgData);
-
-          var rsData = digit.process.invert(targetImgData);
+          var rsData = digit.process.alpha(targetImgData, {
+            value: 50,
+          });
           var imgData = browserUtil.digitImageData2ImageData(rsData);
 
           // const tempData = {

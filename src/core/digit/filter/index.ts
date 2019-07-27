@@ -92,3 +92,14 @@ export const alpha = function(opts: FilterOpts ) {
   effect = null;
   return rsImageData;
 }
+
+
+
+export const sepia = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  let effect:Effect|null = new Effect(imageData);
+  const rsImageData = effect.process('sepia', options).getImageData();
+  effect.destory();
+  effect = null;
+  return rsImageData;
+}

@@ -318,6 +318,7 @@
       }
       return digitImg;
   };
+  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1870,7 +1871,14 @@
       effect = null;
       return rsImageData;
   };
-  //# sourceMappingURL=index.js.map
+  var sepia$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sepia', options).getImageData();
+      effect.destory();
+      effect = null;
+      return rsImageData;
+  };
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -1882,7 +1890,8 @@
     sobel: sobel$1,
     lineDrawing: lineDrawing,
     natural: natural,
-    alpha: alpha$1
+    alpha: alpha$1,
+    sepia: sepia$1
   });
 
   var syncWorker = function (action, config) {
@@ -2056,6 +2065,10 @@
           {
               name: 'Invert',
               filter: 'invert',
+          },
+          {
+              name: 'Sepia',
+              filter: 'sepia',
           }
       ]
   };

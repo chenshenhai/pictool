@@ -16,6 +16,10 @@ export const processMenuConfig = {
     {
       name: 'Invert',
       filter: 'invert',
+    },
+    {
+      name: 'Sepia',
+      filter: 'sepia',
     }
   ]
 }

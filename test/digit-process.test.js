@@ -15,7 +15,7 @@ const imgSaturationPer60 = require('./data/image-data-saturation.per.60.json');
 const imgLightnessVal70 = require('./data/image-data-lightness.val.70.json')
 const imgLightnessPer60 = require('./data/image-data-lightness.per.60.json')
 const imgAlphaPer80 = require('./data/image-data-alpha.per.80.json')
-
+const imgSepia = require('./data/image-data-sepia.json')
 
 describe( 'test: Pictool.digit.process', ( ) => {
 
@@ -192,6 +192,22 @@ describe( 'test: Pictool.digit.process', ( ) => {
     const rsData = digitImgRs.getData();
     expectImg.data.forEach(function(num, i) {
       // console.log(`expect index is: ${i}`)
+      expect(rsData[i]).to.deep.equal(num);
+    });
+
+    done()
+  });
+
+  it('process.sepia', ( done ) => {
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
+    const digitImgRs = process.sepia(digitImg);
+    const expectImg = imgSepia;
+    
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    const rsData = digitImgRs.getData();
+    expectImg.data.forEach(function(num, i) {
       expect(rsData[i]).to.deep.equal(num);
     });
 

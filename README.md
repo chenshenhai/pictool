@@ -119,6 +119,7 @@ sandbox.queueProcess([
 - ✔︎ Invert
 - ✔︎ Grayscale
 - ✔︎ Sobel
+- ✔︎ Sepia
 
 
 ## Documentation

@@ -5,6 +5,7 @@ import { hue } from './hue';
 import { lightness } from './lightness';
 import { saturation } from './saturation';
 import { alpha } from './alpha';
+import { sepia } from './sepia';
 
 
 export default {
@@ -15,4 +16,5 @@ export default {
   saturation,
   lightness,
   alpha,
+  sepia,
 }

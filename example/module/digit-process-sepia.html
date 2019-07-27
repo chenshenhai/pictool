@@ -2,17 +2,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <style>
-    img {
-      max-height: 200px;
-      min-width: 100px;
-    }
-    </style>
   </head>
   <body>
 
     <div>
-      <img src="./../image/pexels-photo-005.jpg" />
+      <img src="./../image/pexels-photo-004.jpg" />
     </div>
     <br/>
     <div id="display">
@@ -33,25 +27,15 @@
       browserUtil.getImageBySrc(src).then(function(originImg) {
         var targetImgSrc = browserUtil.compressImage(originImg);
         
-        browserUtil.getImageDataBySrc(targetImgSrc).then(function(data) {
+        browserUtil.getImageDataBySrc(targetImgSrc).then(function(imgData) {
         
-          var targetImgData = browserUtil.imageData2DigitImageData(data);
-          var Effect = digit.Effect;
-          var effect = new Effect(targetImgData);
-          var imgData = effect.process('sepia', {}).getImageData();
+          var targetImgData = browserUtil.imageData2DigitImageData(imgData);
 
-          const tempData = {
-            width: imgData.width,
-            height: imgData.height,
-            data: [],
-          }
-          for(let i = 0; i < imgData.data.length; i++) {
-            tempData.data.push(imgData.data[i])
-          }
-          console.log(JSON.stringify(tempData));
+          var rsData = digit.process.sepia(targetImgData);
+          var imgData = browserUtil.digitImageData2ImageData(rsData);
 
-          // rsData.destory();
-          // rsData = null;
+          rsData.destory();
+          rsData = null;
 
           var base64 = browserUtil.imageData2Base64(imgData);
           document.querySelector('#display').innerHTML = `

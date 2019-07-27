@@ -318,7 +318,6 @@
       }
       return digitImg;
   };
-  //# sourceMappingURL=invert.js.map
 
   /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
@@ -698,6 +697,29 @@
   };
   //# sourceMappingURL=alpha.js.map
 
+  var sepia = function (imgData) {
+      var width = imgData.getWidth();
+      var height = imgData.getHeight();
+      var data = imgData.getData();
+      var digitImg = new DigitImageData({ width: width, height: height, data: data });
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              var r = Math.floor((px.r * 0.393) + (px.g * 0.769) + (px.b * 0.189));
+              var g = Math.floor((px.r * 0.349) + (px.g * 0.686) + (px.b * 0.168));
+              var b = Math.floor((px.r * 0.272) + (px.g * 0.534) + (px.b * 0.131));
+              var a = px.a;
+              digitImg.setDataUnit(idx, r);
+              digitImg.setDataUnit(idx + 1, g);
+              digitImg.setDataUnit(idx + 2, b);
+              digitImg.setDataUnit(idx + 3, a);
+          }
+      }
+      return digitImg;
+  };
+  //# sourceMappingURL=sepia.js.map
+
   var process = {
       grayscale: grayscale,
       sobel: sobel,
@@ -706,6 +728,7 @@
       saturation: saturation,
       lightness: lightness,
       alpha: alpha,
+      sepia: sepia,
   };
   //# sourceMappingURL=index.js.map
 
@@ -746,6 +769,7 @@
       };
       return Effect;
   }());
+  //# sourceMappingURL=index.js.map
 
   var Sandbox = /** @class */ (function () {
       function Sandbox(imgSrc, opts) {

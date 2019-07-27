@@ -38,7 +38,7 @@
           var targetImgData = browserUtil.imageData2DigitImageData(data);
           var Effect = digit.Effect;
           var effect = new Effect(targetImgData);
-          var imgData = effect.process('sepia', {}).getImageData();
+          var imgData = effect.process('posterize', {}).getImageData();
 
           const tempData = {
             width: imgData.width,

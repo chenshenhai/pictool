@@ -739,6 +739,31 @@
   };
   //# sourceMappingURL=sepia.js.map
 
+  var posterize = function (imgData) {
+      var width = imgData.getWidth();
+      var height = imgData.getHeight();
+      var data = imgData.getData();
+      var digitImg = new DigitImageData({ width: width, height: height, data: data });
+      // TODO
+      var step1 = RGBA_MAX / 10;
+      var step2 = step1;
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              var r = Math.floor(Math.floor(px.r / step1) * step2);
+              var g = Math.floor(Math.floor(px.g / step1) * step2);
+              var b = Math.floor(Math.floor(px.b / step1) * step2);
+              var a = px.a;
+              digitImg.setDataUnit(idx, r);
+              digitImg.setDataUnit(idx + 1, g);
+              digitImg.setDataUnit(idx + 2, b);
+              digitImg.setDataUnit(idx + 3, a);
+          }
+      }
+      return digitImg;
+  };
+
   var process = {
       grayscale: grayscale,
       sobel: sobel,
@@ -748,6 +773,7 @@
       lightness: lightness,
       alpha: alpha,
       sepia: sepia,
+      posterize: posterize,
   };
   //# sourceMappingURL=index.js.map
 
@@ -1879,6 +1905,7 @@
       effect = null;
       return rsImageData;
   };
+  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,

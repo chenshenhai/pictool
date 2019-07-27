@@ -6,6 +6,7 @@ import { lightness } from './lightness';
 import { saturation } from './saturation';
 import { alpha } from './alpha';
 import { sepia } from './sepia';
+import { posterize } from './posterize';
 
 
 export default {
@@ -17,4 +18,5 @@ export default {
   lightness,
   alpha,
   sepia,
+  posterize,
 }

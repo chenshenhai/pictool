@@ -22,6 +22,7 @@
     <script src="./../../dist/browser.js"></script>
     <script>
     (function() {
+
       var src = './../image/lena-256.png';
       var Sandbox = Pictool.browser.Sandbox;
       var sandbox = new Sandbox(src);
@@ -29,8 +30,8 @@
 
       sandbox.queueProcess([
         {
-          process: 'posterize',
-          options: { value: 10 },
+          process: 'lightness',
+          options: { percent: 80 },
         },
       ]).then(function(base64) {
         dom.innerHTML = `<img src="${base64}" />`;

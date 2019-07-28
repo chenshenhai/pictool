@@ -17,8 +17,6 @@
     <script src="./../../dist/digit.js"></script>
     <script>
     (function() {
-      // 测试图片来自 www.pexels.com
-      // test photo from www.pexels.com
 
       var browserUtil = Pictool.browser.util;
       var digit = Pictool.digit;
@@ -33,16 +31,6 @@
 
           var rsData = digit.process.invert(targetImgData);
           var imgData = browserUtil.digitImageData2ImageData(rsData);
-
-          // const tempData = {
-          //   width: imgData.width,
-          //   height: imgData.height,
-          //   data: [],
-          // }
-          // for(let i = 0; i < imgData.data.length; i++) {
-          //   tempData.data.push(imgData.data[i])
-          // }
-          // console.log(JSON.stringify(tempData));
 
           rsData.destory();
           rsData = null;

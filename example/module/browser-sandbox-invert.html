@@ -1,0 +1,45 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <style>
+    img {
+      max-height: 200px;
+      min-width: 100px;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div>
+      <img src="./../image/lena-256.png" />
+    </div>
+    <br/>
+    <div id="display">
+      <img />
+    </div>
+
+    <script src="./../../dist/browser.js"></script>
+    <script>
+    (function() {
+      var src = './../image/lena-256.png';
+      var Sandbox = Pictool.browser.Sandbox;
+      var sandbox = new Sandbox(src);
+      var dom = document.querySelector('#display');
+
+      sandbox.queueProcess([
+        {
+          process: 'invert',
+          options: { },
+        },
+      ]).then(function(base64) {
+        dom.innerHTML = `<img src="${base64}" />`;
+      }).catch(function(err) {
+        console.log(err);
+      });
+      
+      
+    })();
+    </script>
+  </body>
+</html>

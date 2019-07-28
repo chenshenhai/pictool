@@ -3,6 +3,8 @@ const typescript = require('rollup-plugin-typescript');
 const postcss = require('rollup-plugin-postcss');
 // const buble = require('rollup-plugin-buble'); 
 const babel = require('rollup-plugin-babel');
+const ascii = require('./lib/rollup-plugin-ascii');
+
 const less = require('less');
 const config = require('./config');
 
@@ -22,8 +24,7 @@ const processLess = function(context, payload) {
       }
     });
 
-    less.render(context, {})
-    .then(function(output) {
+    less.render(context, {}).then(function(output) {
       // output.css = string of css
       // output.map = string of sourcemap
       // output.imports = array of string filenames of the imports referenced
@@ -60,6 +61,9 @@ function getPlugins() {
           "loose": true
         }]
       ]
+    }),
+    ascii({
+      sourcemap: process.env.NODE_ENV === 'development',
     }),
   ]
 }

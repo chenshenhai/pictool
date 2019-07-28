@@ -70,7 +70,7 @@ export class Progress {
     this._setInnerMovePercent(percent);
   }
 
-  resetOnChange(onChange: Function) {
+  resetOnChange(onChange: Function|null) {
     this._options.onChange = onChange;
   }
 

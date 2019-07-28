@@ -1,5 +1,16 @@
 const config = [
   {
+    input: 'src/index.ts',
+    output: {
+      file: 'dist/index.js',
+      format: 'umd',
+      name: 'Pictool',
+      amd: {
+        id: 'Pictool'
+      }
+    }
+  },
+  {
     input: 'src/ui.ts',
     output: {
       file: 'dist/ui.js',
@@ -29,13 +40,13 @@ const config = [
     }
   },
   {
-    input: 'src/browser-util.ts',
+    input: 'src/browser.ts',
     output: {
-      file: 'dist/browser-util.js',
+      file: 'dist/browser.js',
       format: 'umd',
-      name: 'Pictool.browserUtil',
+      name: 'Pictool.browser',
       amd: {
-        id: 'Pictool.browserUtil'
+        id: 'Pictool.browser'
       }
     }
   }

@@ -6,42 +6,31 @@
   <body>
 
     <div>
-      <img src="./../image/pexels-photo-004.jpg" />
+      <img src="./../image/lena-256.png" />
     </div>
     <br/>
     <div id="display">
       <img />
     </div>
 
-    <script src="./../../dist/browser-util.js"></script>
+    <script src="./../../dist/browser.js"></script>
     <script src="./../../dist/digit.js"></script>
     <script>
     (function() {
-      // 测试图片来自 www.pexels.com
-      // test photo from www.pexels.com
 
-      var browserUtil = Pictool.browserUtil;
+      var browserUtil = Pictool.browser.util;
       var digit = Pictool.digit;
 
-      var src = './../image/pexels-photo-004.jpg';
+      var src = './../image/lena-256.png';
       browserUtil.getImageBySrc(src).then(function(originImg) {
         var targetImgSrc = browserUtil.compressImage(originImg);
         
-        browserUtil.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
+        browserUtil.getImageDataBySrc(targetImgSrc).then(function(imgData) {
         
+          var targetImgData = browserUtil.imageData2DigitImageData(imgData);
 
           var rsData = digit.process.invert(targetImgData);
           var imgData = browserUtil.digitImageData2ImageData(rsData);
-
-          // const tempData = {
-          //   width: imgData.width,
-          //   height: imgData.height,
-          //   data: [],
-          // }
-          // for(let i = 0; i < imgData.data.length; i++) {
-          //   tempData.data.push(imgData.data[i])
-          // }
-          // console.log(JSON.stringify(tempData));
 
           rsData.destory();
           rsData = null;

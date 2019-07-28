@@ -1,0 +1,52 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  </head>
+  <body>
+
+    <div>
+      <img src="./../image/lena-256.png" />
+    </div>
+    <br/>
+    <div id="display">
+      <img />
+    </div>
+
+    <script src="./../../dist/browser.js"></script>
+    <script src="./../../dist/digit.js"></script>
+    <script>
+    (function() {
+
+      var browserUtil = Pictool.browser.util;
+      var digit = Pictool.digit;
+
+      var src = './../image/lena-256.png';
+      browserUtil.getImageBySrc(src).then(function(originImg) {
+        var targetImgSrc = browserUtil.compressImage(originImg);
+        
+        browserUtil.getImageDataBySrc(targetImgSrc).then(function(imgData) {
+        
+          var targetImgData = browserUtil.imageData2DigitImageData(imgData);
+
+          var rsData = digit.process.posterize(targetImgData, {value: 10});
+          var imgData = browserUtil.digitImageData2ImageData(rsData);
+
+          rsData.destory();
+          rsData = null;
+
+          var base64 = browserUtil.imageData2Base64(imgData);
+          document.querySelector('#display').innerHTML = `
+            <img src="${base64}" />
+          `;
+
+        }).catch(function(err) {
+          console.log(err);
+        });
+      }).catch(function(err) {
+        console.log(err);
+      })
+    })();
+    </script>
+  </body>
+</html>

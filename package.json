@@ -1,11 +1,11 @@
 {
   "name": "pictool",
-  "version": "0.0.2",
+  "version": "0.3.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node_modules/.bin/rollup -c ./build/rollup.config.prod.js",
-    "dev": "node_modules/.bin/rollup -w -c ./build/rollup.config.dev.js",
+    "build": "node_modules/.bin/rollup -c ./script/rollup.config.prod.js",
+    "dev": "node_modules/.bin/rollup -w -c ./script/rollup.config.dev.js",
     "lint": "./node_modules/.bin/eslint --fix --ext .ts ./src",
     "precommit": "npm run lint",
     "prepush": "npm run lint",
@@ -31,6 +31,7 @@
     "eslint": "^5.16.0",
     "husky": "^2.7.0",
     "less": "^3.9.0",
+    "magic-string": "^0.25.3",
     "mocha": "^6.1.4",
     "rollup": "^1.15.6",
     "rollup-plugin-babel": "^4.3.2",

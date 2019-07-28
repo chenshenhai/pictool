@@ -15,17 +15,33 @@
 
     <script>
       var module = [
-        'ui',
+        'pictool-ui',
+        'browser-sandbox',
+        'browser-sandbox-hue',
+        'browser-sandbox-saturation',
+        'browser-sandbox-lightness',
+        'browser-sandbox-grayscale',
+        'browser-sandbox-sobel',
+        'browser-sandbox-invert',
+        'browser-sandbox-alpha',
+        'browser-sandbox-sepia',
+        'browser-sandbox-posterize',
+        'browser-sandbox-gamma',
+        'digit-process-hue',
+        'digit-process-saturation',
+        'digit-process-lightness',
         'digit-process-grayscale',
         'digit-process-sobel',
-        'digit-process-invert'
+        'digit-process-invert',
+        'digit-process-alpha',
+        'digit-process-sepia',
+        'digit-process-posterize',
+        'digit-process-gamma',
+        'digit-transform'
       ]
       var listHtml = module.map(function(mod) {
         var path = './module/'+ mod +'.html';
-        var html = 
-          '<ul>' +
-            '<li><a href="'+ path +'" >' + path +'</a></li>' +
-          '</ul>';
+        var html =  '<a href="'+ path +'" >' + mod +'</a>' + '<br/>'
         return html;
       }).join('');
       document.querySelector('#J_ModuleList').innerHTML = listHtml;

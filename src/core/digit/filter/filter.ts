@@ -1,4 +1,6 @@
+import { DigitImageData } from './../digit-image-data';
+
 export interface FilterOpts {
-  imageData: ImageData;
+  imageData: DigitImageData;
   options?: any;
 }

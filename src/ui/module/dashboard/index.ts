@@ -1,5 +1,5 @@
 import './index.less';
-
+import browser from './../../../browser';
 // import { ActionSheet, ActionSheetOpts, } from '../../component/action-sheet/index';
 import { Progress, ProcessOnChangeData } from './../../component/progress';
 import { Loading } from './../../component/loading/index';
@@ -10,18 +10,27 @@ import schemaParser from './../../service/schema-parser';
 import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
 
-import { adjustMenuConfig } from '../../config/adjust';
-import { effectMenuConfig } from '../../config/effect';
-import { processMenuConfig } from '../../config/process';
+import { getAdjustMenuConfig, AdjustMenuConfigType, AdjustMenuItemType } from '../../config/adjust';
+import { getEffectMenuConfig, EffectMenuConfigType, EffectMenuItemType } from '../../config/effect';
+import { getProcessMenuConfig, ProcessMenuConfigType, ProcessMenuItemType } from '../../config/process';
+import { getLanguage, LanguageType } from './../../language/index';
+
+
+interface ReigisterEventType {
+  processMenuConfig: ProcessMenuConfigType,
+  effectMenuConfig: EffectMenuConfigType,
+  adjustMenuConfig: AdjustMenuConfigType
+}
 
 export interface DashboardOpts {
   zIndex: number;
+  language?: string;
   workerConfig: WorkerConfig;
 }
 
 export class Dashboard {
-  private _mount: HTMLElement = null;
-  private _opts: DashboardOpts = null;
+  private _mount: HTMLElement|null;
+  private _opts: DashboardOpts;
   private _hasRendered: boolean = false;
 
   constructor(mount: HTMLElement, opts: DashboardOpts) {
@@ -34,8 +43,18 @@ export class Dashboard {
     if (this._hasRendered === true) {
       return;
     }
-    const options: DashboardOpts = this._opts;
-    const { zIndex, } = options;
+    const options: DashboardOpts|null = this._opts;
+    if (!options || !this._mount) {
+      return;
+    }
+    const { zIndex, language, } = options;
+    const lang: LanguageType = getLanguage(language);
+
+    const processMenuConfig = getProcessMenuConfig(lang);
+    const effectMenuConfig = getEffectMenuConfig(lang);
+    const adjustMenuConfig = getAdjustMenuConfig(lang);
+
+
     const html = `
       <div class="pictool-module-dashboard" style="z-index:${zIndex};">
         <div class="pictool-dashboard-navlist">
@@ -52,15 +71,23 @@ export class Dashboard {
       </div>
     `;
     this._mount.innerHTML = html;
-    this._registerEvent();
+
+    this._registerEvent({
+      processMenuConfig,
+      effectMenuConfig,
+      adjustMenuConfig
+    });
     this._hasRendered = true;
   }
 
-  private _registerEvent() {
+  private _registerEvent(configMap: ReigisterEventType) {
     if (this._hasRendered === true) {
       return;
     }
-    const options: DashboardOpts = this._opts;
+    const options: DashboardOpts|null = this._opts;
+    if (!options || !this._mount) {
+      return;
+    }
     const { zIndex, workerConfig, } = options;
     const btnEffect = this._mount.querySelector('[data-nav-action="effect"]');
     const btnAdjust = this._mount.querySelector('[data-nav-action="adjust"]');
@@ -72,19 +99,19 @@ export class Dashboard {
     //   zIndex: zIndex + 1,
     // };
 
-    const processPanel = this._initProcessPanel();
-    btnProcess.addEventListener('click', function() {      
-      processPanel.show();
+    const processPanel = this._initProcessPanel(configMap.processMenuConfig);
+    btnProcess && btnProcess.addEventListener('click', function() {      
+      processPanel && processPanel.show();
     });
 
-    const filterEffect = this._initEffectPanel();
-    btnEffect.addEventListener('click', function() {      
-      filterEffect.show();
+    const filterEffect = this._initEffectPanel(configMap.effectMenuConfig);
+    btnEffect && btnEffect.addEventListener('click', function() {      
+      filterEffect && filterEffect.show();
     });
 
-    const adjustPanel = this._initAdjustPanel();
-    btnAdjust.addEventListener('click', function() {
-      adjustPanel.show();
+    const adjustPanel = this._initAdjustPanel(configMap.adjustMenuConfig);
+    btnAdjust && btnAdjust.addEventListener('click', function() {
+      adjustPanel && adjustPanel.show();
     });
 
     const progress = new Progress({
@@ -107,7 +134,7 @@ export class Dashboard {
     });
     progress.hide();
 
-    eventHub.on('GlobalEvent.moduleDashboard.progress.show', function(opts = {}) {
+    eventHub.on('GlobalEvent.moduleDashboard.progress.show', function(opts: any) {
       const { percent, onChange, range, } = opts;
       progress.resetRange(range.min, range.max);
       progress.resetOnChange(onChange);
@@ -126,7 +153,7 @@ export class Dashboard {
       zIndex: zIndex + 1000,
     });
     
-    eventHub.on('GlobalEvent.moduleDashboard.loading.show', function(opts?) {
+    eventHub.on('GlobalEvent.moduleDashboard.loading.show', function(opts: any) {
       let timeout: number = -1;
       if (opts && opts.timeout > 0) {
         timeout = opts.timeout;
@@ -140,19 +167,23 @@ export class Dashboard {
 
   }
 
-  private _initProcessPanel() {
+  private _initProcessPanel(processMenuConfig: ProcessMenuConfigType) {
     const options: DashboardOpts = this._opts;
+    if (!this._mount) {
+      return null;
+    }
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
       title: processMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: processMenuConfig.menu.map(function(conf) {
+      navList: processMenuConfig.menu.map(function(conf: ProcessMenuItemType) {
         return {
           name: conf.name,
           feedback() {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-            const imageData = schemaParser.parseImageData(sketchSchema);
+            const originImgData = schemaParser.parseImageData(sketchSchema);
+            const imageData = browser.util.imageData2DigitImageData(originImgData);
             return new Promise(function(resolve, reject) {
               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
@@ -162,7 +193,7 @@ export class Dashboard {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 resolve(newSchema);
-              }).then(function(err) {
+              }).catch(function(err: Error) {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 reject(err);
               })
@@ -174,19 +205,24 @@ export class Dashboard {
     return panel;
   }
 
-  private _initEffectPanel() {
+  private _initEffectPanel(effectMenuConfig: EffectMenuConfigType) {
     const options: DashboardOpts = this._opts;
+    if (!this._mount) {
+      return null;
+    }
     const { zIndex, workerConfig, } = options;
     const panel = new Panel({
       title: effectMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: effectMenuConfig.menu.map(function(conf) {
+      navList: effectMenuConfig.menu.map(function(conf: EffectMenuItemType) {
         return {
           name: conf.name,
           feedback() {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-            const imageData = schemaParser.parseImageData(sketchSchema);
+            const originImgData = schemaParser.parseImageData(sketchSchema);
+            const imageData = browser.util.imageData2DigitImageData(originImgData);
+      
             return new Promise(function(resolve, reject) {
               eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
               asyncWorker({
@@ -196,7 +232,7 @@ export class Dashboard {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 const newSchema = schemaParser.parseImageDataToSchema(rs);
                 resolve(newSchema);
-              }).then(function(err) {
+              }).catch(function(err: Error) {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 reject(err);
               })
@@ -208,24 +244,31 @@ export class Dashboard {
     return panel;
   }
 
-  private _initAdjustPanel() {
-    const options: DashboardOpts = this._opts;
+  private _initAdjustPanel(adjustMenuConfig: AdjustMenuConfigType): Panel|null|undefined {
+    const options: DashboardOpts|null = this._opts;
+    if (!options) {
+      return;
+    }
     const { zIndex, workerConfig, } = options;
+    if (!this._mount) {
+      return;
+    }
     const panel = new Panel({
       title: adjustMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: adjustMenuConfig.menu.map(function(conf) {
+      navList: adjustMenuConfig.menu.map(function(conf: AdjustMenuItemType) {
         return {
           name: conf.name,
           feedback() {
             const sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-            const imageData = schemaParser.parseImageData(sketchSchema);
-            
+            const originImgData = schemaParser.parseImageData(sketchSchema);
+            const imageData = browser.util.imageData2DigitImageData(originImgData);
+      
             eventHub.trigger('GlobalEvent.moduleDashboard.progress.show', {
               percent: conf.percent,
               range: {max: conf.range.max, min: conf.range.min },
-              onChange: function(data) {
+              onChange: function(data: any) {
                 eventHub.trigger('GlobalEvent.moduleDashboard.loading.show');
                 asyncWorker({
                   key: conf.filter,
@@ -234,7 +277,7 @@ export class Dashboard {
                   const newSchema = schemaParser.parseImageDataToSchema(rs);
                   eventHub.trigger('GlobalEvent.moduleSketch.renderImage', newSchema);
                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
-                }).catch(function(err) {
+                }).catch(function(err: Error) {
                   console.log(err);
                   eventHub.trigger('GlobalEvent.moduleDashboard.loading.hide');
                 })

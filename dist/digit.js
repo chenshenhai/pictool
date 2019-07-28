@@ -36,7 +36,6 @@
     var H_MAX = 360;
     var S_MAX = 100;
     var L_MAX = 100;
-    //# sourceMappingURL=static.js.map
 
     // const H2RGBNum = function(l: number): number {
     //   let num = l / H_MAX * RGBA_MAX;
@@ -112,7 +111,6 @@
         }
         return { r: r, g: g, b: b };
     };
-    //# sourceMappingURL=hsl2rgb.js.map
 
     var parseRGBNum = function (origin) {
         return origin * 100 / RGBA_MAX; // [1, 100]
@@ -232,24 +230,41 @@
         }
         return { h: h, s: s, l: l };
     };
-    //# sourceMappingURL=rgb2hsl.js.map
 
     var DigitImageData = /** @class */ (function () {
         function DigitImageData(opts) {
-            var width = opts.width, height = opts.height;
+            this._nullData = new Uint8ClampedArray(0);
+            var width = opts.width, height = opts.height, data = opts.data;
             var size = width * height * 4;
-            var data = new Uint8ClampedArray(size);
-            this.data = data;
-            this.width = width;
-            this.height = height;
+            if (data instanceof Uint8ClampedArray && data.length === size) {
+                this._data = new Uint8ClampedArray(data);
+            }
+            else if (data instanceof Array && data.length === size) {
+                this._data = new Uint8ClampedArray(data);
+            }
+            else {
+                this._data = new Uint8ClampedArray(size);
+            }
+            this._width = width;
+            this._height = height;
         }
-        DigitImageData.prototype.setData = function (data) {
-            this.data = data.map(function (item) {
-                return item;
-            });
+        DigitImageData.prototype.getWidth = function () {
+            return this._width !== null ? this._width : 0;
+        };
+        DigitImageData.prototype.getHeight = function () {
+            return this._height !== null ? this._height : 0;
+        };
+        DigitImageData.prototype.getData = function () {
+            return this._data !== null ? this._data : this._nullData;
+        };
+        DigitImageData.prototype.setDataUnit = function (index, unit) {
+            if (this._data instanceof Uint8ClampedArray) {
+                this._data[index] = unit;
+            }
         };
         DigitImageData.prototype.pixelAt = function (x, y) {
-            var _a = this, width = _a.width, data = _a.data;
+            var width = this.getWidth();
+            var data = this.getData();
             var idx = (width * y + x) * 4;
             var r = data[idx];
             var g = data[idx + 1];
@@ -259,36 +274,18 @@
             return rgba;
         };
         DigitImageData.prototype.destory = function () {
-            this.data = null;
-            this.width = null;
-            this.height = null;
+            this._data = null;
+            this._width = null;
+            this._height = null;
         };
         return DigitImageData;
     }());
-    //# sourceMappingURL=digit-image-data.js.map
 
-    var transformImageData = function (imageData, opts) {
-        var data = imageData.data, width = imageData.width, height = imageData.height;
-        var filteredImageData = new ImageData(width, height);
-        for (var i = 0; i < data.length; i += 4) {
-            var r = data[i];
-            var g = data[i + 1];
-            var b = data[i + 2];
-            var a = data[i + 3];
-            var cell = { r: r, g: g, b: b };
-            var hslCell = RGB2HSL(cell, opts);
-            var rsHsl = __assign({}, hslCell);
-            var rgbCell = HSL2RGB(rsHsl);
-            filteredImageData.data[i] = rgbCell.r;
-            filteredImageData.data[i + 1] = rgbCell.g;
-            filteredImageData.data[i + 2] = rgbCell.b;
-            filteredImageData.data[i + 3] = a;
-        }
-        return filteredImageData;
-    };
     var transformDigitImageData = function (digitImageData, opts) {
-        var data = digitImageData.data, width = digitImageData.width, height = digitImageData.height;
-        var rsImageData = new DigitImageData({ width: width, height: height });
+        var width = digitImageData.getWidth();
+        var height = digitImageData.getHeight();
+        var data = digitImageData.getData();
+        var rsImageData = new DigitImageData({ width: width, height: height, data: data });
         for (var i = 0; i < data.length; i += 4) {
             var r = data[i];
             var g = data[i + 1];
@@ -298,44 +295,44 @@
             var hslCell = RGB2HSL(cell, opts);
             var rsHsl = __assign({}, hslCell);
             var rgbCell = HSL2RGB(rsHsl);
-            rsImageData.data[i] = rgbCell.r;
-            rsImageData.data[i + 1] = rgbCell.g;
-            rsImageData.data[i + 2] = rgbCell.b;
-            rsImageData.data[i + 3] = a;
+            rsImageData.setDataUnit(i, rgbCell.r);
+            rsImageData.setDataUnit(i + 1, rgbCell.g);
+            rsImageData.setDataUnit(i + 2, rgbCell.b);
+            rsImageData.setDataUnit(i + 3, a);
         }
         digitImageData.destory();
-        digitImageData = null;
+        // digitImageData = null;
         return rsImageData;
     };
     var transform = {
         HSL2RGB: HSL2RGB,
         RGB2HSL: RGB2HSL,
-        transformImageData: transformImageData,
     };
-    //# sourceMappingURL=index.js.map
 
     var grayscale = function (imgData) {
-        var width = imgData.width, height = imgData.height, data = imgData.data;
-        var digitImg = new DigitImageData({ width: width, height: height });
-        digitImg.setData(data);
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
         for (var x = 0; x < width; x++) {
             for (var y = 0; y < height; y++) {
                 var idx = (width * y + x) * 4;
                 var px = digitImg.pixelAt(x, y);
                 var gray = Math.round((px.r + px.g + px.b) / 3);
-                digitImg.data[idx] = gray;
-                digitImg.data[idx + 1] = gray;
-                digitImg.data[idx + 2] = gray;
-                digitImg.data[idx + 3] = 255;
+                digitImg.setDataUnit(idx, gray);
+                digitImg.setDataUnit(idx + 1, gray);
+                digitImg.setDataUnit(idx + 2, gray);
+                digitImg.setDataUnit(idx + 3, 255);
             }
         }
         return digitImg;
     };
-    //# sourceMappingURL=grayscale.js.map
 
     // Thanks to https://github.com/miguelmota/sobel/
     function imgDataAt(digitData, x, y) {
-        var width = digitData.width, data = digitData.data;
+        var width = digitData.getWidth();
+        // const height: number = digitData.getHeight();
+        var data = digitData.getData();
         var idx = (width * y + x) * 4;
         var num = data[idx];
         if (!(num >= 0 && num < 255)) {
@@ -344,8 +341,10 @@
         return num;
     }
     var sobel = function (imgData) {
-        var width = imgData.width, height = imgData.height;
-        var digitImg = new DigitImageData({ width: width, height: height });
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = new Uint8ClampedArray(width * height * 4);
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
         var kernelX = [
             [-1, 0, 1],
             [-2, 0, 2],
@@ -379,42 +378,42 @@
                     (kernelY[2][2] * imgDataAt(grayImg, x + 1, y + 1)));
                 var magnitude = Math.round(Math.sqrt((pixelX * pixelX) + (pixelY * pixelY)));
                 var idx = (width * y + x) * 4;
-                digitImg.data[idx] = magnitude;
-                digitImg.data[idx + 1] = magnitude;
-                digitImg.data[idx + 2] = magnitude;
-                digitImg.data[idx + 3] = 255;
+                digitImg.setDataUnit(idx, magnitude);
+                digitImg.setDataUnit(idx + 1, magnitude);
+                digitImg.setDataUnit(idx + 2, magnitude);
+                digitImg.setDataUnit(idx + 3, 255);
             }
         }
         grayImg.destory();
         grayImg = null;
         return digitImg;
     };
-    //# sourceMappingURL=sobel.js.map
 
     var invert = function (imgData) {
-        var width = imgData.width, height = imgData.height, data = imgData.data;
-        var digitImg = new DigitImageData({ width: width, height: height });
-        digitImg.setData(data);
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
         for (var x = 0; x < width; x++) {
             for (var y = 0; y < height; y++) {
                 var idx = (width * y + x) * 4;
                 var px = digitImg.pixelAt(x, y);
-                digitImg.data[idx] = RGBA_MAX - px.r;
-                digitImg.data[idx + 1] = RGBA_MAX - px.g;
-                digitImg.data[idx + 2] = RGBA_MAX - px.b;
-                digitImg.data[idx + 3] = px.a;
+                digitImg.setDataUnit(idx, RGBA_MAX - px.r);
+                digitImg.setDataUnit(idx + 1, RGBA_MAX - px.g);
+                digitImg.setDataUnit(idx + 2, RGBA_MAX - px.b);
+                digitImg.setDataUnit(idx + 3, px.a);
             }
         }
         return digitImg;
     };
-    //# sourceMappingURL=invert.js.map
 
     var hue = function (imgData, opts) {
-        var width = imgData.width, height = imgData.height, data = imgData.data;
-        var digitImg = new DigitImageData({ width: width, height: height });
-        digitImg.setData(data);
-        var percent = null;
-        var value = null;
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
+        var percent = undefined;
+        var value = undefined;
         if (opts.value) {
             value = { h: opts.value };
         }
@@ -424,14 +423,14 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
-    //# sourceMappingURL=hue.js.map
 
     var lightness = function (imgData, opts) {
-        var width = imgData.width, height = imgData.height, data = imgData.data;
-        var digitImg = new DigitImageData({ width: width, height: height });
-        digitImg.setData(data);
-        var percent = null;
-        var value = null;
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
+        var percent = undefined;
+        var value = undefined;
         if (opts.value) {
             value = { l: opts.value };
         }
@@ -441,14 +440,14 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
-    //# sourceMappingURL=lightness.js.map
 
     var saturation = function (imgData, opts) {
-        var width = imgData.width, height = imgData.height, data = imgData.data;
-        var digitImg = new DigitImageData({ width: width, height: height });
-        digitImg.setData(data);
-        var percent = null;
-        var value = null;
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
+        var percent = undefined;
+        var value = undefined;
         if (opts.value) {
             value = { s: opts.value };
         }
@@ -458,7 +457,179 @@
         digitImg = transformDigitImageData(digitImg, { percent: percent, value: value });
         return digitImg;
     };
-    //# sourceMappingURL=saturation.js.map
+
+    function isPercent$1(num) {
+        if (num >= -100 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function isAlphaValue(num) {
+        if (num >= 0 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    var alpha = function (digitImg, opts) {
+        var width = digitImg.getWidth();
+        var height = digitImg.getHeight();
+        var data = digitImg.getData();
+        var rsDigitImg = new DigitImageData({ width: width, height: height, data: data });
+        var percent = opts.percent;
+        var value = opts.value;
+        if (percent && isPercent$1(percent)) {
+            percent = Math.min(100, percent);
+            percent = Math.max(-100, percent);
+        }
+        else if (value && isAlphaValue(value)) {
+            value = Math.min(100, value);
+            value = Math.max(0, value);
+        }
+        if (value || value === 0) {
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                a = Math.floor(value * RGBA_MAX / 100);
+                a = Math.min(RGBA_MAX, a);
+                a = Math.max(RGBA_MIN, a);
+                rsDigitImg.setDataUnit(i, r);
+                rsDigitImg.setDataUnit(i + 1, g);
+                rsDigitImg.setDataUnit(i + 2, b);
+                rsDigitImg.setDataUnit(i + 3, a);
+            }
+        }
+        else if (percent || percent === 0) {
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                a = Math.floor(a * (100 + percent) / 100);
+                a = Math.min(RGBA_MAX, a);
+                a = Math.max(RGBA_MIN, a);
+                rsDigitImg.setDataUnit(i, r);
+                rsDigitImg.setDataUnit(i + 1, g);
+                rsDigitImg.setDataUnit(i + 2, b);
+                rsDigitImg.setDataUnit(i + 3, a);
+            }
+        }
+        else {
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                rsDigitImg.setDataUnit(i, r);
+                rsDigitImg.setDataUnit(i + 1, g);
+                rsDigitImg.setDataUnit(i + 2, b);
+                rsDigitImg.setDataUnit(i + 3, a);
+            }
+        }
+        return rsDigitImg;
+    };
+
+    var sepia = function (imgData) {
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var idx = (width * y + x) * 4;
+                var px = digitImg.pixelAt(x, y);
+                var r = Math.floor((px.r * 0.393) + (px.g * 0.769) + (px.b * 0.189));
+                var g = Math.floor((px.r * 0.349) + (px.g * 0.686) + (px.b * 0.168));
+                var b = Math.floor((px.r * 0.272) + (px.g * 0.534) + (px.b * 0.131));
+                var a = px.a;
+                digitImg.setDataUnit(idx, r);
+                digitImg.setDataUnit(idx + 1, g);
+                digitImg.setDataUnit(idx + 2, b);
+                digitImg.setDataUnit(idx + 3, a);
+            }
+        }
+        return digitImg;
+    };
+
+    function isPosterizeValue(num) {
+        if (num >= 0 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    var posterize = function (imgData, opts) {
+        if (opts === void 0) { opts = {}; }
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
+        var value = opts.value || 100;
+        if (value && isPosterizeValue(value)) {
+            value = Math.min(100, value);
+            value = Math.max(0, value);
+        }
+        var step1 = RGBA_MAX / value;
+        var step2 = step1;
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var idx = (width * y + x) * 4;
+                var px = digitImg.pixelAt(x, y);
+                var r = Math.floor(Math.floor(px.r / step1) * step2);
+                var g = Math.floor(Math.floor(px.g / step1) * step2);
+                var b = Math.floor(Math.floor(px.b / step1) * step2);
+                var a = px.a;
+                digitImg.setDataUnit(idx, r);
+                digitImg.setDataUnit(idx + 1, g);
+                digitImg.setDataUnit(idx + 2, b);
+                digitImg.setDataUnit(idx + 3, a);
+            }
+        }
+        return digitImg;
+    };
+
+    function isGammaValue(num) {
+        if (num >= 0 && num <= 100) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    var gamma = function (imgData, opts) {
+        if (opts === void 0) { opts = {}; }
+        var width = imgData.getWidth();
+        var height = imgData.getHeight();
+        var data = imgData.getData();
+        var digitImg = new DigitImageData({ width: width, height: height, data: data });
+        var value = opts.value || 16;
+        if (value && isGammaValue(value)) {
+            value = Math.min(100, value);
+            value = Math.max(0, value);
+        }
+        var gammaVal = ((value + 100) / 200) * 2;
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                var idx = (width * y + x) * 4;
+                var px = digitImg.pixelAt(x, y);
+                var r = Math.floor(Math.pow(px.r, gammaVal));
+                var g = Math.floor(Math.pow(px.g, gammaVal));
+                var b = Math.floor(Math.pow(px.b, gammaVal));
+                var a = px.a;
+                digitImg.setDataUnit(idx, r);
+                digitImg.setDataUnit(idx + 1, g);
+                digitImg.setDataUnit(idx + 2, b);
+                digitImg.setDataUnit(idx + 3, a);
+            }
+        }
+        return digitImg;
+    };
 
     var process = {
         grayscale: grayscale,
@@ -467,54 +638,66 @@
         hue: hue,
         saturation: saturation,
         lightness: lightness,
+        alpha: alpha,
+        sepia: sepia,
+        posterize: posterize,
+        gamma: gamma,
     };
-    //# sourceMappingURL=index.js.map
 
     var digit = {
         transform: transform,
         process: process,
         DigitImageData: DigitImageData,
     };
-    //# sourceMappingURL=index.js.map
 
     var digitImageData2ImageData = function (digitImgData) {
-        var data = digitImgData.data, width = digitImgData.width, height = digitImgData.height;
+        var data = digitImgData.getData();
+        var width = digitImgData.getWidth();
+        var height = digitImgData.getHeight();
         var imgData = new ImageData(width, height);
         data.forEach(function (num, i) {
             imgData.data[i] = num;
         });
         return imgData;
     };
-    //# sourceMappingURL=image-data.js.map
 
     var Effect = /** @class */ (function () {
         function Effect(imageData) {
-            this._imageData = null;
-            this._imageData = imageData;
+            this._digitImageData = null;
+            this._digitImageData = imageData;
+            // if (imageData instanceof DigitImageData) {
+            //   this._digitImageData = imageData;
+            // } else {
+            //   this._digitImageData = imageData2DigitImageData(imageData);
+            // }
         }
         Effect.prototype.process = function (method, opts) {
-            if (typeof process[method] !== 'function') {
+            if (process && typeof process[method] !== 'function') {
                 throw new Error("Pictool.digit.process." + method + " is not a function ");
             }
-            var digitData = new DigitImageData({
-                width: this._imageData.width,
-                height: this._imageData.height,
-            });
-            digitData.setData(this._imageData.data);
-            var rsDightData = process[method](digitData, opts);
-            this._imageData = digitImageData2ImageData(rsDightData);
-            digitData.destory();
-            digitData = null;
-            rsDightData.destory();
-            rsDightData = null;
+            this._digitImageData = process[method](this._digitImageData, opts);
             return this;
         };
         Effect.prototype.getImageData = function () {
-            return this._imageData;
+            if (this._digitImageData) {
+                var imageData = digitImageData2ImageData(this._digitImageData);
+                return imageData;
+            }
+            else {
+                return null;
+            }
+        };
+        Effect.prototype.getDigitImageData = function () {
+            return this._digitImageData;
+        };
+        Effect.prototype.destory = function () {
+            if (this._digitImageData) {
+                this._digitImageData.destory();
+                this._digitImageData = null;
+            }
         };
         return Effect;
     }());
-    //# sourceMappingURL=index.js.map
 
     var transform$1 = digit.transform, process$1 = digit.process, DigitImageData$1 = digit.DigitImageData;
     var digit$1 = {
@@ -523,7 +706,6 @@
         DigitImageData: DigitImageData$1,
         Effect: Effect,
     };
-    //# sourceMappingURL=digit.js.map
 
     return digit$1;
 

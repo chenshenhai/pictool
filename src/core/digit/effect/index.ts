@@ -1,33 +1,44 @@
 import process from './../process/index';
 import { DigitImageData } from './../digit-image-data';
-import { digitImageData2ImageData } from '../../../util/image-data';
+import { digitImageData2ImageData, imageData2DigitImageData } from '../../../util/image-data';
 
 export class Effect {
-  private _imageData: ImageData = null;
+  private _digitImageData: DigitImageData|null = null;
 
-  constructor(imageData: ImageData) {
-    this._imageData = imageData;
+  constructor(imageData: DigitImageData) {
+    this._digitImageData = imageData;
+    // if (imageData instanceof DigitImageData) {
+    //   this._digitImageData = imageData;
+    // } else {
+    //   this._digitImageData = imageData2DigitImageData(imageData);
+    // }
   }
   
-  process(method: string, opts?: any): Effect {
-    if (typeof process[method] !== 'function') {
+  public process(method: string, opts?: any): Effect {
+    if (process && typeof process[method] !== 'function') {
       throw new Error(`Pictool.digit.process.${method} is not a function `);
     }
-    let digitData = new DigitImageData({
-      width: this._imageData.width,
-      height: this._imageData.height,
-    });
-    digitData.setData(this._imageData.data);
-    let rsDightData = process[method](digitData, opts);
-    this._imageData = digitImageData2ImageData(rsDightData);
-    digitData.destory();
-    digitData = null;
-    rsDightData.destory();
-    rsDightData = null;
+    this._digitImageData = process[method](this._digitImageData, opts);
     return this;
   }
 
-  getImageData(): ImageData {
-    return this._imageData;
+  public getImageData(): ImageData|null {
+    if (this._digitImageData) {
+      const imageData = digitImageData2ImageData(this._digitImageData);
+      return imageData;
+    } else {
+      return null;
+    }
+  }
+
+  public getDigitImageData(): DigitImageData|null {
+    return this._digitImageData;
+  }
+
+  public destory () {
+    if (this._digitImageData) {
+      this._digitImageData.destory();
+      this._digitImageData = null;
+    }
   }
 }

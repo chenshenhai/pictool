@@ -6,7 +6,7 @@
   <body>
 
     <div>
-      <img src="./../image/pexels-photo-004.jpg" />
+      <img src="./../image/lena-256.png" />
     </div>
     <br/>
     <div id="display">
@@ -23,7 +23,7 @@
       var browserUtil = Pictool.browser.util;
       var digit = Pictool.digit;
 
-      var src = './../image/pexels-photo-004.jpg';
+      var src = './../image/lena-256.png';
       browserUtil.getImageBySrc(src).then(function(originImg) {
         var targetImgSrc = browserUtil.compressImage(originImg);
         

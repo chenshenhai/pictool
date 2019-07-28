@@ -13,7 +13,7 @@
       // 测试图片来自 www.pexels.com
       // test photo from www.pexels.com
       // const testImg = './image/github-404.png';
-      var src = './../image/pexels-photo-001.jpg';
+      var src = './../image/lena-256.png';
       Pictool.browser.util.getImageBySrc(src).then(function(originImg) {
         var targetImgSrc = Pictool.browser.util.compressImage(originImg);
         Pictool.browser.util.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {

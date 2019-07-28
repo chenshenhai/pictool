@@ -120,6 +120,8 @@ sandbox.queueProcess([
 - ✔︎ Grayscale
 - ✔︎ Sobel
 - ✔︎ Sepia
+- ✔︎ Posterize
+- ✔︎ Gamma
 
 
 ## Documentation

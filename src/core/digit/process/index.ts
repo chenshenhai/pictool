@@ -7,6 +7,7 @@ import { saturation } from './saturation';
 import { alpha } from './alpha';
 import { sepia } from './sepia';
 import { posterize } from './posterize';
+import { gamma } from './gamma';
 
 
 export default {
@@ -19,4 +20,5 @@ export default {
   alpha,
   sepia,
   posterize,
+  gamma,
 }

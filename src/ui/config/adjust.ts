@@ -66,6 +66,22 @@ export const adjustMenuConfig = {
       }
     },
     {
+      name: 'Gamma',
+      percent: 50,
+      range: {
+        min: 0,
+        max: 100, 
+      },
+      filter: 'gamma',
+      parseOptions(data: any) {
+        const value = Math.round(data.value);
+        console.log('gamma.value = ', value);
+        return {
+          value,
+        }
+      }
+    },
+    {
       name: 'Posterize',
       percent: 50,
       range: {

@@ -721,7 +721,7 @@
   };
   //# sourceMappingURL=sepia.js.map
 
-  function isAlphaValue$1(num) {
+  function isPosterizeValue(num) {
       if (num >= 0 && num <= 100) {
           return true;
       }
@@ -730,12 +730,13 @@
       }
   }
   var posterize = function (imgData, opts) {
+      if (opts === void 0) { opts = {}; }
       var width = imgData.getWidth();
       var height = imgData.getHeight();
       var data = imgData.getData();
       var digitImg = new DigitImageData({ width: width, height: height, data: data });
       var value = opts.value || 100;
-      if (value && isAlphaValue$1(value)) {
+      if (value && isPosterizeValue(value)) {
           value = Math.min(100, value);
           value = Math.max(0, value);
       }
@@ -759,6 +760,43 @@
   };
   //# sourceMappingURL=posterize.js.map
 
+  function isGammaValue(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var gamma = function (imgData, opts) {
+      if (opts === void 0) { opts = {}; }
+      var width = imgData.getWidth();
+      var height = imgData.getHeight();
+      var data = imgData.getData();
+      var digitImg = new DigitImageData({ width: width, height: height, data: data });
+      var value = opts.value || 16;
+      if (value && isGammaValue(value)) {
+          value = Math.min(100, value);
+          value = Math.max(0, value);
+      }
+      var gammaVal = ((value + 100) / 200) * 2;
+      for (var x = 0; x < width; x++) {
+          for (var y = 0; y < height; y++) {
+              var idx = (width * y + x) * 4;
+              var px = digitImg.pixelAt(x, y);
+              var r = Math.floor(Math.pow(px.r, gammaVal));
+              var g = Math.floor(Math.pow(px.g, gammaVal));
+              var b = Math.floor(Math.pow(px.b, gammaVal));
+              var a = px.a;
+              digitImg.setDataUnit(idx, r);
+              digitImg.setDataUnit(idx + 1, g);
+              digitImg.setDataUnit(idx + 2, b);
+              digitImg.setDataUnit(idx + 3, a);
+          }
+      }
+      return digitImg;
+  };
+
   var process = {
       grayscale: grayscale,
       sobel: sobel,
@@ -769,6 +807,7 @@
       alpha: alpha,
       sepia: sepia,
       posterize: posterize,
+      gamma: gamma,
   };
   //# sourceMappingURL=index.js.map
 

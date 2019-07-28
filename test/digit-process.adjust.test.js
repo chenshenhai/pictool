@@ -13,6 +13,8 @@ const imgLightnessVal70 = require('./data/image-data-lightness.val.70.json')
 const imgLightnessPer60 = require('./data/image-data-lightness.per.60.json')
 const imgAlphaPer80 = require('./data/image-data-alpha.per.80.json')
 const imgPosterizeVal10 = require('./data/image-data-posterize.val.10.json');
+const imgGammaVal16 = require('./data/image-data-gamma.val.16.json');
+
 
 describe( 'test: Pictool.digit.process', ( ) => {
 
@@ -144,6 +146,24 @@ describe( 'test: Pictool.digit.process', ( ) => {
     const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
     const digitImgRs = process.posterize(digitImg, {value: 10});
     const expectImg = imgPosterizeVal10;
+    
+    expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
+    expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);
+    
+    
+    const rsData = digitImgRs.getData();
+    expectImg.data.forEach(function(num, i) {
+      // console.log(`expect index is: ${i}`)
+      expect(rsData[i]).to.deep.equal(num);
+    });
+
+    done()
+  });
+
+  it('process.gamma({value: 16})', ( done ) => {
+    const digitImg = new DigitImageData({width: img.width, height: img.height, data: img.data});
+    const digitImgRs = process.gamma(digitImg, {value: 16});
+    const expectImg = imgGammaVal16;
     
     expect(digitImgRs.getWidth()).to.deep.equal(expectImg.width);
     expect(digitImgRs.getHeight()).to.deep.equal(expectImg.height);

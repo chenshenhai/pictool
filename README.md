@@ -8,6 +8,11 @@
 
 ![pictool-logo](https://user-images.githubusercontent.com/8216630/61581603-28ffd180-ab53-11e9-9461-a24d31643ec7.png)
 
+
+> Examples of online use
+
+[https://chenshenhai.github.io/pictool/example/module/pictool-ui.html](https://chenshenhai.github.io/pictool/example/module/pictool-ui.html)
+
 ## Installation
 
 ### Prerequisites
@@ -128,6 +133,17 @@ sandbox.queueProcess([
 
 - [中文文档](https://chenshenhai.github.io/pictool-doc/)
 - [English Documents](https://chenshenhai.github.io/pictool-doc/page/en-US/) //TODO
+
+## Example 
+
+> Please use the latest version of Chrome Browser
+
+> 请在最新版本 chrome 浏览器下浏览
+
+[https://chenshenhai.github.io/pictool/example/index.html](https://chenshenhai.github.io/pictool/example/index.html)
+
+
+
 
 ## Testing
 

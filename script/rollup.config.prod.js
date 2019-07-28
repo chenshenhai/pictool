@@ -10,6 +10,7 @@ const resolveFile = function(filePath) {
 configList.map((config, index) => {
 
   config.output.sourcemap = false;
+  config.output.file = config.output.file.replace(/\.js/, '.min.js');
   config.plugins = [
     ...config.plugins,
     ...[

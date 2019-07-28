@@ -8,6 +8,11 @@
 
 ![pictool-logo](https://user-images.githubusercontent.com/8216630/61581603-28ffd180-ab53-11e9-9461-a24d31643ec7.png)
 
+
+> Examples of online use
+
+[https://chenshenhai.github.io/pictool/example/module/pictool-ui.html](https://chenshenhai.github.io/pictool/example/module/pictool-ui.html)
+
 ## Installation
 
 ### Prerequisites

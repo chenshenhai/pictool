@@ -2,11 +2,33 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  
+    <style>
+    button {
+      color: #2f54eb;
+      background: #ffffff;
+      height: 40px;
+      padding: 0 24px;
+      font-size: 16px;
+      line-height: 38px;
+      text-align: center;
+      text-decoration: none;
+      border: 1px solid #2f54eb;
+      border-radius: 100px;
+    }
+    </style>
   </head>
   <body>
-    <button id="J_BtnPictoolUI">open Pictool.UI</button>
+    <h1>Welcome to Pictool UI</h1>
+    <div>
+      <button id="J_BtnPictoolUI">Pictool.UI (en-US)</button>
+    </div>
+    <br/>
+    <div>
+      <button id="J_BtnPictoolUI_ZH">Pictool.UI (中文简体)</button>
+    </div>
 
-    <script src="./../../dist/index.js"></script>
+    <script src="./../../dist/index.min.js"></script>
     
     <script>
     (function() {
@@ -16,20 +38,30 @@
         Pictool.browser.util.getImageDataBySrc(targetImgSrc).then(function(targetImgData) {
         
           var tool = new Pictool.UI(targetImgData, {
-            uiConfig: {
-              zIndex: 1234,
-              // language: 'zh-cn',
-            },
-            workerConfig: {
-              // use: true,
-              // path: './../../dist/worker.js',
-            }
+            uiConfig: {},
+            // workerConfig: {
+            //   // use: true,
+            //   // path: './../../dist/worker.js',
+            // }
           });
-          tool.show();
-
           var btn = document.querySelector('#J_BtnPictoolUI');
           btn.addEventListener('click', function() {
             tool.show();
+          });
+
+
+          var toolZH = new Pictool.UI(targetImgData, {
+            uiConfig: {
+              language: 'zh-cn',
+            },
+            // workerConfig: {
+            //   // use: true,
+            //   // path: './../../dist/worker.js',
+            // }
+          });
+          var btnZH = document.querySelector('#J_BtnPictoolUI_ZH');
+          btnZH.addEventListener('click', function() {
+            toolZH.show();
           });
 
         }).catch(function(err) {

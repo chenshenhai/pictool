@@ -31,6 +31,7 @@
     "eslint": "^5.16.0",
     "husky": "^2.7.0",
     "less": "^3.9.0",
+    "magic-string": "^0.25.3",
     "mocha": "^6.1.4",
     "rollup": "^1.15.6",
     "rollup-plugin-babel": "^4.3.2",

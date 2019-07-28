@@ -1,14 +1,35 @@
 import { DigitImageData, DigitImageDataRGBA } from '../digit-image-data';
-import { RGBA_MAX } from './../transform/static'
+import { RGBA_MAX } from './../transform/static';
 
-export const posterize = function(imgData: DigitImageData): DigitImageData {
+export interface PosterizeOpts {
+  value?: number; // [0, 100]
+} 
+
+
+
+function isAlphaValue(num: number) {
+  if(num >= 0 && num <= 100) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+export const posterize = function(imgData: DigitImageData, opts: PosterizeOpts): DigitImageData {
   const width: number = imgData.getWidth();
   const height: number = imgData.getHeight();
   const data: Uint8ClampedArray = imgData.getData();
   const digitImg = new DigitImageData({width, height, data});
 
-  // TODO
-  const step1 = RGBA_MAX / 10;
+  let value: number|undefined = opts.value || 100;
+
+  if (value && isAlphaValue(value)) {
+    value = Math.min(100, value);
+    value = Math.max(0, value);
+  }
+
+  const step1 = RGBA_MAX / value;
   const step2 = step1;
 
   for (let x = 0; x < width; x ++) {

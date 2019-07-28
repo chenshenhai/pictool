@@ -65,5 +65,21 @@ export const adjustMenuConfig = {
         }
       }
     },
+    {
+      name: 'Posterize',
+      percent: 50,
+      range: {
+        min: 0,
+        max: 100, 
+      },
+      filter: 'posterize',
+      parseOptions(data: any) {
+        const value = Math.round(data.value);
+        console.log('posterize.value = ', value);
+        return {
+          value,
+        }
+      }
+    },
   ]
 }

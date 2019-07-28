@@ -1262,13 +1262,25 @@
   };
   //# sourceMappingURL=sepia.js.map
 
-  var posterize = function (imgData) {
+  function isAlphaValue$1(num) {
+      if (num >= 0 && num <= 100) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  var posterize = function (imgData, opts) {
       var width = imgData.getWidth();
       var height = imgData.getHeight();
       var data = imgData.getData();
       var digitImg = new DigitImageData({ width: width, height: height, data: data });
-      // TODO
-      var step1 = RGBA_MAX / 10;
+      var value = opts.value || 100;
+      if (value && isAlphaValue$1(value)) {
+          value = Math.min(100, value);
+          value = Math.max(0, value);
+      }
+      var step1 = RGBA_MAX / value;
       var step2 = step1;
       for (var x = 0; x < width; x++) {
           for (var y = 0; y < height; y++) {
@@ -1286,6 +1298,7 @@
       }
       return digitImg;
   };
+  //# sourceMappingURL=posterize.js.map
 
   var process = {
       grayscale: grayscale,
@@ -1901,6 +1914,14 @@
       effect = null;
       return rsImageData;
   };
+  var posterize$1 = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('posterize', options).getImageData();
+      effect.destory();
+      effect = null;
+      return rsImageData;
+  };
   //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
@@ -1914,7 +1935,8 @@
     lineDrawing: lineDrawing,
     natural: natural,
     alpha: alpha$1,
-    sepia: sepia$1
+    sepia: sepia$1,
+    posterize: posterize$1
   });
 
   var syncWorker = function (action, config) {
@@ -2047,9 +2069,24 @@
                   };
               }
           },
+          {
+              name: 'Posterize',
+              percent: 50,
+              range: {
+                  min: 0,
+                  max: 100,
+              },
+              filter: 'posterize',
+              parseOptions: function (data) {
+                  var value = Math.round(data.value);
+                  console.log('posterize.value = ', value);
+                  return {
+                      value: value,
+                  };
+              }
+          },
       ]
   };
-  //# sourceMappingURL=adjust.js.map
 
   var effectMenuConfig = {
       title: 'Effect',

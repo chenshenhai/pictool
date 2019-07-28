@@ -31,7 +31,7 @@
         
           var targetImgData = browserUtil.imageData2DigitImageData(imgData);
 
-          var rsData = digit.process.posterize(targetImgData);
+          var rsData = digit.process.posterize(targetImgData, {value: 10});
           var imgData = browserUtil.digitImageData2ImageData(rsData);
 
           rsData.destory();

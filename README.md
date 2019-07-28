@@ -129,6 +129,17 @@ sandbox.queueProcess([
 - [中文文档](https://chenshenhai.github.io/pictool-doc/)
 - [English Documents](https://chenshenhai.github.io/pictool-doc/page/en-US/) //TODO
 
+## Example 
+
+> Please use the latest version of Chrome Browser
+
+> 请在最新版本 chrome 浏览器下浏览
+
+[https://chenshenhai.github.io/pictool/example/index.html](https://chenshenhai.github.io/pictool/example/index.html)
+
+
+
+
 ## Testing
 
 ```sh

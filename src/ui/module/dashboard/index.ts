@@ -10,12 +10,21 @@ import schemaParser from './../../service/schema-parser';
 import { WorkerConfig } from './../../service/worker';
 import { asyncWorker } from './../../service/worker';
 
-import { adjustMenuConfig } from '../../config/adjust';
-import { effectMenuConfig } from '../../config/effect';
-import { processMenuConfig } from '../../config/process';
+import { getAdjustMenuConfig, AdjustMenuConfigType, AdjustMenuItemType } from '../../config/adjust';
+import { getEffectMenuConfig, EffectMenuConfigType, EffectMenuItemType } from '../../config/effect';
+import { getProcessMenuConfig, ProcessMenuConfigType, ProcessMenuItemType } from '../../config/process';
+import { getLanguage, LanguageType } from './../../language/index';
+
+
+interface ReigisterEventType {
+  processMenuConfig: ProcessMenuConfigType,
+  effectMenuConfig: EffectMenuConfigType,
+  adjustMenuConfig: AdjustMenuConfigType
+}
 
 export interface DashboardOpts {
   zIndex: number;
+  language?: string;
   workerConfig: WorkerConfig;
 }
 
@@ -38,7 +47,14 @@ export class Dashboard {
     if (!options || !this._mount) {
       return;
     }
-    const { zIndex, } = options;
+    const { zIndex, language, } = options;
+    const lang: LanguageType = getLanguage(language);
+
+    const processMenuConfig = getProcessMenuConfig(lang);
+    const effectMenuConfig = getEffectMenuConfig(lang);
+    const adjustMenuConfig = getAdjustMenuConfig(lang);
+
+
     const html = `
       <div class="pictool-module-dashboard" style="z-index:${zIndex};">
         <div class="pictool-dashboard-navlist">
@@ -55,11 +71,16 @@ export class Dashboard {
       </div>
     `;
     this._mount.innerHTML = html;
-    this._registerEvent();
+
+    this._registerEvent({
+      processMenuConfig,
+      effectMenuConfig,
+      adjustMenuConfig
+    });
     this._hasRendered = true;
   }
 
-  private _registerEvent() {
+  private _registerEvent(configMap: ReigisterEventType) {
     if (this._hasRendered === true) {
       return;
     }
@@ -78,17 +99,17 @@ export class Dashboard {
     //   zIndex: zIndex + 1,
     // };
 
-    const processPanel = this._initProcessPanel();
+    const processPanel = this._initProcessPanel(configMap.processMenuConfig);
     btnProcess && btnProcess.addEventListener('click', function() {      
       processPanel && processPanel.show();
     });
 
-    const filterEffect = this._initEffectPanel();
+    const filterEffect = this._initEffectPanel(configMap.effectMenuConfig);
     btnEffect && btnEffect.addEventListener('click', function() {      
       filterEffect && filterEffect.show();
     });
 
-    const adjustPanel = this._initAdjustPanel();
+    const adjustPanel = this._initAdjustPanel(configMap.adjustMenuConfig);
     btnAdjust && btnAdjust.addEventListener('click', function() {
       adjustPanel && adjustPanel.show();
     });
@@ -146,7 +167,7 @@ export class Dashboard {
 
   }
 
-  private _initProcessPanel() {
+  private _initProcessPanel(processMenuConfig: ProcessMenuConfigType) {
     const options: DashboardOpts = this._opts;
     if (!this._mount) {
       return null;
@@ -156,7 +177,7 @@ export class Dashboard {
       title: processMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: processMenuConfig.menu.map(function(conf) {
+      navList: processMenuConfig.menu.map(function(conf: ProcessMenuItemType) {
         return {
           name: conf.name,
           feedback() {
@@ -184,7 +205,7 @@ export class Dashboard {
     return panel;
   }
 
-  private _initEffectPanel() {
+  private _initEffectPanel(effectMenuConfig: EffectMenuConfigType) {
     const options: DashboardOpts = this._opts;
     if (!this._mount) {
       return null;
@@ -194,7 +215,7 @@ export class Dashboard {
       title: effectMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: effectMenuConfig.menu.map(function(conf) {
+      navList: effectMenuConfig.menu.map(function(conf: EffectMenuItemType) {
         return {
           name: conf.name,
           feedback() {
@@ -223,7 +244,7 @@ export class Dashboard {
     return panel;
   }
 
-  private _initAdjustPanel(): Panel|null|undefined {
+  private _initAdjustPanel(adjustMenuConfig: AdjustMenuConfigType): Panel|null|undefined {
     const options: DashboardOpts|null = this._opts;
     if (!options) {
       return;
@@ -236,7 +257,7 @@ export class Dashboard {
       title: adjustMenuConfig.title,
       mount: this._mount,
       zIndex: zIndex + 1,
-      navList: adjustMenuConfig.menu.map(function(conf) {
+      navList: adjustMenuConfig.menu.map(function(conf: AdjustMenuItemType) {
         return {
           name: conf.name,
           feedback() {

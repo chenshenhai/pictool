@@ -75,6 +75,25 @@ export const lineDrawing = function(opts: FilterOpts ) {
   return rsImageData;
 }
 
+
+export const oilDrawing = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  let effect:Effect|null = new Effect(imageData);
+  const rsImageData = effect.process('gamma', {value: 8}).process('posterize', {value: 8}).getImageData();
+  effect.destory();
+  effect = null;
+  return rsImageData;
+}
+
+export const old = function(opts: FilterOpts ) {
+  const { imageData, options } = opts;
+  let effect:Effect|null = new Effect(imageData);
+  const rsImageData = effect.process('sepia').getImageData();
+  effect.destory();
+  effect = null;
+  return rsImageData;
+}
+
 export const natural = function(opts: FilterOpts ) {
   const { imageData, options } = opts;
   let effect:Effect|null = new Effect(imageData);

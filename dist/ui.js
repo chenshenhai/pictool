@@ -1778,7 +1778,7 @@
   }());
   //# sourceMappingURL=index.js.map
 
-  var css$6 = ".pictool-module-panel {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-panel .pictool-panel-header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.08);\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-title {\n  line-height: 40px;\n  text-align: center;\n  font-size: 16px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299766263\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9368\" width=\"200\" height=\"200\"><path d=\"M685.4 354.8c0-4.4-3.6-8-8-8l-66 0.3L512 465.6l-99.3-118.4-66.1-0.3c-4.4 0-8 3.5-8 8 0 1.9 0.7 3.7 1.9 5.2l130.1 155L340.5 670c-1.2 1.5-1.9 3.3-1.9 5.2 0 4.4 3.6 8 8 8l66.1-0.3L512 564.4l99.3 118.4 66 0.3c4.4 0 8-3.5 8-8 0-1.9-0.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z\" p-id=\"9369\" fill=\"%23666666\"></path><path d=\"M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z\" p-id=\"9370\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-navigation {\n  position: absolute;\n  height: 80px;\n  width: 100%;\n  bottom: 0;\n  background: #2196f30d;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width {\n  display: block;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width .pictool-panel-nav-btn {\n  width: 80px;\n  display: block;\n  float: left;\n}\n.pictool-module-panel .pictool-panel-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  position: relative;\n  padding-top: 40px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561214557317\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8147\" width=\"200\" height=\"200\"><path d=\"M336 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8148\" fill=\"%23666666\"></path><path d=\"M688 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8149\" fill=\"%23666666\"></path><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2-44.3-18.7-84.1-45.6-118.3-79.8-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8c18.7-44.3 45.6-84.1 79.8-118.3 34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2 44.3 18.7 84.1 45.6 118.3 79.8 34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8c-18.7 44.3-45.6 84.1-79.8 118.2z\" p-id=\"8150\" fill=\"%23666666\"></path><path d=\"M664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360c-4.6 0-8.2 3.8-8 8.4 4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6c0.2-4.6-3.4-8.4-8-8.4z\" p-id=\"8151\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active {\n  color: #17abe3;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299983080\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9592\" width=\"200\" height=\"200\"><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48z m224 272c-85.5 0-155.6-67.3-160-151.6-0.2-4.6 3.4-8.4 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664c4.6 0 8.2 3.8 8 8.4-4.4 84.3-74.5 151.6-160 151.6z m176-224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z\" p-id=\"9593\" fill=\"%2317abe3\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
+  var css$6 = ".pictool-module-panel {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  font-size: 14px;\n  color: #333333;\n}\n.pictool-module-panel .pictool-panel-header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.08);\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-title {\n  line-height: 40px;\n  text-align: center;\n  font-size: 16px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 60px;\n  height: 40px;\n}\n.pictool-module-panel .pictool-panel-header .pictool-panel-btn-close::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299766263\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9368\" width=\"200\" height=\"200\"><path d=\"M685.4 354.8c0-4.4-3.6-8-8-8l-66 0.3L512 465.6l-99.3-118.4-66.1-0.3c-4.4 0-8 3.5-8 8 0 1.9 0.7 3.7 1.9 5.2l130.1 155L340.5 670c-1.2 1.5-1.9 3.3-1.9 5.2 0 4.4 3.6 8 8 8l66.1-0.3L512 564.4l99.3 118.4 66 0.3c4.4 0 8-3.5 8-8 0-1.9-0.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z\" p-id=\"9369\" fill=\"%23666666\"></path><path d=\"M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z\" p-id=\"9370\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-navigation {\n  position: absolute;\n  height: 80px;\n  width: 100%;\n  bottom: 0;\n  background: #2196f30d;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  -webkit-overflow-scrolling: touch;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width {\n  display: block;\n}\n.pictool-module-panel .pictool-panel-navlist.panel-beyond-width .pictool-panel-nav-btn {\n  width: 100px;\n  display: block;\n  float: left;\n}\n.pictool-module-panel .pictool-panel-nav-btn {\n  flex: 1;\n  text-align: center;\n  font-size: 14px;\n  position: relative;\n  padding-top: 40px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561214557317\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"8147\" width=\"200\" height=\"200\"><path d=\"M336 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8148\" fill=\"%23666666\"></path><path d=\"M688 421m-48 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0Z\" p-id=\"8149\" fill=\"%23666666\"></path><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2-44.3-18.7-84.1-45.6-118.3-79.8-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8c18.7-44.3 45.6-84.1 79.8-118.3 34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2 44.3 18.7 84.1 45.6 118.3 79.8 34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8c-18.7 44.3-45.6 84.1-79.8 118.2z\" p-id=\"8150\" fill=\"%23666666\"></path><path d=\"M664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-0.3-4.2-3.9-7.4-8.1-7.4H360c-4.6 0-8.2 3.8-8 8.4 4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6c0.2-4.6-3.4-8.4-8-8.4z\" p-id=\"8151\" fill=\"%23666666\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active {\n  color: #17abe3;\n}\n.pictool-module-panel .pictool-panel-nav-btn.panelnav-active.panelnav-icon::before {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: url('data:image/svg+xml;charset=utf-8,<svg t=\"1561299983080\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"9592\" width=\"200\" height=\"200\"><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48z m224 272c-85.5 0-155.6-67.3-160-151.6-0.2-4.6 3.4-8.4 8-8.4h48.1c4.2 0 7.8 3.2 8.1 7.4C420 589.9 461.5 629 512 629s92.1-39.1 95.8-88.6c0.3-4.2 3.9-7.4 8.1-7.4H664c4.6 0 8.2 3.8 8 8.4-4.4 84.3-74.5 151.6-160 151.6z m176-224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z\" p-id=\"9593\" fill=\"%2317abe3\"></path></svg>');\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: 30px;\n}\n";
   styleInject(css$6);
 
   var Panel = /** @class */ (function () {
@@ -1930,6 +1930,22 @@
       effect = null;
       return rsImageData;
   };
+  var oilDrawing = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('gamma', { value: 8 }).process('posterize', { value: 8 }).getImageData();
+      effect.destory();
+      effect = null;
+      return rsImageData;
+  };
+  var old = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sepia').getImageData();
+      effect.destory();
+      effect = null;
+      return rsImageData;
+  };
   var natural = function (opts) {
       var imageData = opts.imageData, options = opts.options;
       var effect = new Effect(imageData);
@@ -1981,6 +1997,8 @@
     invert: invert$1,
     sobel: sobel$1,
     lineDrawing: lineDrawing,
+    oilDrawing: oilDrawing,
+    old: old,
     natural: natural,
     alpha: alpha$1,
     sepia: sepia$1,
@@ -2051,153 +2069,228 @@
   };
   //# sourceMappingURL=worker.js.map
 
-  var adjustMenuConfig = {
-      title: 'Adjustment',
-      menu: [
-          {
-              name: 'Lightness',
-              percent: 50,
-              range: {
-                  min: -100,
-                  max: 100,
+  function getAdjustMenuConfig(lang) {
+      if (lang === void 0) { lang = {}; }
+      var adjustMenuConfig = {
+          title: lang.ADJUST,
+          menu: [
+              {
+                  name: lang.ADJUST_LIGHTNESS,
+                  percent: 50,
+                  range: {
+                      min: -100,
+                      max: 100,
+                  },
+                  filter: 'lightness',
+                  parseOptions: function (data) {
+                      var percent = Math.round(data.value);
+                      console.log('lightness.percent = ', percent);
+                      return {
+                          percent: percent,
+                      };
+                  }
               },
-              filter: 'lightness',
-              parseOptions: function (data) {
-                  var percent = Math.round(data.value);
-                  console.log('lightness.percent = ', percent);
-                  return {
-                      percent: percent,
-                  };
-              }
-          },
-          {
-              name: 'Hue',
-              percent: 50,
-              range: {
-                  min: 0,
-                  max: 360,
+              {
+                  name: lang.ADJUST_HUE,
+                  percent: 50,
+                  range: {
+                      min: 0,
+                      max: 360,
+                  },
+                  filter: 'hue',
+                  parseOptions: function (data) {
+                      var value = Math.round(data.value);
+                      console.log('hue.value = ', value);
+                      return {
+                          value: value,
+                      };
+                  }
               },
-              filter: 'hue',
-              parseOptions: function (data) {
-                  var value = Math.round(data.value);
-                  console.log('hue.value = ', value);
-                  return {
-                      value: value,
-                  };
-              }
-          },
-          {
-              name: 'Saturation',
-              percent: 50,
-              range: {
-                  min: -100,
-                  max: 100,
+              {
+                  name: lang.ADJUST_SATURATION,
+                  percent: 50,
+                  range: {
+                      min: -100,
+                      max: 100,
+                  },
+                  filter: 'saturation',
+                  parseOptions: function (data) {
+                      var percent = Math.round(data.value);
+                      console.log('saturation.percent = ', percent);
+                      return {
+                          percent: percent,
+                      };
+                  }
               },
-              filter: 'saturation',
-              parseOptions: function (data) {
-                  var percent = Math.round(data.value);
-                  console.log('saturation.percent = ', percent);
-                  return {
-                      percent: percent,
-                  };
-              }
-          },
-          {
-              name: 'Alpha',
-              percent: 50,
-              range: {
-                  min: 0,
-                  max: 100,
+              {
+                  name: lang.ADJUST_ALPHA,
+                  percent: 50,
+                  range: {
+                      min: 0,
+                      max: 100,
+                  },
+                  filter: 'alpha',
+                  parseOptions: function (data) {
+                      var value = Math.round(data.value);
+                      console.log('alpha.value = ', value);
+                      return {
+                          value: value,
+                      };
+                  }
               },
-              filter: 'alpha',
-              parseOptions: function (data) {
-                  var value = Math.round(data.value);
-                  console.log('alpha.value = ', value);
-                  return {
-                      value: value,
-                  };
-              }
-          },
-          {
-              name: 'Gamma',
-              percent: 50,
-              range: {
-                  min: 0,
-                  max: 100,
+              {
+                  name: lang.ADJUST_GAMMA,
+                  percent: 50,
+                  range: {
+                      min: 0,
+                      max: 100,
+                  },
+                  filter: 'gamma',
+                  parseOptions: function (data) {
+                      var value = Math.round(data.value);
+                      console.log('gamma.value = ', value);
+                      return {
+                          value: value,
+                      };
+                  }
               },
-              filter: 'gamma',
-              parseOptions: function (data) {
-                  var value = Math.round(data.value);
-                  console.log('gamma.value = ', value);
-                  return {
-                      value: value,
-                  };
-              }
-          },
-          {
-              name: 'Posterize',
-              percent: 50,
-              range: {
-                  min: 0,
-                  max: 100,
+              {
+                  name: lang.ADJUST_POSTERIZE,
+                  percent: 50,
+                  range: {
+                      min: 0,
+                      max: 100,
+                  },
+                  filter: 'posterize',
+                  parseOptions: function (data) {
+                      var value = Math.round(data.value);
+                      console.log('posterize.value = ', value);
+                      return {
+                          value: value,
+                      };
+                  }
               },
-              filter: 'posterize',
-              parseOptions: function (data) {
-                  var value = Math.round(data.value);
-                  console.log('posterize.value = ', value);
-                  return {
-                      value: value,
-                  };
-              }
-          },
-      ]
-  };
+          ]
+      };
+      return adjustMenuConfig;
+  }
+  //# sourceMappingURL=adjust.js.map
 
-  var effectMenuConfig = {
-      title: 'Effect',
-      menu: [
-          {
-              name: 'Origin',
-              filter: 'origin',
-          },
-          {
-              name: 'LineDrawing',
-              filter: 'lineDrawing',
-          },
-          {
-              name: 'Natural',
-              filter: 'natural',
-          }
-      ]
-  };
+  function getEffectMenuConfig(lang) {
+      var effectMenuConfig = {
+          title: lang.EFFECT,
+          menu: [
+              {
+                  name: lang.EFFECT_ORIGIN,
+                  filter: 'origin',
+              },
+              {
+                  name: lang.EFFECT_OLD,
+                  filter: 'old',
+              },
+              {
+                  name: lang.EFFECT_LINEDRAWING,
+                  filter: 'lineDrawing',
+              },
+              {
+                  name: lang.EFFECT_OILDRAWING,
+                  filter: 'oilDrawing',
+              },
+              {
+                  name: lang.EFFECT_NATURAL,
+                  filter: 'natural',
+              }
+          ]
+      };
+      return effectMenuConfig;
+  }
   //# sourceMappingURL=effect.js.map
 
-  var processMenuConfig = {
-      title: 'Process',
-      menu: [
-          {
-              name: 'Origin',
-              filter: 'origin',
-          },
-          {
-              name: 'Grayscale',
-              filter: 'grayscale',
-          },
-          {
-              name: 'Sobel',
-              filter: 'sobel',
-          },
-          {
-              name: 'Invert',
-              filter: 'invert',
-          },
-          {
-              name: 'Sepia',
-              filter: 'sepia',
-          }
-      ]
-  };
+  function getProcessMenuConfig(lang) {
+      var processMenuConfig = {
+          title: lang.PROCESS,
+          menu: [
+              {
+                  name: lang.PROCESS_ORIGIN,
+                  filter: 'origin',
+              },
+              {
+                  name: lang.PROCESS_GRAYSCALE,
+                  filter: 'grayscale',
+              },
+              {
+                  name: lang.PROCESS_SOBEL,
+                  filter: 'sobel',
+              },
+              {
+                  name: lang.PROCESS_INVERT,
+                  filter: 'invert',
+              },
+              {
+                  name: lang.PROCESS_SEPIA,
+                  filter: 'sepia',
+              }
+          ]
+      };
+      return processMenuConfig;
+  }
   //# sourceMappingURL=process.js.map
+
+  var enUS = {
+      PROCESS: 'Process',
+      EFFECT: 'Effect',
+      ADJUST: 'Adjustment',
+      PROCESS_ORIGIN: 'Origin',
+      PROCESS_GRAYSCALE: 'Grayscale',
+      PROCESS_SOBEL: 'Sobel',
+      PROCESS_INVERT: 'Invert',
+      PROCESS_SEPIA: 'Sepia',
+      ADJUST_LIGHTNESS: 'Lightness',
+      ADJUST_HUE: 'Hue',
+      ADJUST_SATURATION: 'Saturation',
+      ADJUST_ALPHA: 'Alpha',
+      ADJUST_GAMMA: 'Gamma',
+      ADJUST_POSTERIZE: 'Posterize',
+      EFFECT_ORIGIN: 'Origin',
+      EFFECT_OLD: 'Old',
+      EFFECT_LINEDRAWING: 'LineDrawing',
+      EFFECT_OILDRAWING: 'OilDrawing',
+      EFFECT_NATURAL: 'Natural',
+  };
+  //# sourceMappingURL=en-us.js.map
+
+  var zhCN = {
+      PROCESS: '简单处理',
+      EFFECT: '效果',
+      ADJUST: '图像调节',
+      PROCESS_ORIGIN: '原图',
+      PROCESS_GRAYSCALE: '灰度',
+      PROCESS_SOBEL: '边缘检测',
+      PROCESS_INVERT: '反色',
+      PROCESS_SEPIA: '褐色化',
+      ADJUST_LIGHTNESS: '亮度',
+      ADJUST_HUE: '色相',
+      ADJUST_SATURATION: '饱和度',
+      ADJUST_ALPHA: '透明度',
+      ADJUST_GAMMA: '伽马',
+      ADJUST_POSTERIZE: '色阶',
+      EFFECT_ORIGIN: '原图',
+      EFFECT_OLD: '怀旧',
+      EFFECT_LINEDRAWING: '素描',
+      EFFECT_OILDRAWING: '油画',
+      EFFECT_NATURAL: '自然',
+  };
+
+  var baseLang = enUS;
+  function getLanguage(lang) {
+      if (lang === void 0) { lang = 'en-us'; }
+      var result = baseLang;
+      if (lang === 'zh-cn') {
+          result = __assign({}, baseLang, zhCN);
+      }
+      return result;
+  }
+  //# sourceMappingURL=index.js.map
 
   var Dashboard = /** @class */ (function () {
       function Dashboard(mount, opts) {
@@ -2214,13 +2307,21 @@
           if (!options || !this._mount) {
               return;
           }
-          var zIndex = options.zIndex;
+          var zIndex = options.zIndex, language = options.language;
+          var lang = getLanguage(language);
+          var processMenuConfig = getProcessMenuConfig(lang);
+          var effectMenuConfig = getEffectMenuConfig(lang);
+          var adjustMenuConfig = getAdjustMenuConfig(lang);
           var html = "\n      <div class=\"pictool-module-dashboard\" style=\"z-index:" + zIndex + ";\">\n        <div class=\"pictool-dashboard-navlist\">\n          <div class=\"pictool-dashboard-nav-btn dashboard-process\" data-nav-action=\"process\" >\n            <span>" + processMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-adjust\" data-nav-action=\"adjust\" >\n            <span>" + adjustMenuConfig.title + "</span>\n          </div>\n          <div class=\"pictool-dashboard-nav-btn dashboard-effect\" data-nav-action=\"effect\" >\n            <span>" + effectMenuConfig.title + "</span>\n          </div>\n        </div>\n      </div>\n    ";
           this._mount.innerHTML = html;
-          this._registerEvent();
+          this._registerEvent({
+              processMenuConfig: processMenuConfig,
+              effectMenuConfig: effectMenuConfig,
+              adjustMenuConfig: adjustMenuConfig
+          });
           this._hasRendered = true;
       };
-      Dashboard.prototype._registerEvent = function () {
+      Dashboard.prototype._registerEvent = function (configMap) {
           if (this._hasRendered === true) {
               return;
           }
@@ -2237,15 +2338,15 @@
           //   height: 120,
           //   zIndex: zIndex + 1,
           // };
-          var processPanel = this._initProcessPanel();
+          var processPanel = this._initProcessPanel(configMap.processMenuConfig);
           btnProcess && btnProcess.addEventListener('click', function () {
               processPanel && processPanel.show();
           });
-          var filterEffect = this._initEffectPanel();
+          var filterEffect = this._initEffectPanel(configMap.effectMenuConfig);
           btnEffect && btnEffect.addEventListener('click', function () {
               filterEffect && filterEffect.show();
           });
-          var adjustPanel = this._initAdjustPanel();
+          var adjustPanel = this._initAdjustPanel(configMap.adjustMenuConfig);
           btnAdjust && btnAdjust.addEventListener('click', function () {
               adjustPanel && adjustPanel.show();
           });
@@ -2295,7 +2396,7 @@
               loading.hide();
           });
       };
-      Dashboard.prototype._initProcessPanel = function () {
+      Dashboard.prototype._initProcessPanel = function (processMenuConfig) {
           var options = this._opts;
           if (!this._mount) {
               return null;
@@ -2332,7 +2433,7 @@
           });
           return panel;
       };
-      Dashboard.prototype._initEffectPanel = function () {
+      Dashboard.prototype._initEffectPanel = function (effectMenuConfig) {
           var options = this._opts;
           if (!this._mount) {
               return null;
@@ -2369,7 +2470,7 @@
           });
           return panel;
       };
-      Dashboard.prototype._initAdjustPanel = function () {
+      Dashboard.prototype._initAdjustPanel = function (adjustMenuConfig) {
           var options = this._opts;
           if (!options) {
               return;
@@ -2461,6 +2562,7 @@
   var ZINDEX = 1000;
   var PictoolUI = /** @class */ (function () {
       function PictoolUI(imageData, options) {
+          var _this = this;
           if (options === void 0) { options = { uiConfig: {}, workerConfig: { use: false, path: '' } }; }
           this._imageData = null;
           this._sketch = null;
@@ -2470,10 +2572,10 @@
           this._options = options;
           var _a = options.uiConfig, uiConfig = _a === void 0 ? {} : _a, workerConfig = options.workerConfig;
           var zIndex = uiConfig.zIndex;
-          if (!(zIndex * 1 > 0)) {
+          if (!(zIndex && zIndex * 1 > 0)) {
               zIndex = ZINDEX;
           }
-          var that = this;
+          // const that = this;
           var mask = new Mask({
               zIndex: zIndex,
               afterRender: function (opts) {
@@ -2487,20 +2589,24 @@
                       }
                   });
                   var sketch = new Sketch$1(contentMount, { imageData: imageData, });
+                  if (!(zIndex && zIndex * 1 > 0)) {
+                      zIndex = ZINDEX;
+                  }
                   var dashboard = new Dashboard(footerMount, {
                       zIndex: zIndex + 1,
+                      language: uiConfig.language || 'en-us',
                       workerConfig: workerConfig,
                   });
-                  that._sketch = sketch;
-                  that._dashboard = dashboard;
-                  that._header = header;
+                  _this._sketch = sketch;
+                  _this._dashboard = dashboard;
+                  _this._header = header;
               }
           });
           this._mask = mask;
       }
       PictoolUI.prototype.show = function () {
           var sketchSchema = cacheHub.get('Sketch.originSketchSchema');
-          this._sketch.renderImage(sketchSchema);
+          this._sketch && this._sketch.renderImage(sketchSchema);
           this._mask.show();
           eventHub.trigger('GlobalEvent.moduleSketch.resizeCanvas');
       };

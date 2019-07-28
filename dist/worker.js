@@ -1023,6 +1023,22 @@
       effect = null;
       return rsImageData;
   };
+  var oilDrawing = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('gamma', { value: 8 }).process('posterize', { value: 8 }).getImageData();
+      effect.destory();
+      effect = null;
+      return rsImageData;
+  };
+  var old = function (opts) {
+      var imageData = opts.imageData, options = opts.options;
+      var effect = new Effect(imageData);
+      var rsImageData = effect.process('sepia').getImageData();
+      effect.destory();
+      effect = null;
+      return rsImageData;
+  };
   var natural = function (opts) {
       var imageData = opts.imageData, options = opts.options;
       var effect = new Effect(imageData);
@@ -1063,6 +1079,7 @@
       effect = null;
       return rsImageData;
   };
+  //# sourceMappingURL=index.js.map
 
   var filterMap = /*#__PURE__*/Object.freeze({
     origin: origin,
@@ -1073,6 +1090,8 @@
     invert: invert$1,
     sobel: sobel$1,
     lineDrawing: lineDrawing,
+    oilDrawing: oilDrawing,
+    old: old,
     natural: natural,
     alpha: alpha$1,
     sepia: sepia$1,

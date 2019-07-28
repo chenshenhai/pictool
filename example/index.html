@@ -17,6 +17,13 @@
       var module = [
         'ui',
         'browser-sandbox',
+        'browser-sandbox-grayscale',
+        'browser-sandbox-sobel',
+        'browser-sandbox-invert',
+        'browser-sandbox-alpha',
+        'browser-sandbox-sepia',
+        'browser-sandbox-posterize',
+        'browser-sandbox-gamma',
         'digit-process-grayscale',
         'digit-process-sobel',
         'digit-process-invert',
@@ -28,10 +35,7 @@
       ]
       var listHtml = module.map(function(mod) {
         var path = './module/'+ mod +'.html';
-        var html = 
-          '<ul>' +
-            '<li><a href="'+ path +'" >' + path +'</a></li>' +
-          '</ul>';
+        var html =  '<a href="'+ path +'" >' + path +'</a>' + '<br/>'
         return html;
       }).join('');
       document.querySelector('#J_ModuleList').innerHTML = listHtml;

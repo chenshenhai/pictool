@@ -35,10 +35,6 @@
           process: 'sobel',
           options: {},
         },
-        {
-          process: 'invert',
-          options: {},
-        }
       ]).then(function(base64) {
         dom.innerHTML = `<img src="${base64}" />`;
       }).catch(function(err) {

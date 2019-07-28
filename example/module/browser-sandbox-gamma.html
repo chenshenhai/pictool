@@ -32,13 +32,9 @@
 
       sandbox.queueProcess([
         {
-          process: 'sobel',
-          options: {},
+          process: 'gamma',
+          options: { value: 16 },
         },
-        {
-          process: 'invert',
-          options: {},
-        }
       ]).then(function(base64) {
         dom.innerHTML = `<img src="${base64}" />`;
       }).catch(function(err) {

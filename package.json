@@ -4,7 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node_modules/.bin/rollup -c ./script/rollup.config.prod.js",
+    "build": "npm run build:prod && npm run build:mini",
+    "build:mini": "node_modules/.bin/rollup -c ./script/rollup.config.mini.js",
+    "build:prod": "node_modules/.bin/rollup -c ./script/rollup.config.prod.js",
     "dev": "node_modules/.bin/rollup -w -c ./script/rollup.config.dev.js",
     "lint": "./node_modules/.bin/eslint --fix --ext .ts ./src",
     "precommit": "npm run lint",

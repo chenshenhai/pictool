@@ -11,7 +11,8 @@
     "lint": "./node_modules/.bin/eslint --fix --ext .ts ./src",
     "precommit": "npm run lint",
     "prepush": "npm run lint",
-    "test": "./node_modules/.bin/mocha --exit ./__tests__/"
+    "test": "./node_modules/.bin/mocha --exit ./__tests__/*.test.js",
+    "screenshot": "node ./__tests__/screenshot.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "eslint": "^5.16.0",
     "husky": "^2.7.0",
     "jimp": "^0.16.1",
+    "koa-compose": "^4.1.0",
     "less": "^3.9.0",
     "magic-string": "^0.25.3",
     "mocha": "^6.2.3",

@@ -11,7 +11,8 @@
     "lint": "./node_modules/.bin/eslint --fix --ext .ts ./src",
     "precommit": "npm run lint",
     "prepush": "npm run lint",
-    "test": "./node_modules/.bin/mocha --exit ./__tests__/*.test.js",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "./node_modules/.bin/mocha --exit ./__tests__/*.test.js",
     "test:e2e": "./node_modules/.bin/mocha --exit ./__tests__/*.e2e.js",
     "screenshot": "node ./__tests__/screenshot.js"
   },

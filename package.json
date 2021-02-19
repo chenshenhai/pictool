@@ -12,6 +12,7 @@
     "precommit": "npm run lint",
     "prepush": "npm run lint",
     "test": "./node_modules/.bin/mocha --exit ./__tests__/*.test.js",
+    "test:e2e": "./node_modules/.bin/mocha --exit ./__tests__/*.e2e.js",
     "screenshot": "node ./__tests__/screenshot.js"
   },
   "repository": {

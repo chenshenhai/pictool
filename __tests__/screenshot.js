@@ -6,10 +6,9 @@ const serveHandler = require('serve-handler');
 const jimp = require('jimp');
 const compose = require('koa-compose');
 const { exampleModuleList, port, width, height, } = require('./e2e.config');
-
-
 const screenDir = path.join(__dirname, 'screenshot');
 
+main();
 
 async function main() {
 
@@ -28,6 +27,7 @@ async function main() {
         const pagePath = `/example/module/${mod}`;
         tasks.push(async (ctx, next) => {
           await page.goto(`http://127.0.0.1:${port}${pagePath}`);
+          await sleep(1000);
           const buf = await page.screenshot();
           const screenPicPath = path.join(screenDir, `${name}.jpg`);
           (await jimp.read(buf)).scale(1).quality(100).write(screenPicPath);
@@ -48,4 +48,11 @@ async function main() {
   server.on('SIGINT', () => process.exit(1) );
 }
 
-main();
+
+function sleep(time = 100) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}

@@ -1,7 +1,7 @@
 # Pictool
 
 ## A front-end image processing gadget
-
+[![Node.js CI](https://github.com/chenshenhai/pictool/actions/workflows/node.js.yml/badge.svg?branch=master)](https://github.com/chenshenhai/pictool/actions/workflows/node.js.yml)
 [![Build Status](https://travis-ci.com/chenshenhai/pictool.svg?branch=master)](https://travis-ci.com/chenshenhai/pictool)
 [![npm-version](https://img.shields.io/npm/l/pictool.svg)](./LICENSE)
 [![](https://img.shields.io/npm/v/pictool.svg)](https://www.npmjs.com/package/pictool)

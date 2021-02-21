@@ -64,3 +64,5 @@ typings/
 test.html
 dist/*.map
 dist/**/*.map
+screenshot-diff/
+

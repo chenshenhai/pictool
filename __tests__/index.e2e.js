@@ -7,10 +7,19 @@ const serveHandler = require('serve-handler');
 const jimp = require('jimp');
 const compose = require('koa-compose');
 const pixelmatch = require('pixelmatch');
+const pngjs = require('pngjs');
+const chalk = require('chalk');
 const { exampleModuleList, port, width, height, } = require('./e2e.config');
 
 
 const screenDir = path.join(__dirname, 'screenshot');
+const diffDir = path.join(__dirname, 'screenshot-diff');
+if (!fs.existsSync(diffDir)) {
+  fs.mkdirSync(diffDir);
+}
+
+
+const { PNG } = pngjs;
 
 
 describe('E2E Testing', function() {
@@ -38,11 +47,18 @@ describe('E2E Testing', function() {
             const screenPicPath = path.join(screenDir, `${name}.jpg`);
 
             const actual = (await jimp.read(buf)).scale(1).quality(100).bitmap;
-            const expected = (await jimp.read(fs.readFileSync(screenPicPath))).bitmap;
-            const diff = actual;
+            const expected = (await jimp.read(fs.readFileSync(screenPicPath))).bitmap;            
+            const diff = new PNG({width, height});
+
             const failedPixel = pixelmatch(expected.data, actual.data, diff.data, actual.width, actual.height);
             const failRate = failedPixel / (width * height);
-            console.log(`E2E: test [${name}] diff pixel rate: ${failRate}`) ;
+            const info = `E2E: test [${name}] diff pixel rate: ${failRate * 100}%`;
+            if (failRate > 0) {
+              fs.writeFileSync(path.join(diffDir, `${name}.jpg`), PNG.sync.write(diff));
+              console.log(chalk.red(info))
+            } else {
+              console.log(chalk.green(info));
+            }
             assert.ok(failRate < 0.005);
             await next();
           })
